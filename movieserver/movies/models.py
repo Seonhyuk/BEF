@@ -22,6 +22,9 @@ class Movie(models.Model):
 
     genres = models.ManyToManyField(Genre)
 
+    # 월드컵 1위한 횟수를 저장할 필드
+    vote = models.IntegerField(default=0)
+
     def __str__(self) -> str:
         return self.title
 
