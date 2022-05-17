@@ -136,6 +136,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+DEFAULT_AUTO_FIELD  = 'django.db.models.AutoField'
+
 AUTH_USER_MODEL = 'accounts.User'
 
 CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:8000' ,'http://localhost:8080'] 
