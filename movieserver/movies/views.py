@@ -33,9 +33,9 @@ def now_playing(request):
     result = []
 
     for movie in response:
-        if not Movie.objects.filter(movie_id=movie['id']).exists():
+        if not Movie.objects.filter(pk=movie['id']).exists():
             new = Movie()
-            new.movie_id = movie['id']
+            new.pk = movie['id']
             new.title = movie['title']
             new.release_date = movie['release_date']
             new.popularity = movie['popularity']
@@ -50,7 +50,7 @@ def now_playing(request):
             for g in movie['genre_ids']:
                 new.genres.add(Genre.objects.get(pk=g))
     
-        m = Movie.objects.get(movie_id=movie['id'])
+        m = Movie.objects.get(pk=movie['id'])
         result.append(m)
     
     serializer = MovieSerializer(result, many=True)
@@ -97,11 +97,11 @@ def recommend(request, username):
                     if m.popularity < 2:
                         continue
 
-                    if user.watched_movies.filter(pk=m.pk).exist() or user.wished_to_movies.filter(pk=m.pk).exists() or user.disliked_movies.filter(pk=m.pk).exists() or m.movie_id in user.recently_recommended_movies or m in recommend:
+                    if user.watched_movies.filter(pk=m.pk).exist() or user.wished_to_movies.filter(pk=m.pk).exists() or user.disliked_movies.filter(pk=m.pk).exists() or m.pk in user.recently_recommended_movies or m in recommend:
                         continue
                     else:
                         recommend.append(m)
-                        user.recently_recommended_movies.append(m.movie_id)
+                        user.recently_recommended_movies.append(m.pk)
                         if len(user.recently_recommended_movies) > 200:
                             user.recently_recommended_movies.popleft()
                         break
@@ -111,11 +111,11 @@ def recommend(request, username):
                 if m.popularity < 2:
                     continue
 
-                if user.watched_movies.filter(pk=m.pk).exists() or user.wished_to_movies.filter(pk=m.pk).exists() or user.disliked_movies.filter(pk=m.pk).exists() or m.movie_id in user.recently_recommended_movies or m in recommend:
+                if user.watched_movies.filter(pk=m.pk).exists() or user.wished_to_movies.filter(pk=m.pk).exists() or user.disliked_movies.filter(pk=m.pk).exists() or m.pk in user.recently_recommended_movies or m in recommend:
                     continue
                 else:
                     recommend.append(m)
-                    user.recently_recommended_movies.append(m.movie_id)
+                    user.recently_recommended_movies.append(m.pk)
                     if len(user.recently_recommended_movies) > 200:
                         user.recently_recommended_movies.popleft()
 
@@ -189,7 +189,7 @@ def match_up(request, exponent):
 # 해당하는 영화의 상세 정보를 반환하는 함수
 @api_view(['GET'])
 def detail(request, movie_id):
-    movie = Movie.objects.get(movie_id=movie_id)
+    movie = Movie.objects.get(pk=movie_id)
 
     serializer = MovieSerializer(movie)
 
@@ -231,9 +231,9 @@ def search_movie(request, query):
     result = []
 
     for movie in response:
-        if not Movie.objects.filter(movie_id=movie['id']).exists():
+        if not Movie.objects.filter(pk=movie['id']).exists():
             new = Movie()
-            new.movie_id = movie['id']
+            new.pk = movie['id']
             new.title = movie['title']
             new.release_date = movie['release_date']
             new.popularity = movie['popularity']
@@ -248,7 +248,7 @@ def search_movie(request, query):
             for g in movie['genre_ids']:
                 new.genres.add(Genre.objects.get(pk=g))
     
-        m = Movie.objects.get(movie_id=movie['id'])
+        m = Movie.objects.get(pk=movie['id'])
         result.append(m)
 
     m.sort(lambda x: -x['popularity'])
@@ -272,7 +272,7 @@ def get_user_review(request, username):
 # 특정 영화의 리뷰를 조회하는 함수
 @api_view(['GET'])
 def get_movie_review(request, movie_id):
-    movie = Movie.objects.get(movie_id=movie_id)
+    movie = Movie.objects.get(pk=movie_id)
     reviews = Review.objects.filter(movie=movie)
     serializer = ReviewSerializer(reviews, many=True)
 
