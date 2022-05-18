@@ -13,7 +13,10 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from collections import deque
+from collections import deque, defaultdict
+
+from statistics import pstdev
+from math import log, sqrt
 
 
 # Now Playing 현재 상영중인 영화를 반환하는 함수
@@ -81,45 +84,41 @@ def recommend(request, username):
     movies = []
 
     for genre in genres:
-        genre_movies = Movie.objects.filter(genres=genre).order_by('-vote_average')
+        genre_movies = Movie.objects.filter(genres=genre, popularity__gte=2)
         movies.append(list(genre_movies))
 
-    if not movies:
-        movies = list(Movie.objects.order_by('vote_average'))
+    movies.append(list(Movie.objects.filter(popularity__gte=2)))
+
+    for i in range(len(movies)):
+        lst_popularity = []
+        lst_points = []
+
+        for movie in movies[i]:
+            lst_popularity.append(sqrt(log(movie.popularity)))
+            lst_points.append(sqrt(log(movie.vote_average + 1)))
+
+        avg_popularity = sum(lst_popularity) / len(lst_popularity)
+        avg_points = sum(lst_points) / len(lst_points)
+
+        sd_popularity = pstdev(lst_popularity)
+        sd_points = pstdev(lst_points)
+
+        movies[i].sort(key=lambda x: -(((x.popularity - avg_popularity) / sd_popularity) * 0.7 + ((x.vote_average - avg_points) / sd_points) * 0.3))
+
     
     recommend = []
 
     while len(recommend) < 20:
-        if len(genres) > 0:
-            for i in range(len(genres)):
-                for j in range(len(movies[i])):
-                    m = movies[i][j]
-                    if m.popularity < 2:
-                        continue
-
-                    if user.watched_movies.filter(pk=m.pk).exist() or user.wished_to_movies.filter(pk=m.pk).exists() or user.disliked_movies.filter(pk=m.pk).exists() or m.pk in user.recently_recommended_movies or m in recommend:
-                        continue
-                    else:
-                        recommend.append(m)
-                        user.recently_recommended_movies.append(m.pk)
-                        if len(user.recently_recommended_movies) > 200:
-                            user.recently_recommended_movies.popleft()
-                        break
-        else:
-            for i in range(movies):
-                m = movies[i]
-                if m.popularity < 2:
-                    continue
-
-                if user.watched_movies.filter(pk=m.pk).exists() or user.wished_to_movies.filter(pk=m.pk).exists() or user.disliked_movies.filter(pk=m.pk).exists() or m.pk in user.recently_recommended_movies or m in recommend:
+        for i in range(len(movies)):
+            for j in range(len(movies[i])):
+                m = movies[i][j]
+                if user.watched_movies.filter(pk=m.pk).exist() or user.wished_to_movies.filter(pk=m.pk).exists() or user.disliked_movies.filter(pk=m.pk).exists() or m.pk in user.recently_recommended_movies or m in recommend:
                     continue
                 else:
                     recommend.append(m)
                     user.recently_recommended_movies.append(m.pk)
                     if len(user.recently_recommended_movies) > 200:
                         user.recently_recommended_movies.popleft()
-
-                if len(recommend) == 20:
                     break
     
     serializer = MovieSerializer(recommend, many=True)
@@ -289,3 +288,4 @@ def add_review(request, username, movie_id):
 @api_view(['PUT'])
 def update_review(request, review_id):
     pass
+    
