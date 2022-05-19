@@ -13,7 +13,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from collections import deque, defaultdict
+from collections import deque
 
 from statistics import pstdev
 from math import log, sqrt
@@ -105,7 +105,6 @@ def recommend(request, username):
 
         movies[i].sort(key=lambda x: -(((x.popularity - avg_popularity) / sd_popularity) * 0.7 + ((x.vote_average - avg_points) / sd_points) * 0.3))
 
-    
     recommend = []
 
     while len(recommend) < 20:
@@ -142,10 +141,10 @@ def worldcup(request, exponent, username):
 
     tournament = []
 
-    switch = False
+    flag = False
     w_idx, p_idx = 0, 0
     for i in range(2**exponent):
-        if switch and w_idx < len(watched_movie):
+        if flag and w_idx < len(watched_movie):
             while watched_movie[w_idx] in tournament:
                 w_idx += 1
             
@@ -153,7 +152,7 @@ def worldcup(request, exponent, username):
                 tournament.append(watched_movie[w_idx])
                 w_idx += 1
             
-            switch = not switch
+            flag = not flag
         else:
             while popular_movie[p_idx] in tournament:
                 p_idx += 1
@@ -161,7 +160,7 @@ def worldcup(request, exponent, username):
             tournament.append(popular_movie[p_idx])
             p_idx += 1
 
-            switch = not switch
+            flag = not flag
     
     serializer = MovieSerializer(tournament, many=True)
 
