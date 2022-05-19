@@ -115,6 +115,29 @@ ___
 
 
 
+## :pencil2: 0519 기록
+
+##### Home data axios 요청
+
+- 사용자가 접속했을때 가장 처음에 보여지는 화면 HOME에서 보여질 컴포넌트 (현재 상영중인 영화, 작년 이맘때쯤 상영된 영화, 올림픽 우승 영화, 알고리즘추천영화)에 대해 필요한 데이터들을 Django서버로 요청하여 각각의 컴포넌트에 Props하여 데이터를 전달하였다.
+  - 영화정보가 담긴 배열을 순회할때 key를 id로 사용했을 경우, 각각의 컴포넌트에서 중복되는 영화가 존재 할 수 있어 key를 for문마다 다르게 사용하였다.
+
+
+
+##### Profile axios 요청
+
+- router의 username을 동적세그먼트로 사용하여, userprofile에 접근 할 수 있도록 했다. 서버에 요청을 보낼때는  params에 username을 전달하였다.
+
+-  profile에서 확인 할 수 있는 데이터는
+
+  >  username, name, disliked_movies, liked_genre, wished_to_movies, watched_movies 
+
+  위와같다.
+
+
+
+
+
 
 
 
