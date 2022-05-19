@@ -3,7 +3,6 @@ import random
 from datetime import datetime
 
 from django.shortcuts import render, get_list_or_404, get_object_or_404
-from yaml import serialize
 
 from .serializers import MovieSerializer, ReviewSerializer
 
@@ -56,6 +55,9 @@ def now_playing(request):
     
         m = Movie.objects.get(pk=movie['id'])
         result.append(m)
+
+        if len(result) == 10:
+            break
     
     serializer = MovieSerializer(result, many=True)
 
@@ -69,7 +71,7 @@ def last_year_showing(request):
     last_year = today.year - 1
     month = today.month
 
-    movies = list(Movie.objects.filter(release_date__year=f'{last_year}', release_date__month=f'{month}'))[:20]
+    movies = list(Movie.objects.filter(release_date__year=f'{last_year}', release_date__month=f'{month}'))[:10]
 
     serializer = MovieSerializer(movies, many=True)
 
@@ -291,7 +293,8 @@ def update_review(request, review_id):
     
 @api_view(['GET'])
 def winner(request):
-    movies = Movie.objects.order_by('-vote')[:20]
+    movies = Movie.objects.order_by('-vote')[:10]
+
     serializer = MovieSerializer(movies, many=True)
 
     return Response(serializer.data)

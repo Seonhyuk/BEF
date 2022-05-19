@@ -1,17 +1,37 @@
 <template>
   <div class="home">
     <button @click="logout()">Logout</button>
-    <p v-for="movie in nowMovies" :key="movie.id">{{ movie.title }}</p>
-    <p v-for="movie in lastMovies" :key="movie.id">{{ movie.title }}</p>
-    <p v-for="movie in winMovies" :key="movie.id">{{ movie.title }}</p>
+    <SmallMovieVue
+      v-for="(movie, index) in nowMovies" 
+      :key="index"
+      :movie="movie"
+    />
+    <hr>
+    <SmallMovieVue
+      v-for="movie in lastMovies" 
+      :key="movie.title"
+      :movie="movie"
+    />
+    <hr>
+    <SmallMovieVue
+      v-for="movie in winMovies" 
+      :key="movie.id"
+      :movie="movie"
+    />
+
+
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import SmallMovieVue from '@/components/SmallMovie.vue'
 
 export default {
   name: 'HomeView',
+  components: {
+    SmallMovieVue
+  },
   methods: {
     ...mapActions(['logout', 'setNowMovies', 'setLastMovies', 'setWinMovies'])
   },
@@ -21,7 +41,7 @@ export default {
     this.setWinMovies()
   },
   computed: {
-    ...mapGetters(['nowMovies', 'lastMovies','winMovies'])
+    ...mapGetters(['lastMovies','winMovies', 'nowMovies']),
   }
 }
 </script>
