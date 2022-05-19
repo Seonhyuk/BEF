@@ -18,7 +18,7 @@ export default {
 		nowMovies: () => HOST + MOVIES + 'now_playing/',
 		lastMovies: () => HOST + MOVIES + 'last_year/',
 		winMovies: () => HOST + MOVIES + 'winner/',
-		
+		recommendMovies: () => HOST + MOVIES + 'recommend/',
 
 		likeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'like/',
 		dislikeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'dislike/',

@@ -6,11 +6,13 @@ export default {
 		nowMovies : [],
 		lastMovies : [],
 		winMovies : [],
+		recommendMovies : [],
 	},
 	getters: {
 		nowMovies: state => state.nowMovies,
 		lastMovies : state => state.lastMovies,
-		winMovies : state => state.winMovies
+		winMovies : state => state.winMovies,
+		recommendMovies : state => state.recommendMovies
 	},
 	mutations: {
 		SET_NOW_MOVIES(state, res) {
@@ -21,6 +23,9 @@ export default {
 		},
 		SET_WIN_MOVIES(state, res) {
 			state.winMovies = res
+		},
+		SET_RECOMMEND_MOVIES(state, res) {
+			state.recommendMovies = [...state.recommendMovies, ...res]
 		}
 	},
 	actions: {
@@ -29,21 +34,29 @@ export default {
 				url : drf.movies.nowMovies(),
 				method : 'GET',
 			})
-				.then(res => commit('SET_NOW_MOVIES', res))
+				.then(res => commit('SET_NOW_MOVIES', res.data))
 		},
 		setLastMovies({commit}) {
 			axios({
 				url : drf.movies.lastMovies(),
 				method: 'GET',
 			})
-				.then(res => commit('SET_LAST_MOVIES', res))
+				.then(res => commit('SET_LAST_MOVIES', res.data))
 		},
 		setWinMovies({commit}) {
 			axios({
 				url : drf.movies.winMovies(),
 				method: 'GET',
 			})
-				.then(res => commit('SET_WIN_MOVIES', res))
+				.then(res => commit('SET_WIN_MOVIES', res.data))
+		},
+		setRecommendMovies({commit}, username) {
+			axios({
+				url : drf.movies.recommendMovies(),
+				method: 'GET',
+				username: username
+			})
+				.then(res => commit('SET_RECOMMEND_MOVIES', res.data))
 		}
 	}
 }
