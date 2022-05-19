@@ -3,7 +3,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/movie/', include('movies.urls')),
+    path('api/movies/', include('movies.urls')),
+    path('api/accounts/', include('accounts.urls')),
     
     # 로그인 경로
     path('api/accounts/', include('dj_rest_auth.urls')),

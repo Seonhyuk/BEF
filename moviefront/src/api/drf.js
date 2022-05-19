@@ -10,11 +10,15 @@ export default {
 		logout: () => HOST + ACCOUNTS + 'logout/',
 		signup: () => HOST + ACCOUNTS + 'signup/',
 		currentUserInfo: () => HOST + ACCOUNTS + 'user/',
-		profile: username => HOST + ACCOUNTS + 'profile/' + username,
+		profile: () => HOST + ACCOUNTS + 'profile/',
 	},
 	movies: {
 		movies: () => HOST + MOVIES,
 		movie: moviePk => HOST + MOVIES + `${moviePk}/`,
+		nowMovies: () => HOST + MOVIES + 'now_playing/',
+		lastMovies: () => HOST + MOVIES + 'last_year/',
+		winMovies: () => HOST + MOVIES + 'winner/',
+		
 
 		likeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'like/',
 		dislikeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'dislike/',

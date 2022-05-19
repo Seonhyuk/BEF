@@ -3,6 +3,7 @@ import random
 from datetime import datetime
 
 from django.shortcuts import render, get_list_or_404, get_object_or_404
+from yaml import serialize
 
 from .serializers import MovieSerializer, ReviewSerializer
 
@@ -288,3 +289,9 @@ def add_review(request, username, movie_id):
 def update_review(request, review_id):
     pass
     
+@api_view(['GET'])
+def winner(request):
+    movies = Movie.objects.order_by('-vote')[:20]
+    serializer = MovieSerializer(movies, many=True)
+
+    return Response(serializer.data)

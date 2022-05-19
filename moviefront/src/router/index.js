@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
+import ProfileView from '@/views/ProfileView.vue'
 
 Vue.use(VueRouter)
 
@@ -22,7 +23,12 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignupView
-  }
+  },
+  {
+    path: '/profile/:username',
+    name: 'profile',
+    component: ProfileView
+  },
 ]
 
 const router = new VueRouter({
