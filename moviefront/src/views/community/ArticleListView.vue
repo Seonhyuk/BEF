@@ -28,12 +28,15 @@
   export default {
     name: 'ArticleList',
     computed: {
-      ...mapGetters(['articles'])
+      ...mapGetters(['articles', 'isLoggenIn'])
     },
     methods: {
       ...mapActions(['fetchArticles'])
     },
     created() {
+      if (!this.isLoggedIn) {
+      this.$router.push({ name: 'login'})
+    }
       this.fetchArticles()
     },
   }

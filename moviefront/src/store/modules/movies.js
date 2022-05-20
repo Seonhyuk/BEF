@@ -17,6 +17,7 @@ export default {
 		nyearMovies: [],
 
 		searchedMovies: [],
+		searchedMoviesForReview: [],
 	},
 	getters: {
 		nowMovies: state => state.nowMovies,
@@ -28,7 +29,9 @@ export default {
 		video : state => state.video,
 
 		nyearMovies : state => state.nyearMovies,
-		searchedMovies : state => state.searchedMovies
+		searchedMovies : state => state.searchedMovies,
+		searchedMoviesForReview : state => state.searchedMoviesForReview,
+
 	},
 	mutations: {
 		SET_NOW_MOVIES(state, res) {
@@ -54,7 +57,10 @@ export default {
 		},
 		SET_VIDEO(state, res) {
 			state.video = res
-		}
+		},
+		SET_MOVIES_FOR_REVIEW(state, res) {
+			state.searchedMoviesForReview = res
+		},
 	},
 	actions: {
 		setNowMovies({commit}) {
@@ -124,6 +130,18 @@ export default {
 						commit('SET_VIDEO', response.data.items[0].id.videoId)
 					})
 				})
-		}
+		},
+		searchMovieReview({commit}, query) {
+			query.trim()
+			if (query) {
+				axios({
+					url : drf.movies.searchMovieReview(query),
+					method: 'GET',
+				})
+				.then(res => commit('SET_MOVIES_FOR_REVIEW', res.data))
+			} else {
+				alert('검색어를 입력해주세요')
+			}
+		},
 	}
 }

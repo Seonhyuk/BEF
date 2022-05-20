@@ -10,14 +10,11 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name:"profileView",
   computed: {
-    ...mapGetters(['profile'])
+    ...mapGetters(['profile', 'currentUser', 'isLoggedIn'])
   },
   methods : {
     ...mapActions(['fetchProfile'])
   },
-  created() {
-    this.fetchProfile(this.$route.params.username)
-  }
 }
 </script>
 

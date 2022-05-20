@@ -9,6 +9,7 @@ import NyearView from '@/views/NyearView.vue'
 import SearchView from '@/views/SearchView.vue'
 import MovieDetailView from '@/views/MovieDetailView.vue'
 
+
 import ArticleListView from '@/views/community/ArticleListView.vue'
 import ArticleDetailView from '@/views/community/ArticleDetailView.vue'
 import ArticleNewView from '@/views/community/ArticleNewView'

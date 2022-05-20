@@ -44,7 +44,7 @@
       }
     },
     computed: {
-      ...mapGetters(['isAuthor', 'article']),
+      ...mapGetters(['isAuthor', 'article', 'isLoggedIn']),
       likeCount() {
         return this.article.like_users?.length
       }
@@ -57,6 +57,9 @@
       ])
     },
     created() {
+      if (!this.isLoggedIn) {
+      this.$router.push({ name: 'login'})
+    }
       this.fetchArticle(this.articlePk)
     },
   }

@@ -8,8 +8,9 @@
       <button @click="[setSearchedMovies(query), removeQuery()]">검색</button> |
 
       <router-link to="/login" v-if="!currentUser.username">Login</router-link> |
-      <button @click="logout()" v-if="currentUser.username">Logout</button>
-      <router-link to="/community">Community</router-link>
+      <button @click="logout()" v-if="currentUser.username">Logout</button> |
+      <router-link to="/community">Community</router-link> |
+      <router-link to="/review"> MyReview</router-link> 
     </nav>
     <router-view/>
   </div>

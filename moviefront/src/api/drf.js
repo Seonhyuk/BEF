@@ -31,6 +31,7 @@ export default {
 
 		searchMovie: query => HOST + MOVIES + 'search/' + `${query}/`,
 	
+	
 		reviews: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEWS,
 		comment: (moviePk, reviewPk) =>
 			HOST + MOVIES + `${moviePk}/` + REVIEWS + `${reviewPk}/`,

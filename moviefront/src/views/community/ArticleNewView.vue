@@ -6,7 +6,8 @@
 </template>
 
 <script>
-  import ArticleForm from '@/components/community/ArticleForm.vue'
+import ArticleForm from '@/components/community/ArticleForm.vue'
+import { mapGetters } from 'vuex'
   
   export default {
     name: 'AritcleNewView',
@@ -20,6 +21,14 @@
         }
       }
     },
+    computed: {
+      ...mapGetters(['isLoggedIn'])
+    },
+    created() {
+      if (!this.isLoggedIn) {
+      this.$router.push({ name: 'login'})
+    }
+    }
   }
 </script>
 

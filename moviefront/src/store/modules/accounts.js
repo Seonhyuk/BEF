@@ -23,7 +23,8 @@ export default {
 		SET_TOKEN: (state, token) => state.token = token,
 		SET_CURRENT_USER: (state, user) => state.currentUser = user,
 		SET_PROFILE: (state, profile) => state.profile = profile,
-		SET_AUTH_ERROR: (state, error) => state.authError = error
+		SET_AUTH_ERROR: (state, error) => state.authError = error,
+		REMOVE_CURRENT_USER : state => state.currentUser = {},
 	},
 
 	actions: {
@@ -72,7 +73,7 @@ export default {
 					commit('SET_AUTH_ERROR', err.response.data)
 				})
 		},
-		logout({ getters, dispatch }) {
+		logout({ getters, dispatch, commit }) {
 			axios({
 				url: drf.accounts.logout(),
 				method: 'post',
@@ -80,6 +81,7 @@ export default {
 			})
 				.then(() => {
 					dispatch('removeToken')
+					commit('REMOVE_CURRENT_USER')
 					alert('로그아웃 되었습니다.')
 					router.push({ name: 'home' })
 				})
