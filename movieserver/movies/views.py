@@ -227,7 +227,7 @@ def search_movie(request, query):
         'query': query
     }
 
-    response = request.get(URL, params=params).json()['results']
+    response = requests.get(URL, params=params).json()['results']
 
     result = []
 
@@ -252,7 +252,7 @@ def search_movie(request, query):
         m = Movie.objects.get(pk=movie['id'])
         result.append(m)
 
-    m.sort(lambda x: -x['popularity'])
+    result.sort(key=lambda x: -x.popularity)
 
     serializer = MovieSerializer(result, many=True)
 
@@ -294,6 +294,15 @@ def update_review(request, review_id):
 @api_view(['GET'])
 def winner(request):
     movies = Movie.objects.order_by('-vote')[:10]
+
+    serializer = MovieSerializer(movies, many=True)
+
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def nyear_movies(request, year):
+    movies = Movie.objects.filter(release_date__year=f'{year}').order_by('-popularity')[:40]
 
     serializer = MovieSerializer(movies, many=True)
 

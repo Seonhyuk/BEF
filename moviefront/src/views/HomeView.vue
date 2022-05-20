@@ -1,23 +1,32 @@
 <template>
   <div class="home">
-    <button @click="logout()">Logout</button>
-    <SmallMovieVue
-      v-for="(movie, index) in nowMovies" 
-      :key="index"
-      :movie="movie"
-    />
+    <h1>현재 상영 중</h1>
+    <div class="movie-card">
+      <SmallMovieVue
+        v-for="(movie, index) in nowMovies" 
+        :key="index"
+        :movie="movie"
+      />
+    </div>
     <hr>
-    <SmallMovieVue
-      v-for="movie in lastMovies" 
-      :key="movie.title"
-      :movie="movie"
-    />
+    <h1>1년 전 이맘 때쯤</h1>
+    <div class="movie-card">
+      <SmallMovieVue
+        v-for="movie in lastMovies" 
+        :key="movie.title"
+        :movie="movie"
+      />
+    </div>
     <hr>
-    <SmallMovieVue
-      v-for="movie in winMovies" 
-      :key="movie.id"
-      :movie="movie"
-    />
+    
+    <h1>유저들이 1위로 뽑은 영화</h1>
+    <div class="movie-card">
+      <SmallMovieVue
+        v-for="movie in winMovies" 
+        :key="movie.id"
+        :movie="movie"
+      />
+    </div>
 
 
   </div>
@@ -33,7 +42,7 @@ export default {
     SmallMovieVue
   },
   methods: {
-    ...mapActions(['logout', 'setNowMovies', 'setLastMovies', 'setWinMovies'])
+    ...mapActions(['setNowMovies', 'setLastMovies', 'setWinMovies'])
   },
   created() {
     this.setNowMovies()
@@ -45,3 +54,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+.movie-card {
+  display: flex;
+}
+
+</style>

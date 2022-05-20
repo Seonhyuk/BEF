@@ -5,6 +5,9 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import NyearView from '@/views/NyearView.vue'
+import SearchView from '@/views/SearchView.vue'
+import MovieDetailView from '@/views/MovieDetailView'
 
 Vue.use(VueRouter)
 
@@ -29,6 +32,21 @@ const routes = [
     name: 'profile',
     component: ProfileView
   },
+  {
+    path: '/nyear',
+    name: 'nyear',
+    component: NyearView
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: SearchView
+  },
+  {
+    path: '/moviedetail/:moviePk',
+    name: 'moviedetail',
+    component: MovieDetailView
+  }
 ]
 
 const router = new VueRouter({

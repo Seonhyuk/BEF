@@ -1,18 +1,34 @@
 import axios from 'axios'
 import drf from '@/api/drf'
 
+const URL = 'https://www.googleapis.com/youtube/v3/search'
+const API_KEY = process.env.VUE_APP_YOUTUBE_API_KEY
+
 export default {
   state: {
 		nowMovies : [],
 		lastMovies : [],
 		winMovies : [],
 		recommendMovies : [],
+
+		movieDetail: {},
+		video: '',
+
+		nyearMovies: [],
+
+		searchedMovies: [],
 	},
 	getters: {
 		nowMovies: state => state.nowMovies,
 		lastMovies : state => state.lastMovies,
 		winMovies : state => state.winMovies,
-		recommendMovies : state => state.recommendMovies
+		recommendMovies : state => state.recommendMovies,
+
+		movieDetail : state => state.movieDetail,
+		video : state => state.video,
+
+		nyearMovies : state => state.nyearMovies,
+		searchedMovies : state => state.searchedMovies
 	},
 	mutations: {
 		SET_NOW_MOVIES(state, res) {
@@ -26,6 +42,18 @@ export default {
 		},
 		SET_RECOMMEND_MOVIES(state, res) {
 			state.recommendMovies = [...state.recommendMovies, ...res]
+		},
+		SET_NYEAR_MOVIES(state, res) {
+			state.nyearMovies = res
+		},
+		SET_SEARCHED_MOVIES(state, res) {
+			state.searchedMovies = res
+		},
+		SET_MOVIE_DETAIL(state, res) {
+			state.movieDetail = res
+		},
+		SET_VIDEO(state, res) {
+			state.video = res
 		}
 	},
 	actions: {
@@ -57,6 +85,45 @@ export default {
 				username: username
 			})
 				.then(res => commit('SET_RECOMMEND_MOVIES', res.data))
+		},
+		setNyearMovies({commit}, year) {
+			axios({
+				url : drf.movies.nyearMovies(year),
+				method: 'GET',
+			})
+				.then(res => commit('SET_NYEAR_MOVIES', res.data))
+		},
+		setSearchedMovies({commit}, query) {
+			query.trim()
+			if (query) {
+				axios({
+					url : drf.movies.searchMovie(query),
+					method: 'GET',
+				})
+				.then(res => commit('SET_SEARCHED_MOVIES', res.data))
+			} else {
+				alert('검색어를 입력해주세요')
+			}
+		},
+		setMovieDetail({commit}, moviePk) {
+			axios({
+				url : drf.movies.movie(moviePk),
+				method: 'GET',
+			})
+				.then(res => commit('SET_MOVIE_DETAIL', res.data))
+		}, 
+		setVideo({commit}, title) {
+			axios.get(URL, {
+				params: {
+					key: API_KEY,
+					type: 'video',
+					part: 'snippet',
+					q: title + '예고편'
+				}
+			})
+				.then(res => {
+					commit('SET_VIDEO', res.data.items[0].id.videoId)
+				})
 		}
 	}
 }

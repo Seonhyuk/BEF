@@ -8,4 +8,7 @@ urlpatterns = [
     path('recommend/<str:username>/', views.recommend),
     path('worldcup/<int:exponent>/<str:username>/', views.worldcup),
     path('matchup/<int:exponent>/', views.match_up),
+    path('nyear/<int:year>/', views.nyear_movies),
+    path('search/<str:query>/', views.search_movie),
+    path('<int:movie_id>/', views.detail)
 ]

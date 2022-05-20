@@ -8,6 +8,7 @@ class MovieSerializer(serializers.ModelSerializer):
         fields = '__all__'
         depth = 1
 
+
 class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
