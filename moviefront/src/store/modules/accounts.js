@@ -3,6 +3,7 @@ import axios from 'axios'
 import drf from '@/api/drf'
 
 export default {
+
   state: {
 		token: localStorage.getItem('token') || '',
 		currentUser: {},

@@ -29,11 +29,14 @@ export default {
     ...mapGetters(['currentUser'])
   },
   methods: {
-    ...mapActions(['setSearchedMovies', 'logout']),
+    ...mapActions(['setSearchedMovies', 'logout', 'fetchCurrentUser']),
     removeQuery () {
       this.query = ''
       router.push({name: 'search'})
     }
+  },
+  created () {
+    this.fetchCurrentUser()
   }
 }
 </script>

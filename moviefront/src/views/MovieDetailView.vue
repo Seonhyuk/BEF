@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="ratio ratio-16x9">
+    <div class="ratio ratio-16x9 video-box">
       <iframe 
         :src="`https://www.youtube.com/embed/${video}`" 
         frameborder="0"
       ></iframe>
-      {{ movieDetail.title }}
     </div>
+    {{ movieDetail.title }}
   </div>
 </template>
 
@@ -29,5 +29,7 @@ export default {
 </script>
 
 <style>
-
+.video-box {
+  max-width: 800px;
+}
 </style>
