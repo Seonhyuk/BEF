@@ -123,7 +123,7 @@ ___
 
 
 
-## :pencil2: 0519 기록
+### 0519. 
 
 ##### Home data axios 요청
 
@@ -141,6 +141,25 @@ ___
   >  username, name, disliked_movies, liked_genre, wished_to_movies, watched_movies 
 
   위와같다.
+
+
+
+### 0520. 
+
+##### Movie Search 기능 구현
+
+- 검색을 요청할 경우 tmdb axios요청이 보내진다.
+
+- 영화를 검색했을 때 해당 영화가 DB에 저장되어 있지 않은 데이터라면 DB에 추가 되도록 하였다.
+
+
+
+##### Movie Detail
+
+- Home , Search 등 영화포스터를 클릭하면  영화 상세정보를 확인 할 수 있다.
+- 상세페이지에서 Youtube axios요청을 통해 영화 예고편을 확인 할 수 있다.
+
+
 
 
 

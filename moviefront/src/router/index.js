@@ -7,7 +7,13 @@ import SignupView from '@/views/SignupView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import NyearView from '@/views/NyearView.vue'
 import SearchView from '@/views/SearchView.vue'
-import MovieDetailView from '@/views/MovieDetailView'
+import MovieDetailView from '@/views/MovieDetailView.vue'
+
+import ArticleListView from '@/views/community/ArticleListView.vue'
+import ArticleDetailView from '@/views/community/ArticleDetailView.vue'
+import ArticleNewView from '@/views/community/ArticleNewView'
+import ArticleEditView from '@/views/community/ArticleEditView'
+
 
 Vue.use(VueRouter)
 
@@ -46,7 +52,27 @@ const routes = [
     path: '/moviedetail/:moviePk',
     name: 'moviedetail',
     component: MovieDetailView
-  }
+  },
+  {
+    path: '/community', 
+    name: 'articles',
+    component: ArticleListView
+  },
+  {
+    path: '/articles/new',
+    name: 'articleNew',
+    component: ArticleNewView
+  },
+  {
+    path: '/articles/:articlePk',
+    name: 'article',
+    component: ArticleDetailView
+  },
+  {
+    path: '/articles/:articlePk/edit',
+    name: 'articleEdit',
+    component: ArticleEditView
+  },
 ]
 
 const router = new VueRouter({

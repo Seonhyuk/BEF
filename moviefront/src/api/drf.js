@@ -3,6 +3,8 @@ const HOST = 'http://127.0.0.1:8000/api/'
 const ACCOUNTS = 'accounts/'
 const MOVIES = 'movies/'
 const REVIEWS = 'reviews/'
+const ARTICLES = 'community/'
+const COMMENTS = 'comments/'
 
 export default {
 	accounts: {
@@ -33,4 +35,12 @@ export default {
 		comment: (moviePk, reviewPk) =>
 			HOST + MOVIES + `${moviePk}/` + REVIEWS + `${reviewPk}/`,
 	},
+	articles: {
+    articles: () => HOST + ARTICLES,
+    article: articlePk => HOST + ARTICLES + `${articlePk}/`,
+    likeArticle: articlePk => HOST + ARTICLES + `${articlePk}/` + 'like/',
+    comments: articlePk => HOST + ARTICLES + `${articlePk}/` + COMMENTS,
+    comment: (articlePk, commentPk) =>
+      HOST + ARTICLES + `${articlePk}/` + COMMENTS + `${commentPk}/`,		
+	}
 }

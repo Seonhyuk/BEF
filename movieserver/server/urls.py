@@ -5,7 +5,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/movies/', include('movies.urls')),
     path('api/accounts/', include('accounts.urls')),
-    
+    path('api/community/', include('community.urls')),
     # 로그인 경로
     path('api/accounts/', include('dj_rest_auth.urls')),
     # 가입 경로
