@@ -1,10 +1,12 @@
+from django.http import JsonResponse
 import requests
 import random
 from datetime import datetime
 
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 
-from .serializers import MovieSerializer, ReviewSerializer
+from .serializers import MovieSerializer, ReviewSerializer, GenreSerializer
+from accounts.serializers import UserSerializer
 
 from .models import Movie, Genre, Review
 from accounts.models import User
@@ -137,7 +139,8 @@ def worldcup(request, exponent, username):
     popular_movie = list(Movie.objects.filter(popularity__gte=20, vote_average__gte=7).order_by('-popularity')[:200])
 
     movie = Movie.objects.get(title='రౌద్రం రణం రుధిరం')
-    popular_movie.remove(movie)
+    if movie in popular_movie:
+        popular_movie.remove(movie)
 
     random.shuffle(watched_movie)
     random.shuffle(popular_movie)
@@ -271,13 +274,32 @@ def get_user_review(request, username):
 
 
 # 특정 영화의 리뷰를 조회하는 함수
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def get_movie_review(request, movie_id):
     movie = Movie.objects.get(pk=movie_id)
-    reviews = Review.objects.filter(movie=movie)
-    serializer = ReviewSerializer(reviews, many=True)
+    if request.method == 'GET':
+        reviews = Review.objects.filter(movie=movie)
+        serializer = ReviewSerializer(reviews, many=True)
 
-    return Response(serializer.data)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        user = User.objects.get(username=request.data['username'])
+
+        new = Review()
+        new.user = user
+        new.movie = movie
+        new.content = request.data['content']
+        new.like = request.data['like']
+
+        new.save()
+
+        data = {
+            'data': 'success'
+        }
+
+        return Response(data, status=status.HTTP_201_CREATED)
+        
+
 
 
 # 리뷰를 추가하는 함수
@@ -307,3 +329,27 @@ def nyear_movies(request, year):
     serializer = MovieSerializer(movies, many=True)
 
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_genres(request):
+    genres = Genre.objects.all()
+    serializers = GenreSerializer(genres, many=True)
+
+    return Response(serializers.data)
+
+
+@api_view(['POST'])
+def like_genres(request):
+    genre = Genre.objects.get(pk=request.GET.get('genre'))
+    user = User.objects.get(username=request.GET.get('username'))
+
+    if user.liked_genre.filter(pk=genre.pk).exists():
+        user.liked_genre.remove(genre)
+    else:
+        user.liked_genre.add(genre)
+
+    serializer = UserSerializer(user)
+
+    return Response(serializer.data)
+    

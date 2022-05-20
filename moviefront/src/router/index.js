@@ -8,12 +8,16 @@ import ProfileView from '@/views/ProfileView.vue'
 import NyearView from '@/views/NyearView.vue'
 import SearchView from '@/views/SearchView.vue'
 import MovieDetailView from '@/views/MovieDetailView.vue'
+import RoundSelectView from '@/views/RoundSelectView.vue'
+import WorldCupView from '@/views/WorldCupView.vue'
+import SelectGenreView from '@/views/SelectGenresView.vue'
 
 
 import ArticleListView from '@/views/community/ArticleListView.vue'
 import ArticleDetailView from '@/views/community/ArticleDetailView.vue'
 import ArticleNewView from '@/views/community/ArticleNewView'
 import ArticleEditView from '@/views/community/ArticleEditView'
+
 
 
 Vue.use(VueRouter)
@@ -74,6 +78,21 @@ const routes = [
     name: 'articleEdit',
     component: ArticleEditView
   },
+  {
+    path: '/roundselect',
+    name: 'roundselect',
+    component: RoundSelectView
+  },
+  {
+    path: '/worldcup',
+    name: 'worldcup',
+    component: WorldCupView
+  },
+  {
+    path: '/genres',
+    name: 'genres',
+    component: SelectGenreView
+  }
 ]
 
 const router = new VueRouter({

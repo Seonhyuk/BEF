@@ -96,7 +96,17 @@ export default {
 					method: 'get',
 					headers: getters.authHeader,
 				})
-					.then(res => commit('SET_CURRENT_USER', res.data))
+					.then(res => 
+						axios({
+							url: drf.accounts.profile(),
+							method: 'get',
+							header: getters.authHeader,
+							params: {
+								username : res.data.username
+							}
+						})
+							.then(res => commit('SET_CURRENT_USER', res.data))
+						)
 					.catch(err => {
 						if (err.response.status === 401) {
 							dispatch('removeToken')
@@ -118,5 +128,7 @@ export default {
 					commit('SET_PROFILE', res.data)
 				})
 		},
+
+
 	}
 }

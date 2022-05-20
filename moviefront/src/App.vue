@@ -2,15 +2,22 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
+
       <router-link to="/nyear">Nyear</router-link> |
-      <router-link :to="{ name: 'profile', params:{ username:`${currentUser.username}`} }">Profile</router-link> |
+
+      <router-link 
+        :to="{ name: 'profile', params:{ username:`${currentUser.username}`} }"
+        v-if="currentUser.username"
+      >Profile</router-link> |
+
+      <router-link to="/community" v-if="currentUser.username">Community</router-link> |
+
       <input type="text" v-model="query">
       <button @click="[setSearchedMovies(query), removeQuery()]">검색</button> |
 
       <router-link to="/login" v-if="!currentUser.username">Login</router-link> |
-      <button @click="logout()" v-if="currentUser.username">Logout</button> |
-      <router-link to="/community">Community</router-link> |
-      <router-link to="/review"> MyReview</router-link> 
+      <button @click="logout()" v-if="currentUser.username">Logout</button>
+
     </nav>
     <router-view/>
   </div>

@@ -30,11 +30,16 @@ export default {
 		watchedMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'watched/',
 
 		searchMovie: query => HOST + MOVIES + 'search/' + `${query}/`,
-	
+		
+		roundSelect: exponent => HOST + MOVIES + 'matchup/' + `${exponent}/`,
+		worldCup: exponent => HOST + MOVIES + 'worldcup/' + `${exponent}/`,
 	
 		reviews: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEWS,
 		comment: (moviePk, reviewPk) =>
 			HOST + MOVIES + `${moviePk}/` + REVIEWS + `${reviewPk}/`,
+
+		genres: () => HOST + MOVIES + 'genres/',
+		like_genre: () => HOST + MOVIES + 'like_genre/'
 	},
 	articles: {
     articles: () => HOST + ARTICLES,

@@ -13,6 +13,15 @@ export default {
 
 		movieDetail: {},
 		video: '',
+		reviews: [],
+
+		exponent: 0,
+		tournament: [],
+		order: [],
+		idx: 0,
+		oIdx: 0,
+
+		genres:[],
 
 		nyearMovies: [],
 
@@ -27,11 +36,19 @@ export default {
 
 		movieDetail : state => state.movieDetail,
 		video : state => state.video,
+		reviews : state => state.reviews,
+
+		exponent : state => state.exponent,
+		tournament : state => state.tournament,
+		order : state => state.order,
+		idx : state => state.idx,
+		oIdx : state => state.oIdx,
 
 		nyearMovies : state => state.nyearMovies,
 		searchedMovies : state => state.searchedMovies,
 		searchedMoviesForReview : state => state.searchedMoviesForReview,
-
+		
+		genres: state => state.genres
 	},
 	mutations: {
 		SET_NOW_MOVIES(state, res) {
@@ -61,6 +78,36 @@ export default {
 		SET_MOVIES_FOR_REVIEW(state, res) {
 			state.searchedMoviesForReview = res
 		},
+		SET_REVIEWS(state, res) {
+			state.reviews = res
+		},
+		SET_EXPONENT(state, exponent) {
+			state.exponent = exponent
+			state.idx = 2 ** exponent - 1
+		},
+		GET_MATCH_UP(state, res) {
+			state.order = res.shuffle
+		},
+		GET_WORLD_CUP(state, res) {
+			const len = res.length * 2
+			const tree = new Array(len)
+			let j = 0
+			for (let i = len - 1 ; i > res.length - 1; i--) {
+				tree[i] = res[j]
+				j += 1
+			}
+			state.idx = len - 1
+			state.tournament = tree
+		},
+		FILL_MOVIE(state, i) {
+			state.tournament[state.order[state.oIdx]] = state.tournament[i]
+			state.oIdx += 1
+			state.idx -= 2
+		},
+		GET_GENRES (state, res) {
+			state.genres = res
+		}
+
 	},
 	actions: {
 		setNowMovies({commit}) {
@@ -131,17 +178,71 @@ export default {
 					})
 				})
 		},
-		searchMovieReview({commit}, query) {
-			query.trim()
-			if (query) {
-				axios({
-					url : drf.movies.searchMovieReview(query),
-					method: 'GET',
+		setReviews({commit}, moviePk) {
+			axios({
+				url : drf.movies.reviews(moviePk),
+				method: 'GET',
+			})
+				.then(res => commit('SET_REVIEWS', res.data))
+		},
+		createReview({ dispatch, getters }, { moviePk, username, content, like }) {
+			axios({
+				url: drf.movies.reviews(moviePk),
+				method: 'post',
+				data: {
+					'username': username,
+					'content': content,
+					'like': like
+				},
+				headers: getters.authHeader,
+			})
+				.then( () => {
+					dispatch('setReviews', moviePk)
 				})
-				.then(res => commit('SET_MOVIES_FOR_REVIEW', res.data))
-			} else {
-				alert('검색어를 입력해주세요')
-			}
+		},
+		setExponent({commit}, exponent) {
+			commit('SET_EXPONENT', exponent)
+		},
+		getMatchUp({commit}, exponent) {
+      axios({
+				url: drf.movies.roundSelect(exponent)
+			})
+				.then(res => {
+					commit('GET_MATCH_UP', res.data)			
+				})
+		},
+		getWorldCup({commit, getters }, exponent) {
+			axios({
+				url: drf.movies.worldCup(exponent) + `${getters.currentUser.username}/`
+			})
+				.then(res => {
+					commit('GET_WORLD_CUP', res.data)
+				})
+		},
+		fillMovie ({commit}, i) {
+			commit('FILL_MOVIE', i)
+		},
+		getGenres ({commit}) {
+			axios({
+				url: drf.movies.genres()
+			})
+				.then(res => {
+					commit('GET_GENRES', res.data)
+				})
+		},
+		likeGenre({ commit, getters }, genre) {
+			axios({
+				url: drf.movies.like_genre(),
+				method: 'post',
+				header: getters.authHeader,
+				params: {
+					'username': getters.currentUser.username,
+					'genre': genre.id
+				}
+			})
+				.then(res => {
+					commit('SET_CURRENT_USER', res.data)
+				})
 		},
 	}
 }

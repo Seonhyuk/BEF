@@ -28,13 +28,6 @@ export default {
 
   actions: {
     fetchArticles({ commit, getters }) {
-      /* 게시글 목록 받아오기
-      GET: articles URL (token)
-        성공하면
-          응답으로 받은 게시글들을 state.articles에 저장
-        실패하면
-          에러 메시지 표시
-      */
       axios({
         url: drf.articles.articles(),
         method: 'get',
@@ -45,16 +38,6 @@ export default {
     },
 
     fetchArticle({ commit, getters }, articlePk) {
-      /* 단일 게시글 받아오기
-      GET: article URL (token)
-        성공하면
-          응답으로 받은 게시글들을 state.articles에 저장
-        실패하면
-          단순 에러일 때는
-            에러 메시지 표시
-          404 에러일 때는
-            NotFound404 로 이동
-      */
       axios({
         url: drf.articles.article(articlePk),
         method: 'get',

@@ -3,16 +3,13 @@
     <h1>Home</h1>
     <ul>
       <li v-for="article in articles" :key="article.pk">
-        <!-- 작성자 -->
         {{ article.user.username }} : 
 
-        <!-- 글 이동 링크 (제목) -->
         <router-link 
           :to="{ name: 'article', params: {articlePk: article.pk} }">
           {{ article.title }}
         </router-link>
 
-        <!-- 댓글 개수/좋아요 개수 -->
         =>
         ({{ article.comment_count }}) | +{{ article.like_count }}
 
@@ -28,16 +25,18 @@
   export default {
     name: 'ArticleList',
     computed: {
-      ...mapGetters(['articles', 'isLoggenIn'])
+      ...mapGetters(['articles', 'isLoggedIn'])
     },
     methods: {
       ...mapActions(['fetchArticles'])
     },
     created() {
-      if (!this.isLoggedIn) {
+    if (!this.isLoggedIn) {
+      console.log(this.isLoggedIn)
       this.$router.push({ name: 'login'})
-    }
+    } else {
       this.fetchArticles()
+    }
     },
   }
 </script>
