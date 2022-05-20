@@ -110,19 +110,19 @@ export default {
 				url : drf.movies.movie(moviePk),
 				method: 'GET',
 			})
-				.then(res => commit('SET_MOVIE_DETAIL', res.data))
-		}, 
-		setVideo({commit}, title) {
-			axios.get(URL, {
-				params: {
-					key: API_KEY,
-					type: 'video',
-					part: 'snippet',
-					q: title + '예고편'
-				}
-			})
 				.then(res => {
-					commit('SET_VIDEO', res.data.items[0].id.videoId)
+					commit('SET_MOVIE_DETAIL', res.data)
+					axios.get(URL, {
+						params: {
+							key: API_KEY,
+							type: 'video',
+							part: 'snippet',
+							q: res.data.title + '예고편'
+						}
+					})
+					.then(response => {
+						commit('SET_VIDEO', response.data.items[0].id.videoId)
+					})
 				})
 		}
 	}

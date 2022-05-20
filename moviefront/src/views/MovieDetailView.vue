@@ -19,11 +19,10 @@ export default {
     ...mapGetters(['movieDetail', 'video'])
   },
   methods: {
-    ...mapActions(['setMovieDetail', 'setVideo'])
+    ...mapActions(['setMovieDetail'])
   },
   created() {
     this.setMovieDetail(this.$route.params.moviePk)
-    this.setVideo(this.movieDetail.title)
   }
 }
 </script>

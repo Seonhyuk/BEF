@@ -23,3 +23,4 @@ def profile(request):
     user = User.objects.get(username=request.GET.get('username'))
     serializer = UserSerializer(user)
     return Response(serializer.data)
+
