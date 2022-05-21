@@ -1,15 +1,13 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <div>
-      <label for="title">title: </label>
-      <input v-model="newArticle.title" type="text" id="title" />
+    <div class="mb-3">
+      <input v-model="newArticle.title" type="text" id="article-title" class="form-control" placeholder="제목"/>
     </div>
     <div>
-      <label for="content">contnet: </label>
-      <textarea v-model="newArticle.content" type="text" id="content"></textarea>
+      <textarea v-model="newArticle.content" type="text" id="article-content" class="form-control" placeholder="내용"></textarea>
     </div>
-    <div>
-      <button>{{ action }}</button>
+    <div class="mt-3 d-flex justify-content-end">
+      <button id="create-article-btn">{{ action }}</button>
     </div>
   </form>
 </template>
@@ -49,4 +47,41 @@ import { mapActions } from 'vuex'
   }
 </script>
 
-<style></style>
+<style scoped>
+#article-title {
+  color: black;
+}
+
+#article-content {
+  height: 300px;
+}
+#create-article-btn{
+  z-index: 1000;
+  background-color: #ec1266;
+  color: white;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .create-article-btn {
+    transition: none;
+  }
+}
+#create-article-btn:hover {
+  border: 1px solid white;
+}
+</style>

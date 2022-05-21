@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Edit Article</h1>
+    <h1 id="edit-article-title" class="mt-5">EDIT</h1>
     <article-form v-if="isArticle" :article="article" action="update">
 
     </article-form>
@@ -27,4 +27,9 @@ import { mapGetters, mapActions } from 'vuex'
   }
 </script>
 
-<style></style>
+<style>
+#edit-article-title {
+  color: #ec1266;
+}
+
+</style>

@@ -16,7 +16,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('pk', 'user', 'content', 'article',)
+        fields = ('pk', 'user', 'content', 'article', 'created_at')
         read_only_fields = ('article', )
 
 
@@ -34,7 +34,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ('pk', 'user', 'title', 'content', 'comments', 'like_users')
+        fields = ('pk', 'user', 'title', 'content', 'comments', 'like_users', 'created_at')
 
 
 
@@ -51,7 +51,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ('pk', 'user', 'title', 'comment_count', 'like_count')
+        fields = ('pk', 'user', 'title', 'comment_count', 'like_count', 'content')
 
 
 

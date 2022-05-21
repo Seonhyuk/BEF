@@ -10,11 +10,11 @@
 
       <div class="list-inline d-flex ">
         <!-- 네비부분 -->
-        <router-link to="/" class="my-auto mx-2">Home</router-link>&nbsp;
-        <router-link to="/login" v-if="!currentUser.username" class="my-auto mx-2">Login</router-link>
-        <router-link to="/nyear" v-if="currentUser.username" class="my-auto mx-2">Nyear</router-link>&nbsp;
-        <router-link to="/community" v-if="currentUser.username" class="my-auto mx-2">Community</router-link>&nbsp;
-        <router-link to="/roundselect" v-if="currentUser.username" class="my-auto mx-2">Worldcup</router-link>&nbsp;
+        <router-link to="/" class="my-auto mx-2" id="router-link-name">Home</router-link>&nbsp;
+        <router-link to="/login" v-if="!currentUser.username" class="my-auto mx-2" id="router-link-name">Login</router-link>
+        <router-link to="/nyear" v-if="currentUser.username" class="my-auto mx-2" id="router-link-name">Nyear</router-link>&nbsp;
+        <router-link to="/community" v-if="currentUser.username" class="my-auto mx-2" id="router-link-name">Community</router-link>&nbsp;
+        <router-link to="/roundselect" v-if="currentUser.username" class="my-auto mx-2" id="router-link-name">Worldcup</router-link>&nbsp;
 
         <div class="my-auto mx-2">
           <button id="logout-btn" @click="logout()" v-if="currentUser.username" >Logout</button>
@@ -119,4 +119,7 @@ nav a.router-link-exact-active {
   height: 35px;
 }
 
+#router-link-name {
+  text-decoration: none;
+}
 </style>

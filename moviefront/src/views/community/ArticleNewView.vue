@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>New Article</h1>
+    <h1 id="new-article-title" class="mt-5">New Article</h1>
     <article-form :article="article" action="create"></article-form>
   </div>
 </template>
@@ -32,4 +32,9 @@ import { mapGetters } from 'vuex'
   }
 </script>
 
-<style></style>
+<style>
+#new-article-title {
+  color: #ec1266;
+}
+
+</style>

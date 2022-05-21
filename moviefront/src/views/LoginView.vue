@@ -6,14 +6,14 @@
 				<div class="form__field">
 					<label for="login__username"><svg class="icon">
 						<use xlink:href="#icon-user"></use>
-					</svg><span class="hidden">Username</span></label>
+					</svg><span id="hidden">Username</span></label>
 					<input  autocomplete="username" type="text" name="username" id="login__username"  class="form__input" placeholder="Username" v-model="credentials.username" required />
 				</div>
 
 				<div class="form__field">
         <label for="login__password"><svg class="icon">
             <use xlink:href="#icon-lock"></use>
-          </svg><span class="hidden">Password</span></label>
+          </svg><span id="hidden">Password</span></label>
         <input id="login__password" type="password" name="password" class="form__input" placeholder="Password" v-model="credentials.password" required>
 				</div>
 
@@ -22,7 +22,7 @@
 				</div>
 			</form>
 			
-			<p class="text--center">Not a member? <router-link :to="{ name: 'signup'}">Sign up now</router-link> <svg class="icon">
+			<p id="p" class="text--center">Not a member? <router-link :to="{ name: 'signup'}" id="a">Sign up now</router-link> <svg class="icon">
 				<use xlink:href="#icon-arrow-right"></use>
 			</svg></p>
 		</div>
@@ -88,7 +88,7 @@ export default {
 
 /* helpers/hidden.css */
 
-.hidden {
+#hidden {
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
@@ -157,14 +157,15 @@ body {
   --anchorColor: #eee;
 }
 
-a {
+#a {
   color: var(--anchorColor);
   outline: 0;
   text-decoration: none;
 }
 
-a:focus,
-a:hover {
+#a:focus,
+
+#a:hover {
   text-decoration: underline;
 }
 
@@ -271,7 +272,7 @@ input[type="submit"] {
 
 /* modules/text.css */
 
-p {
+#p {
   margin-block: 1.5rem;
 	color: #414850;
 }
