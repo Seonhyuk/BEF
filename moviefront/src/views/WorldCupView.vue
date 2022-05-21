@@ -1,14 +1,14 @@
 <template>
   <div>
-    <p v-if="idx > 127">128강</p>
-    <p v-else-if="idx > 63">64강</p>
-    <p v-else-if="idx > 31">32강</p>
-    <p v-else-if="idx > 15">16강</p>
-    <p v-else-if="idx > 7">8강</p>
-    <p v-else-if="idx > 3">4강</p>
-    <p v-else-if="idx > 1">2강</p>
+    <p v-if="idx > 127" class="title">128강</p>
+    <p v-else-if="idx > 63" class="title">64강</p>
+    <p v-else-if="idx > 31" class="title">32강</p>
+    <p v-else-if="idx > 15" class="title">16강</p>
+    <p v-else-if="idx > 7" class="title">8강</p>
+    <p v-else-if="idx > 3" class="title">4강</p>
+    <p v-else-if="idx > 1" class="title">2강</p>
 
-    <div v-if="idx > 1">
+    <div v-if="idx > 1" class="d-flex justify-content-center">
       <large-movie
         :i="idx"
       ></large-movie>
@@ -44,6 +44,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.title {
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 0;
+}
 
 </style>

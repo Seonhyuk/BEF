@@ -96,6 +96,7 @@ export default {
 				tree[i] = res[j]
 				j += 1
 			}
+			state.oIdx = 0
 			state.idx = len - 1
 			state.tournament = tree
 		},
