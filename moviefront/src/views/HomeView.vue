@@ -1,31 +1,37 @@
 <template>
-  <div class="home">
-    <h1>현재 상영 중</h1>
-    <div class="movie-card">
-      <SmallMovieVue
-        v-for="(movie, index) in nowMovies" 
-        :key="index"
-        :movie="movie"
-      />
+  <div class="home mt-5">
+
+    <div class="now-playing-div">
+      <h1 class="playing-title">상영중인영화</h1>
+      <div class="movie-card">
+        <SmallMovieVue
+          v-for="(movie, index) in nowMovies" 
+          :key="index"
+          :movie="movie"
+        />
+      </div>
     </div>
     <hr>
-    <h1>1년 전 이맘 때쯤</h1>
-    <div class="movie-card">
-      <SmallMovieVue
-        v-for="movie in lastMovies" 
-        :key="movie.title"
-        :movie="movie"
-      />
+    <div class="last-playing-div">
+      <h1 class="playing-title">작년상영</h1>
+      <div class="movie-card">
+        <SmallMovieVue
+          v-for="movie in lastMovies" 
+          :key="movie.title"
+          :movie="movie"
+        />
+      </div>
     </div>
     <hr>
-    
-    <h1>유저들이 1위로 뽑은 영화</h1>
-    <div class="movie-card">
-      <SmallMovieVue
-        v-for="movie in winMovies" 
-        :key="movie.id"
-        :movie="movie"
-      />
+    <div class="user-pick-playing-div">
+      <h1 class="playing-title">B.E.F들의 PICK!</h1>
+      <div class="movie-card">
+        <SmallMovieVue
+          v-for="movie in winMovies" 
+          :key="movie.id"
+          :movie="movie"
+        />
+      </div>
     </div>
 
 
@@ -35,6 +41,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import SmallMovieVue from '@/components/SmallMovie.vue'
+
 
 export default {
   name: 'HomeView',
@@ -59,6 +66,14 @@ export default {
 
 .movie-card {
   display: flex;
+}
+
+
+.playing-title {
+  text-align: start;
+  padding: 18px;
+  color: white;
+  font-size: 30px;
 }
 
 </style>
