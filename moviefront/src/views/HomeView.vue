@@ -1,37 +1,43 @@
 <template>
-  <div class="home mt-5">
+  <div class="home mt-4">
 
-    <div class="now-playing-div">
-      <h1 class="playing-title">상영중인영화</h1>
-      <div class="movie-card">
-        <SmallMovieVue
-          v-for="(movie, index) in nowMovies" 
-          :key="index"
-          :movie="movie"
-        />
+    <h1 class="playing-title">상영중인영화</h1>
+      <div class="movies">
+        <ul>
+          <SmallMovieVue
+            v-for="(movie, index) in nowMovies" 
+            :key="index"
+            :movie="movie"
+            class="element"
+          />
+        </ul>
       </div>
-    </div>
+
     <hr>
-    <div class="last-playing-div">
-      <h1 class="playing-title">작년상영</h1>
-      <div class="movie-card">
+
+    <h1 class="playing-title">작년상영</h1>
+    <div class="movies">
+      <ul>
         <SmallMovieVue
           v-for="movie in lastMovies" 
           :key="movie.title"
           :movie="movie"
+          class="element"
         />
-      </div>
+      </ul>
     </div>
     <hr>
-    <div class="user-pick-playing-div">
-      <h1 class="playing-title">B.E.F들의 PICK!</h1>
-      <div class="movie-card">
+
+    <h1 class="playing-title">B.E.F들의 PICK!</h1>
+    <div class="movies">
+      <ul>
         <SmallMovieVue
           v-for="movie in winMovies" 
           :key="movie.id"
           :movie="movie"
+          class="element"
         />
-      </div>
+      </ul>
     </div>
 
 
@@ -64,6 +70,18 @@ export default {
 
 <style scoped>
 
+.movies {
+  width: 80vw;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin: 10 auto;
+}
+
+
+.movies > ul > .element {
+  display: inline-block;
+}
+
 .movie-card {
   display: flex;
 }
@@ -75,5 +93,7 @@ export default {
   color: white;
   font-size: 30px;
 }
+
+
 
 </style>

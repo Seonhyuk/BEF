@@ -1,46 +1,53 @@
 <template>
-  <div id="app d-flex">
-    <nav class="container-fluid">
+  <div id="app">
+    <nav class="d-flex justify-content-between py-3 sticky-top" style="height: 80px; background-color: rgba(20, 20, 20);">
+      <!-- 로고 부분 -->
       <router-link to="/">
-        <a class="navbar-brand">
-        <!-- 로고는 일단 보려고 넣어놨습니당  -->
-        <img src="@/assets/logo.png" alt="logo" width="214" height="108.75" class="justify-content-start">
+        <a class="navbar-brand mx-3">
+          <img src="@/assets/logo.png" alt="logo" width="100">
         </a>
       </router-link>
-      <router-link to="/">Home</router-link>&nbsp;
-      <router-link to="/login" v-if="!currentUser.username">Login</router-link>
 
-      <router-link to="/nyear" v-if="currentUser.username">Nyear</router-link>&nbsp;
+      <div class="list-inline d-flex ">
+        <!-- 네비부분 -->
+        <router-link to="/" class="my-auto mx-2">Home</router-link>&nbsp;
+        <router-link to="/login" v-if="!currentUser.username" class="my-auto mx-2">Login</router-link>
+        <router-link to="/nyear" v-if="currentUser.username" class="my-auto mx-2">Nyear</router-link>&nbsp;
+        <router-link to="/community" v-if="currentUser.username" class="my-auto mx-2">Community</router-link>&nbsp;
+        <router-link to="/roundselect" v-if="currentUser.username" class="my-auto mx-2">Worldcup</router-link>&nbsp;
 
+        <div class="my-auto mx-2">
+          <button id="logout-btn" @click="logout()" v-if="currentUser.username" >Logout</button>
+        </div>
 
-      <router-link to="/community" v-if="currentUser.username">Community</router-link>&nbsp;
-      <router-link to="/roundselect" v-if="currentUser.username">Worldcup</router-link>&nbsp;
+        <!-- <router-link 
+          :to="{ name: 'profile', params:{ username:`${currentUser.username}`} }"
+          v-if="currentUser.username"
+          class="my-auto mx-2"
+        >Profile</router-link> -->
 
-      <button id="logout-btn" @click="logout()" v-if="currentUser.username">Logout</button>
-
-      <!-- <router-link 
-        :to="{ name: 'profile', params:{ username:`${currentUser.username}`} }"
-        v-if="currentUser.username"
-      >Profile</router-link> -->
-
-      <!-- 위치조정... -->
-      <span class="nav-item dropdown d-flex" v-if="currentUser.username">
-        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          MY
-        </a>
+        <!-- 위치조정... -->
+        <!-- 얘네가 아래로 내려간다 -->
+        <p class="nav-item dropdown my-auto mx-2" v-if="currentUser.username">
+          <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            MY
+          </a>
           <ul class="dropdown-menu text-dark" aria-labelledby="navbarDropdown">
             <li><router-link :to="{ name: 'profile', params:{ username:`${currentUser.username}`} }" v-if="currentUser.username" class="dropdown-item text-dark">프로필</router-link></li>
             <li><a class="dropdown-item" href="#">회원정보수정</a></li>
             <li><a class="dropdown-item" href="#">회원탈퇴</a></li>
           </ul>
-      </span>
+        </p>
 
+        <div class="mx-2 my-auto">
+          <input type="text" v-model="query" class="search-bar text-black">
+          <button  @click="[setSearchedMovies(query), removeQuery()]" class="search-button my-auto">검색</button>
+        </div>
+      </div>
 
-      <input type="text" v-model="query">
-      <button  @click="[setSearchedMovies(query), removeQuery()]">검색</button>
-
-    <router-view/>
     </nav>
+    
+    <router-view class="container"/>
   </div>
 </template>
 
@@ -101,6 +108,15 @@ nav a.router-link-exact-active {
   -moz-osx-font-smoothing: grayscale;
   color: #ffffff;
   font-weight: bold;
+}
+
+.search-bar {
+  height: 30px;
+}
+
+.search-button {
+  width: 50px;
+  height: 35px;
 }
 
 </style>
