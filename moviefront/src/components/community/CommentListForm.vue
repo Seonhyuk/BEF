@@ -36,7 +36,7 @@ export default {
 #comment-btn{
   z-index: 1000;
   margin: 5px;
-  background-color: #ec1266;
+  background-color: #F82F62;
   color: white;
   display: inline-block;
   font-weight: 400;

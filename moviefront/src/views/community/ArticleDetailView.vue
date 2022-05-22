@@ -96,7 +96,7 @@
 }
 #create-article-btn{
   z-index: 1000;
-  background-color: #ec1266;
+  background-color: #F82F62;
   color: white;
   display: inline-block;
   font-weight: 400;

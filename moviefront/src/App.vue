@@ -40,8 +40,8 @@
         </p>
 
         <div class="mx-2 my-auto">
-          <input type="text" v-model="query" class="search-bar text-black">
-          <button  @click="[setSearchedMovies(query), removeQuery()]" class="search-button my-auto">검색</button>
+          <input type="text" v-model="query" class="search-bar text-black form-control">
+          <button  @click="[setSearchedMovies(query), removeQuery()]" class="search-button my-auto" id="create-article-btn">검색</button>
         </div>
       </div>
 
@@ -78,13 +78,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #ffffff;
+  margin: 0px;
+  padding: 0px;
 }
 
 nav {
@@ -97,7 +99,7 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #ec1266;
+  color: #F82F62
 }
 
 #logout-btn {
@@ -121,5 +123,59 @@ nav a.router-link-exact-active {
 
 #router-link-name {
   text-decoration: none;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #ffffff;
+  background-color: rgb(49, 48, 48);
+  background-clip: padding-box;
+  border: 1px solid rgb(49, 48, 48);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.form-control:focus {
+  color: #ffffff;
+  background-color: rgb(49, 48, 48);
+  border-color: #ffffff;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+#create-article-btn{
+  z-index: 1000;
+  background-color: #F82F62;
+  color: white;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 12px;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .create-article-btn {
+    transition: none;
+  }
+}
+#create-article-btn:hover {
+  border: 1px solid white;
 }
 </style>

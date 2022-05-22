@@ -29,7 +29,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 <style>
 #edit-article-title {
-  color: #ec1266;
+  color: #F82F62;
 }
 
 </style>

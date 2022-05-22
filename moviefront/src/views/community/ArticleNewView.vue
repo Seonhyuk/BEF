@@ -34,7 +34,7 @@ import { mapGetters } from 'vuex'
 
 <style>
 #new-article-title {
-  color: #ec1266;
+  color: #F82F62;
 }
 
 </style>

@@ -61,7 +61,7 @@
 
 <style scoped>
 #hot-topic-h6 {
-  color: #ec1266;
+  color: #F82F62;
 }
 
 #one-card {
@@ -71,7 +71,7 @@
 }
 
 #create-btn {
-  background-color: #ec1266;
+  background-color: #F82F62;
   color: white;
 }
 

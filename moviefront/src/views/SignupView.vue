@@ -274,9 +274,9 @@ input[type="submit"] {
 
   --loginLabelBackgroundColor: #363b41;
 
-  --loginSubmitBackgroundColor: #ec1266;
+  --loginSubmitBackgroundColor: #F82F62;
   --loginSubmitColor: #eee;
-  --loginSubmitHoverBackgroundColor: #ec1266;
+  --loginSubmitHoverBackgroundColor: #F82F62;
 }
 
 .login {

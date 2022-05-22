@@ -90,7 +90,7 @@ export default {
   color: rgb(173, 173, 173);
 }
 #comment-edit-btn:hover{
-  color: #ec1266;
+  color: #F82F62;
 }
 #comment-delete-btn {
   background: none;
@@ -98,7 +98,7 @@ export default {
   color: rgb(173, 173, 173);
 }
 #comment-delete-btn:hover {
-  color: #ec1266;
+  color: #F82F62;
 }
 #edit-comment-form {
   width: 1100px;

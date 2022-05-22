@@ -7,17 +7,20 @@
 						<div class="front" :style="{backgroundImage: `url(https://image.tmdb.org/t/p/original/${ movie.poster_path })`}"></div>
             <div class="back">
 							<div class="inner">
-								<p>{{ movie.title }}</p>
-                <p><img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1609287743/noticon/oyo23yrstcp0rbd4uiqp.png" alt="" style="width: 18px;"> {{ movie.vote_average}}</p>
+								<p @click="goDetail()">{{ movie.title }}</p>
+                <p><img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1609287743/noticon/oyo23yrstcp0rbd4uiqp.png" alt="" style="width: 18px;" @click="goDetail()"> {{ movie.vote_average}}</p>
                 <hr>
+                <button class="btn btn-sm mt-4" @click="goDetail()">더보기</button>
+                <br>
+                
+                <div class="d-flex mx-2 mt-5 pt-5">
+                  <p @click="onSelect(1)" v-if="isLiked" class="is-liked btn btn-sm">좋아요👍</p>
+                  <p class="btn btn-sm" @click="onSelect(1)" v-else>좋아요👍</p><br>
 
-                <button @click="onSelect(1)" v-if="isLiked" class="is-liked">이 영화 좋아요!</button>
-                <button @click="onSelect(1)" v-else>이 영화 좋아요!</button><br>
+                  <p @click="onSelect(2)" v-if="isDisliked" class="is-disliked btn btn-sm">별로예요👎</p>
+                  <p class="btn btn-sm" @click="onSelect(2)" v-else>별로예요👎</p><br>
+                </div>
 
-                <button @click="onSelect(2)" v-if="isDisliked" class="is-disliked">이 영화 싫어요!</button>
-                <button @click="onSelect(2)" v-else>이 영화 싫어요!</button><br>
-
-                <button @click="goDetail()">자세히 보기</button>
               </div>
             </div>
           </div>
@@ -74,13 +77,11 @@ export default {
 
       this.selectMovie(payload)
     },
-
-
-  }
+  },
 }
 </script>
 
-<style>
+<style scoped>
 * {
   margin: 0;
   padding: 0;
@@ -268,14 +269,38 @@ export default {
 	}
 }
 
+
 .is-liked {
-  background-color: red;
-  color: white;
+  color: #ec1266;
 }
 
 .is-disliked {
-  background-color: blue;
-  color: white;
+  color: #ec1266;
+}
+.rating {
+  display: inline-block;
+  width: 100%;
+  margin-top: 40px;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.like,
+.dislike {
+  display: inline-block;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.dislike:hover,
+.like:hover {
+  color: #2EBDD1;
+  transition: all .2s ease-in-out;
+  transform: scale(1.1);
+}
+
+.active {
+  color: #2EBDD1;
 }
 
 </style>
