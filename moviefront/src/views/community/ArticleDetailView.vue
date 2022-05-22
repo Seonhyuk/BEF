@@ -5,7 +5,7 @@
         <h1>{{ article.title }}</h1>
       </div>
       <div>
-        <router-link :to="{ name: 'profile', params: {username: article.user.username} }" id="article-user-name"><p class="d-flex justify-content-start">{{ article.user.username }}</p></router-link>
+        <router-link :to="{ name: 'profile', params: {username: article.user.username} }" id="article-user-name"><p class="d-flex justify-content-start">작성자 {{ article.user.username }}</p></router-link>
         <p id="article-created-text">{{ article.created_at}}</p>
         <hr>
       </div>

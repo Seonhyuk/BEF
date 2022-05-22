@@ -29,16 +29,21 @@
   </div>
 
 
+
   </div>
 </template>
 
 <script>
   import { mapActions, mapGetters } from 'vuex'
+ 
 
   export default {
     name: 'ArticleList',
     computed: {
-      ...mapGetters(['articles', 'isLoggedIn'])
+      ...mapGetters(['articles', 'isLoggedIn']),
+      articleCnt () {
+        return this.articles.length
+      }
     },
     methods: {
       ...mapActions(['fetchArticles'])
