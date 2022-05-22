@@ -9,6 +9,8 @@ export default {
 		currentUser: {},
 		profile: {},
 		authError: null,
+
+		isUsed: false,
 	},
 
 	getters: {
@@ -16,7 +18,13 @@ export default {
 		currentUser: state => state.currentUser,
 		profile: state => state.profile,
 		authError: state => state.authError,
-		authHeader: state => ({ Authorization: `Token ${state.token}`})
+		authHeader: state => ({ Authorization: `Token ${state.token}`}),
+
+		isUsed: state => state.isUsed,
+
+		dislikedMovies: state => state.currentUser.disliked_movies,
+		wishedMovies: state => state.currentUser.wished_to_movies,
+
 	},
 
 	mutations: {
@@ -25,6 +33,8 @@ export default {
 		SET_PROFILE: (state, profile) => state.profile = profile,
 		SET_AUTH_ERROR: (state, error) => state.authError = error,
 		REMOVE_CURRENT_USER : state => state.currentUser = {},
+
+		SET_IS_USED: (state, result) => state.isUsed = result
 	},
 
 	actions: {
@@ -32,11 +42,13 @@ export default {
 			commit('SET_TOKEN', token)
 			localStorage.setItem('token', token)
 		},
+
 		// 굳이 있어야할까?
 		removeToken({ commit }) {
 			commit('SET_TOKEN', '')
 			localStorage.setItem('token', '')
 		},
+
 		login({ commit, dispatch }, credentials) {
 			axios({
 				url: drf.accounts.login(),
@@ -50,29 +62,67 @@ export default {
 					router.push({ name: 'home' })
 				})
 				.catch(err => {
-					console.error(err.response.data)
+					alert('ID와 비밀번호를 확인하세요.')
 					commit('SET_AUTH_ERROR', err.response.data)
 				})
 		},
-		signup({ commit, dispatch }, credentials) {
-			console.log(credentials)
-			axios({
-				url: drf.accounts.signup(),
-				method: 'post',
-				data: credentials
-			})
-				.then(res => {
-					const token = res.data.key
-					dispatch('saveToken', token)
-					dispatch('fetchCurrentUser')
-					// router 경로 장르 선택 창으로 수정해야됨
-					router.push({ name: 'home' })
+
+		signup({ commit, dispatch, getters }, credentials) {
+			const newForm = {
+				username: credentials.username,
+				password1: credentials.password1,
+				password2: credentials.password2,
+			}
+
+			if (!credentials.nickname) {
+				alert('닉네임을 입력해주세요!')
+			}	else {
+
+				axios({
+					url: drf.accounts.nickname(credentials.nickname),
+					method: 'get'
 				})
-				.catch(err => {
-					console.error(err)
-					commit('SET_AUTH_ERROR', err.response.data)
-				})
+					.then(res => {
+						if (res.data.data) {
+							alert('이미 사용중인 닉네임입니다.')
+						} else {
+		
+							axios({
+								url: drf.accounts.signup(),
+								method: 'post',
+								data: newForm,
+							})
+								.then(res => {
+									const token = res.data.key
+									dispatch('saveToken', token)
+									axios({
+										url: drf.accounts.currentUserInfo(),
+										method: 'get',
+										headers: getters.authHeader,
+									})
+										.then(res => {
+											axios({
+												url: drf.accounts.signupPlus(res.data.username, credentials.nickname),
+												method: 'post'
+											})
+												.then(() => {
+													dispatch('fetchCurrentUser')
+													router.push({ name: 'home' })
+												})
+										})
+								})
+								.catch(err => {
+									commit('SET_AUTH_ERROR', err.response.data)
+									for (let error in getters.authError) {
+										alert(getters.authError[error][0])
+									}
+								})
+						}
+					})
+					
+			}
 		},
+
 		logout({ getters, dispatch, commit }) {
 			axios({
 				url: drf.accounts.logout(),
@@ -89,6 +139,7 @@ export default {
 					console.error(err.response)
 				})
 		},
+
 		fetchCurrentUser({ commit, getters, dispatch }) {
 			if (getters.isLoggedIn) {
 				axios({
@@ -115,6 +166,7 @@ export default {
 					})
 			}
 		},
+
 		fetchProfile({ commit, getters }, username) {
 			axios({
 				url: drf.accounts.profile(),
@@ -128,7 +180,5 @@ export default {
 					commit('SET_PROFILE', res.data)
 				})
 		},
-
-
 	}
 }

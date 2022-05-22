@@ -8,6 +8,9 @@ class User(AbstractUser):
     # 유저 이름 저장
     name = models.CharField(max_length=10, null=False)
 
+    # 유저 프로필 사진
+    profile_image = models.ImageField(upload_to="", blank=True)
+
     # 좋아하는 장르 정보
     liked_genre = models.ManyToManyField(Genre)
 

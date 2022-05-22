@@ -116,7 +116,9 @@ def recommend(request, username):
         for i in range(len(movies)):
             for j in range(len(movies[i])):
                 m = movies[i][j]
-                if user.watched_movies.filter(pk=m.pk).exist() or user.wished_to_movies.filter(pk=m.pk).exists() or user.disliked_movies.filter(pk=m.pk).exists() or m.pk in user.recently_recommended_movies or m in recommend:
+                if user.watched_movies.filter(pk=m.pk).exists() or user.wished_to_movies.filter(pk=m.pk).exists():
+                    continue
+                elif user.disliked_movies.filter(pk=m.pk).exists() or m.pk in user.recently_recommended_movies or m in recommend:
                     continue
                 else:
                     recommend.append(m)
@@ -136,7 +138,8 @@ def worldcup(request, exponent, username):
     user = User.objects.get(username=username)
     
     watched_movie = list(user.watched_movies.order_by('-popularity')[:200])
-    popular_movie = list(Movie.objects.filter(popularity__gte=20, vote_average__gte=7).order_by('-popularity')[:200])
+    popular_movie = list(Movie.objects.order_by('-popularity')[:300])
+    print(len(popular_movie))
 
     movie = Movie.objects.get(title='రౌద్రం రణం రుధిరం')
     if movie in popular_movie:
@@ -298,14 +301,6 @@ def get_movie_review(request, movie_id):
         }
 
         return Response(data, status=status.HTTP_201_CREATED)
-        
-
-
-
-# 리뷰를 추가하는 함수
-@api_view(['POST'])
-def add_review(request, username, movie_id):
-    pass
 
 
 # 리뷰를 업데이트하는 함수
@@ -352,4 +347,43 @@ def like_genres(request):
     serializer = UserSerializer(user)
 
     return Response(serializer.data)
+
+
+# 영화 좋아요, 싫어요, 이미 봤어요 추가 및 제거
+@api_view(['POST'])
+def select(request, movie_pk):
+    user = User.objects.get(username=request.GET.get('username'))
+    movie = Movie.objects.get(pk=movie_pk)
+
+    # 1은 좋아요, 2는 싫어요, 3은 이미 봤어요
+    if request.GET.get('type') == '1':
+        if user.wished_to_movies.filter(pk=movie_pk).exists():
+            user.wished_to_movies.remove(movie)
+        elif not user.disliked_movies.filter(pk=movie_pk).exists():
+            user.wished_to_movies.add(movie)
+
+        movies = user.wished_to_movies.all()
+        serializers = MovieSerializer(movies, many=True)
+
+    elif request.GET.get('type') == '2':
+        if user.disliked_movies.filter(pk=movie_pk).exists():
+            user.disliked_movies.remove(movie)
+        elif not user.wished_to_movies.filter(pk=movie.pk).exists():
+            user.disliked_movies.add(movie)
+
+        movies = user.disliked_movies.all()
+        serializers = MovieSerializer(movies, many=True)
+
+    else:
+        if user.watched_movies.filter(pk=movie_pk).exists():
+            user.watched_movies.remove(movie)
+        else:
+            user.watched_movies.add(movie)
+
+        movies = user.watched_movies.all()
+        serializers = MovieSerializer(movies, many=True)
+
+    return Response(serializers.data)
+
     
+

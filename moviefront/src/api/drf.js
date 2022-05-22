@@ -11,8 +11,11 @@ export default {
 		login: () => HOST + ACCOUNTS + 'login/',
 		logout: () => HOST + ACCOUNTS + 'logout/',
 		signup: () => HOST + ACCOUNTS + 'signup/',
+		signupPlus: (username, nickname) => HOST + ACCOUNTS + 'signup_plus/' + `${username}/` + `${nickname}/`,
+
 		currentUserInfo: () => HOST + ACCOUNTS + 'user/',
 		profile: () => HOST + ACCOUNTS + 'profile/',
+		nickname: nickname => HOST + ACCOUNTS + 'nickname/' + `${nickname}/`,
 	},
 	movies: {
 		movies: () => HOST + MOVIES,
@@ -25,9 +28,11 @@ export default {
 		recommendMovies: () => HOST + MOVIES + 'recommend/',
 		nyearMovies: year => HOST + MOVIES + 'nyear/' + `${year}/`,
 
-		likeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'like/',
-		dislikeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'dislike/',
-		watchedMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'watched/',
+		// likeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'like/',
+		// dislikeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'dislike/',
+		// watchedMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'watched/',
+		selectMovie: moviePk => HOST + MOVIES + 'select/' + `${moviePk}/`,
+
 
 		searchMovie: query => HOST + MOVIES + 'search/' + `${query}/`,
 		

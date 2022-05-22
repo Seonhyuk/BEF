@@ -10,6 +10,13 @@
 								<p>{{ movie.title }}</p>
                 <p><img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1609287743/noticon/oyo23yrstcp0rbd4uiqp.png" alt="" style="width: 18px;"> {{ movie.vote_average}}</p>
                 <hr>
+
+                <button @click="onSelect(1)" v-if="isLiked" class="is-liked">이 영화 좋아요!</button>
+                <button @click="onSelect(1)" v-else>이 영화 좋아요!</button><br>
+
+                <button @click="onSelect(2)" v-if="isDisliked" class="is-disliked">이 영화 싫어요!</button>
+                <button @click="onSelect(2)" v-else>이 영화 싫어요!</button><br>
+
                 <button @click="goDetail()">자세히 보기</button>
               </div>
             </div>
@@ -21,15 +28,54 @@
 </template>
 
 <script scoped>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'SmallMovie',
   props: {
     movie: Object,
   }, 
+  computed: {
+    ...mapGetters(['currentUser', 'isLoggedIn', 'dislikedMovies', 'wishedMovies']),
+    isLiked () {
+      if (this.isLoggedIn && this.wishedMovies?.length) {
+        for (let m of this.wishedMovies) {
+          if (m.id === this.movie.id) {
+            return true
+          }
+        }
+      }
+      return false
+    },
+    isDisliked () {
+      if (this.isLoggedIn && this.dislikedMovies?.length) {
+        for (let m of this.dislikedMovies) {
+          if (m.id === this.movie.id) {
+            return true
+          }
+        }
+      }
+      return false
+    },
+  },
   methods: {
     goDetail () {
       this.$router.push({ name: 'moviedetail', params: { moviePk: `${this.movie.id}` }})
-    }
+    },
+
+    ...mapActions(['selectMovie']),
+
+    onSelect (n) {
+      const payload = {
+        moviePk: this.movie.id,
+        username: this.currentUser.username,
+        m: n,
+      }
+
+      this.selectMovie(payload)
+    },
+
+
   }
 }
 </script>
@@ -220,6 +266,16 @@ export default {
 		width: 100%;
 		margin: 0 0 2rem 0;
 	}
+}
+
+.is-liked {
+  background-color: red;
+  color: white;
+}
+
+.is-disliked {
+  background-color: blue;
+  color: white;
 }
 
 </style>

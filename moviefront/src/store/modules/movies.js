@@ -107,7 +107,7 @@ export default {
 		},
 		GET_GENRES (state, res) {
 			state.genres = res
-		}
+		},
 
 	},
 	actions: {
@@ -171,7 +171,7 @@ export default {
 							key: API_KEY,
 							type: 'video',
 							part: 'snippet',
-							q: res.data.title + '예고편'
+							q: res.data.title
 						}
 					})
 					.then(response => {
@@ -245,5 +245,28 @@ export default {
 					commit('SET_CURRENT_USER', res.data)
 				})
 		},
+
+		selectMovie({ dispatch, getters }, payload) {
+			if (!getters.isLoggedIn) {
+				alert('로그인한 회원만 선택할 수 있습니다.')
+			} else {
+				const moviePk = payload.moviePk
+				const username = getters.currentUser.username
+				const m = payload.m
+				axios({
+					url: drf.movies.selectMovie(moviePk),
+					method: 'post',
+					header: getters.authHeader,
+					params: {
+						'username': username,
+						'type': m,
+					}
+				})
+					.then( () => {
+						dispatch('fetchCurrentUser')
+					}
+					)
+			}
+		}
 	}
 }

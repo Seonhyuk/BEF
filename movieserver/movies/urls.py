@@ -15,4 +15,6 @@ urlpatterns = [
     path('genres/', views.get_genres),
     path('like_genre/', views.like_genres),
     
+    path('select/<int:movie_pk>/', views.select),
+
 ]

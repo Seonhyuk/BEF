@@ -33,7 +33,7 @@
       <ul>
         <SmallMovieVue
           v-for="movie in winMovies" 
-          :key="movie.id"
+          :key="movie.poster_path"
           :movie="movie"
           class="element"
         />

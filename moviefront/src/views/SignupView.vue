@@ -3,25 +3,35 @@
 		<div class="grid">
 			<h1 id="signup-title">SignUp</h1>
 			<form @submit.prevent="signup(credentials)" class="form login">
+
+        
+
+				<div class="form__field">
+					<label for="login__nickname"><svg class="icon">
+						<use xlink:href="#icon-user"></use>
+					</svg><span class="hidden"></span></label>
+					<input  autocomplete="nickname" type="text" name="nickname" id="login__nickname"  class="form__input" placeholder="닉네임을 입력해주세요" v-model="credentials.nickname" required />
+				</div>
+
 				<div class="form__field">
 					<label for="login__username"><svg class="icon">
 						<use xlink:href="#icon-user"></use>
 					</svg><span class="hidden"></span></label>
-					<input  autocomplete="username" type="text" name="username" id="login__username"  class="form__input" placeholder="Username" v-model="credentials.username" required />
+					<input  autocomplete="username" type="text" name="username" id="login__username"  class="form__input" placeholder="ID를 입력해주세요" v-model="credentials.username" required />
 				</div>
 
 				<div class="form__field">
         <label for="login__password"><svg class="icon">
             <use xlink:href="#icon-lock"></use>
           </svg><span class="hidden"></span></label>
-        <input id="login__password" type="password" name="password" class="form__input" placeholder="Password1" v-model="credentials.password1" required>
+        <input id="login__password" type="password" name="password" class="form__input" placeholder="비밀번호를 입력해주세요" v-model="credentials.password1" required>
 				</div>
 
 				<div class="form__field">
-        <label for="login__password"><svg class="icon">
+        <label for="login__password2"><svg class="icon">
             <use xlink:href="#icon-lock"></use>
           </svg><span class="hidden"></span></label>
-        <input id="login__password" type="password" name="password" class="form__input" placeholder="Password2" v-model="credentials.password2" required>
+        <input id="login__password2" type="password" name="password" class="form__input" placeholder="한 번 더 입력해주세요" v-model="credentials.password2" required>
 				</div>
 
 				<div class="form__field">
@@ -51,7 +61,8 @@ export default {
 	name: 'SignupView',
 	data () {
 		return {
-			credentials: {
+      credentials: {
+        nickname: '',
 				username: '',
 				password1: '',
 				password2: '',
