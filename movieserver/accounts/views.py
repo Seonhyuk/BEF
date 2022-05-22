@@ -1,5 +1,7 @@
 import base64
 
+import pprint
+
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 
 from django.contrib.auth import get_user_model
@@ -53,24 +55,10 @@ def nickname(request, nickname):
 def signup_plus(request, username, nickname):
     user = User.objects.get(username=username)
     user.name = nickname
+    user.profile_image = request.data['image']
     user.save()
 
     data = {
         'user': 'created'
     }
     return Response(data, status=status.HTTP_201_CREATED)
-
-
-@api_view(['POST'])
-def upload_image(request, username):
-    user = User.objects.get(username=username)
-
-    image = request.data['img_base64']
-    imgdata = base64.b64decode(image)
-
-    user.profile_image = imgdata
-    user.save()
-
-    serializer = UserSerializer(user)
-
-    return Response(serializer.data)

@@ -103,7 +103,11 @@ export default {
 										.then(res => {
 											axios({
 												url: drf.accounts.signupPlus(res.data.username, credentials.nickname),
-												method: 'post'
+												method: 'post',
+												headers: getters.authHeader,
+												data: {
+													'image': credentials.img,
+												}
 											})
 												.then(() => {
 													dispatch('fetchCurrentUser')

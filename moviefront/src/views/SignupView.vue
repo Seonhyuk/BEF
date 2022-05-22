@@ -2,9 +2,28 @@
   <div class="align">
 		<div class="grid">
 			<h1 id="signup-title">SignUp</h1>
-			<form @submit.prevent="signup(credentials)" class="form login">
 
-        
+
+			<form @submit.prevent="signup(credentials)" class="form login">
+        <div class="d-flex">
+
+          <img v-if="credentials.img" :src="credentials.img" alt="" class="profile-image">
+          <img v-else src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="profile-image">
+
+          <div class="button-wrapper">
+            <span class="label">
+              Upload Image
+            </span>
+            <input 
+              id="upload"
+              type="file" 
+              accept="image/*" 
+              @change="onInputImage" 
+              ref="image"
+              class="upload-box"
+            >
+          </div>
+        </div>
 
 				<div class="form__field">
 					<label for="login__nickname"><svg class="icon">
@@ -61,7 +80,9 @@ export default {
 	name: 'SignupView',
 	data () {
 		return {
+      
       credentials: {
+        img: null,
         nickname: '',
 				username: '',
 				password1: '',
@@ -70,12 +91,32 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions(['signup'])
+		...mapActions(['signup']),
+    encodeBase64ImageFile (image) {
+      return new Promise((resolve, reject) => {
+        let reader = new FileReader()
+        reader.readAsDataURL(image[0])
+        reader.onload = (event) => {
+          resolve(event.target.result)
+        }
+        reader.onerror = (error) => {
+          reject(error)
+        }
+      })
+    },
+
+    onInputImage() {
+      this.encodeBase64ImageFile(this.$refs.image.files)
+        .then(data => {
+          this.credentials.img = data
+        })
+    },
+   
 	}
 }
 </script>
 
-<style>
+<style scoped>
 @use postcss-preset-env {
   stage: 0;
 }
@@ -297,4 +338,45 @@ input[type="submit"] {
 #login-title {
 	padding: 5px;
 }
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 70%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.button-wrapper {
+  position: relative;
+  width: 150px;
+  text-align: center;
+  margin: 20% auto;
+}
+
+.button-wrapper span.label {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  width: 100%;
+  background: #00bfff;
+  cursor: pointer;
+  color: #fff;
+  padding: 10px 0;
+  text-transform:uppercase;
+  font-size:12px;
+}
+
+#upload {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 50px;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
 </style>
