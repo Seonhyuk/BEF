@@ -18,7 +18,7 @@ from .serializers import UserSerializer
 from .models import User
 
 # 팔로우
-@require_POST
+@api_view(['POST'])
 def follow(request, my_name, your_name):
     user = get_object_or_404(User, username=my_name)
     you = get_object_or_404(User, username=your_name)
@@ -29,6 +29,11 @@ def follow(request, my_name, your_name):
         else:
             user.followings.add(you)
 
+    data = {
+        'data': 'success',
+    }
+    
+    return Response(data, status=status.HTTP_200_OK)
     
 
 @api_view(['GET'])

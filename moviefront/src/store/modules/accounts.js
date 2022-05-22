@@ -184,5 +184,17 @@ export default {
 					commit('SET_PROFILE', res.data)
 				})
 		},
+
+		followYou({ dispatch, getters }, yourname) {
+			axios({
+				url: drf.accounts.follow(getters.currentUser.username, yourname),
+				method: 'post',
+				header: getters.authHeader,
+			})
+				.then(() => {
+					dispatch('fetchCurrentUser')
+					dispatch('fetchProfile', yourname)
+				})
+		}
 	}
 }
