@@ -26,7 +26,8 @@
                     <p @click="onSelect(3)" v-if="isWatched" class="is-watched btn btn-sm">이미 봤어요😎</p>
                     <p class="btn btn-sm button-color" @click="onSelect(3)" v-else>이미 봤어요😎</p><br>
                   </div>
-
+                  <br>
+                  <hr>
                   <button class="btn btn-sm mt-4 button-color" @click="goDetail()">더보기</button>
 
                 </div>

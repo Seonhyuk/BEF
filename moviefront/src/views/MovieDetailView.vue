@@ -70,6 +70,7 @@ export default {
   computed: {
     ...mapGetters(['movieDetail', 'video', 'reviews', 'currentUser', 'backDropImage']),
     setBackImg() {
+      console.log(this.backDropImage.backdrops[this.num]?.file_path)
       return this.backDropImage.backdrops[this.num]?.file_path
     }
   },
@@ -93,8 +94,7 @@ export default {
   },
   mounted() {
     setInterval(() => {
-      this.num +=1
-      this.num %= this.backDropImage?.length
+      this.num = (this.num + 1) % this.backDropImage?.backdrops.length
     }, 1000);
   }
 }

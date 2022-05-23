@@ -3,7 +3,10 @@
 
     <div v-if="nowMovies.length" id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <div class="carousel-item active" v-for="idx in [0, 1, 2, 3, 4]" :key="idx">
+        <div class="carousel-item active">
+          <img :src="`https://image.tmdb.org/t/p/original/${nowMovies[0].backdrop_path}`" class="d-block w-100 border-color" alt="...">
+        </div>
+        <div class="carousel-item" v-for="idx in [1, 2, 3, 4]" :key="idx">
           <img :src="`https://image.tmdb.org/t/p/original/${nowMovies[idx].backdrop_path}`" class="d-block w-100 border-color" alt="...">
         </div>
       </div>
