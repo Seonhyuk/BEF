@@ -1,6 +1,6 @@
 <template>
   <div class="main-box py-5 container">
-    <h1>{{ profile.name }}({{ profile.username }})</h1>
+    <h1 class="fw-bold">{{ profile.name }}({{ profile.username }})</h1>
     <hr>
 
     <div class="d-flex justify-content-between">
@@ -32,13 +32,19 @@
           v-show="isLoggedIn && profile.username === currentUser.username"
           class="change-button"
         >프로필 사진 변경</button>
+
+        <button 
+          @click="goSelectGenre"
+          v-show="isLoggedIn && profile.username === currentUser.username"
+          class="change-button2 my-1"
+        >선호 장르 선택</button>
       </div>
 
     </div>
     <hr>
   
     <h1 class="playing-title ms-4">{{ profile.name }}님이 좋아하는 영화</h1>
-    <div class="movies">
+    <div class="movies" v-if="likedLength">
       <ul class="zero-padding">
         <SmallMovieVue
           v-for="movie in profile.wished_to_movies" 
@@ -47,6 +53,11 @@
           class="element"
         />
       </ul>
+    </div>
+    <div v-else>
+      <div class="empty-box">
+        <h2 class="empty-text">{{ profile.name }}님이 좋아하는 없습니다!</h2>
+      </div>
     </div>
     <hr>
 
@@ -96,6 +107,9 @@ export default {
     watchedLength () {
       return this.profile.watched_movies?.length
     },
+    likedLength () {
+      return this.profile.wished_to_movies?.length
+    },
 
     checkFollow () {
       for (let person of this.currentUser.followings) {
@@ -108,7 +122,10 @@ export default {
 
   },
   methods : {
-    ...mapActions(['fetchProfile', 'followYou'])
+    ...mapActions(['fetchProfile', 'followYou']),
+    goSelectGenre() {
+      this.$router.push({ name: 'genres' })
+    }
   },
   created () {
     if (!this.$route.params.username) {
@@ -224,6 +241,26 @@ hr {
   color: white;
   border: 0px;
   border-radius: 30px;
+}
+
+.change-button:hover {
+  background-color: rgb(188, 67, 112);
+}
+
+.change-button2 {
+  width: 50%;
+  height: 30px;
+  margin: 15px auto 15px auto;
+  box-shadow: -1px 0 white, 0 1px white, 1px 0 #FFF, 0 -1px #FFF;
+  background-color: rgb(91, 199, 209);
+  font-weight: bold;
+  color: white;
+  border: 0px;
+  border-radius: 30px;
+}
+
+.change-button2:hover {
+  background-color: rgb(75, 164, 172);
 }
 
 .movies {

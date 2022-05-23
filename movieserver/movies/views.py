@@ -126,6 +126,8 @@ def recommend(request, username):
                     if len(user.recently_recommended_movies) > 200:
                         user.recently_recommended_movies.popleft()
                     break
+            if len(recommend) >= 12:
+                break       
     
     print(len(user.recently_recommended_movies))
 

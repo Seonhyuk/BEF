@@ -152,7 +152,7 @@ export default {
 }
 
 .movies::-webkit-scrollbar{
-  width: 0px;
+  width: 1px;
 }
 
 .movies > ul {

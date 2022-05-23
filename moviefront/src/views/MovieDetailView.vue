@@ -70,14 +70,12 @@ export default {
   computed: {
     ...mapGetters(['movieDetail', 'video', 'reviews', 'currentUser', 'backDropImage']),
     setBackImg() {
-      console.log(this.backDropImage.backdrops[this.num]?.file_path)
       return this.backDropImage.backdrops[this.num]?.file_path
     }
   },
   methods: {
     ...mapActions(['setMovieDetail', 'setReviews', 'createReview', 'getMovieBackDropImage']),
     onSubmit() {
-      console.log(this.currentUser.username)
       const payload = {
         moviePk: this.$route.params.moviePk,
         username: this.currentUser.username,

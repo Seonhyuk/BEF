@@ -5,7 +5,6 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
 import ProfileView from '@/views/ProfileView.vue'
-import NyearView from '@/views/NyearView.vue'
 import SearchView from '@/views/SearchView.vue'
 import MovieDetailView from '@/views/MovieDetailView.vue'
 import RoundSelectView from '@/views/RoundSelectView.vue'
@@ -42,11 +41,6 @@ const routes = [
     path: '/profile/:username',
     name: 'profile',
     component: ProfileView
-  },
-  {
-    path: '/nyear',
-    name: 'nyear',
-    component: NyearView
   },
   {
     path: '/search',

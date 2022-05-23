@@ -112,7 +112,7 @@ export default {
 											})
 												.then(() => {
 													dispatch('fetchCurrentUser')
-													router.push({ name: 'home' })
+													router.push({ name: 'genres' })
 												})
 										})
 								})
