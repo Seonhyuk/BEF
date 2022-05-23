@@ -18,7 +18,7 @@
     </div>
 
 
-    <h1 class="playing-title mt-4">상영중 영화 🎥</h1>
+    <h1 class="playing-title mt-4 ms-4">상영중 영화 🎥</h1>
     <div class="movies">
       <ul>
         <SmallMovieVue
@@ -51,7 +51,7 @@
 
     <hr>
 
-    <h1 class="playing-title">{{ theMonth + 1 }}월엔 이 영화 🎬</h1>
+    <h1 class="playing-title ms-4">{{ theMonth + 1 }}월엔 이 영화 🎬</h1>
     <div class="movies">
       <ul>
         <SmallMovieVue
@@ -64,7 +64,7 @@
     </div>
     <hr>
 
-    <h1 class="playing-title">B.E.F들의 PICK!</h1>
+    <h1 class="playing-title ms-4">B.E.F들의 PICK!</h1>
     <div class="movies">
       <ul>
         <SmallMovieVue
@@ -78,7 +78,7 @@
 
     <div v-if="isLoggedIn">
       <hr>
-      <h1 class="playing-title">{{ currentUser.name }}님을 위한 추천 영화 🌹</h1>
+      <h1 class="playing-title ms-4">{{ currentUser.name }}님을 위한 추천 영화 🌹</h1>
       <div class="row">
         <SmallMovieVue 
           class="col-6 col-lg-3" 

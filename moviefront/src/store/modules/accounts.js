@@ -24,6 +24,7 @@ export default {
 
 		dislikedMovies: state => state.currentUser.disliked_movies,
 		wishedMovies: state => state.currentUser.wished_to_movies,
+		watchedMovies: state => state.currentUser.watched_movies,
 
 	},
 

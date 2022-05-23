@@ -112,7 +112,7 @@ def recommend(request, username):
 
     recommend = []
 
-    while len(recommend) < 20:
+    while len(recommend) < 12:
         for i in range(len(movies)):
             for j in range(len(movies[i])):
                 m = movies[i][j]
@@ -127,6 +127,8 @@ def recommend(request, username):
                         user.recently_recommended_movies.popleft()
                     break
     
+    print(len(user.recently_recommended_movies))
+
     serializer = MovieSerializer(recommend, many=True)
 
     return Response(serializer.data)
@@ -139,7 +141,6 @@ def worldcup(request, exponent, username):
     
     watched_movie = list(user.watched_movies.order_by('-popularity')[:200])
     popular_movie = list(Movie.objects.order_by('-popularity')[:300])
-    print(len(popular_movie))
 
     movie = Movie.objects.get(title='రౌద్రం రణం రుధిరం')
     if movie in popular_movie:

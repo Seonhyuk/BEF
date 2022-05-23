@@ -9,47 +9,53 @@
 
             <div class="back" v-if="backdropPath" :style="{backgroundImage: `url(https://image.tmdb.org/t/p/original/${ backdropPath })`}">
               <div class="black">
-							<div class="inner">
-								<p @click="goDetail()">{{ movie.title }}</p>
-                <p><img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1609287743/noticon/oyo23yrstcp0rbd4uiqp.png" alt="" style="width: 18px;" @click="goDetail()"> {{ movie.vote_average}}</p>
-                <br>
-                <hr>
-                <br>
-                
-                <div class="">
-                  <p @click="onSelect(1)" v-if="isLiked" class="is-liked btn btn-sm">좋아요👍</p>
-                  <p class="btn btn-sm button-color" @click="onSelect(1)" v-else>좋아요👍</p><br>
+                <div class="inner">
+                  <p @click="goDetail() ">{{ movie.title }}</p>
+                  <p><img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1609287743/noticon/oyo23yrstcp0rbd4uiqp.png" alt="" style="width: 18px;" @click="goDetail()"> {{ movie.vote_average}}</p>
+                  <br>
+                  <hr>
+                  <br>
+                  
+                  <div class="">
+                    <p @click="onSelect(1)" v-if="isLiked" class="is-liked btn btn-sm">좋아요👍</p>
+                    <p class="btn btn-sm button-color" @click="onSelect(1)" v-else>좋아요👍</p><br>
 
-                  <p @click="onSelect(2)" v-if="isDisliked" class="is-disliked btn btn-sm">별로예요👎</p>
-                  <p class="btn btn-sm button-color" @click="onSelect(2)" v-else>별로예요👎</p><br>
+                    <p @click="onSelect(2)" v-if="isDisliked" class="is-disliked btn btn-sm">별로예요👎</p>
+                    <p class="btn btn-sm button-color" @click="onSelect(2)" v-else>별로예요👎</p><br>
+
+                    <p @click="onSelect(3)" v-if="isWatched" class="is-watched btn btn-sm">이미 봤어요😎</p>
+                    <p class="btn btn-sm button-color" @click="onSelect(3)" v-else>이미 봤어요😎</p><br>
+                  </div>
+
+                  <button class="btn btn-sm mt-4 button-color" @click="goDetail()">더보기</button>
+
                 </div>
-
-                <button class="btn btn-sm mt-4 button-color" @click="goDetail()">더보기</button>
-
-              </div>
               </div>
             </div>
 
             <div class="back" v-else style="background-color: gray;">
               <div class="black">
-							<div class="inner">
-								<p @click="goDetail()">{{ movie.title }}</p>
-                <p><img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1609287743/noticon/oyo23yrstcp0rbd4uiqp.png" alt="" style="width: 18px;" @click="goDetail()"> {{ movie.vote_average}}</p>
-                <br>
-                <hr>
-                <br>
-                
-                <div class="">
-                  <p @click="onSelect(1)" v-if="isLiked" class="is-liked btn btn-sm">좋아요👍</p>
-                  <p class="btn btn-sm button-color" @click="onSelect(1)" v-else>좋아요👍</p><br>
+                <div class="inner">
+                  <p @click="goDetail()">{{ movie.title }}</p>
+                  <p><img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1609287743/noticon/oyo23yrstcp0rbd4uiqp.png" alt="" style="width: 18px;" @click="goDetail()"> {{ movie.vote_average}}</p>
+                  <br>
+                  <hr>
+                  <br>
+                  
+                  <div class="">
+                    <p @click="onSelect(1)" v-if="isLiked" class="is-liked btn btn-sm">좋아요👍</p>
+                    <p class="btn btn-sm button-color" @click="onSelect(1)" v-else>좋아요👍</p><br>
 
-                  <p @click="onSelect(2)" v-if="isDisliked" class="is-disliked btn btn-sm">별로예요👎</p>
-                  <p class="btn btn-sm button-color" @click="onSelect(2)" v-else>별로예요👎</p><br>
+                    <p @click="onSelect(2)" v-if="isDisliked" class="is-disliked btn btn-sm">별로예요👎</p>
+                    <p class="btn btn-sm button-color" @click="onSelect(2)" v-else>별로예요👎</p><br>
+
+                    <p @click="onSelect(3)" v-if="isWatched" class="is-watched btn btn-sm">이미 봤어요😎</p>
+                    <p class="btn btn-sm button-color" @click="onSelect(3)" v-else>이미 봤어요😎</p><br>
+                  </div>
+
+                  <button class="btn btn-sm mt-4 button-color" @click="goDetail()">더보기</button>
+
                 </div>
-
-                <button class="btn btn-sm mt-4 button-color" @click="goDetail()">더보기</button>
-
-              </div>
               </div>
             </div>
           </div>
@@ -68,7 +74,7 @@ export default {
     movie: Object,
   }, 
   computed: {
-    ...mapGetters(['currentUser', 'isLoggedIn', 'dislikedMovies', 'wishedMovies']),
+    ...mapGetters(['currentUser', 'isLoggedIn', 'dislikedMovies', 'wishedMovies', 'watchedMovies', ]),
     isLiked () {
       if (this.isLoggedIn && this.wishedMovies?.length) {
         for (let m of this.wishedMovies) {
@@ -82,6 +88,16 @@ export default {
     isDisliked () {
       if (this.isLoggedIn && this.dislikedMovies?.length) {
         for (let m of this.dislikedMovies) {
+          if (m.id === this.movie.id) {
+            return true
+          }
+        }
+      }
+      return false
+    },
+    isWatched () {
+      if (this.isLoggedIn && this.watchedMovies?.length) {
+        for (let m of this.watchedMovies) {
           if (m.id === this.movie.id) {
             return true
           }
@@ -177,13 +193,6 @@ export default {
 	font-size: 1;
 }
 
-/* .back{
-  background: #cedce7;
-  background: -webkit-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-  background: -o-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-  background: linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-} */
-
 .back > .black {
   width: 100%;
   min-height: 100%;
@@ -228,20 +237,26 @@ export default {
 }
 
 .inner{
-    -webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
-            transform: translateY(-50%) translateZ(60px) scale(0.94);
-    top: 55%;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    padding: 1rem 1rem 3rem 1rem;
+  -webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
+          transform: translateY(-50%) translateZ(60px) scale(0.94);
+  top: 55%;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  padding: 1rem 0rem 3rem 0rem;
 
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    outline: 1px solid transparent;
-    -webkit-perspective: inherit;
-            perspective: inherit;
-    z-index: 2;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  outline: 1px solid transparent;
+  -webkit-perspective: inherit;
+          perspective: inherit;
+  z-index: 2;
+}
+
+.inner > p {
+  width: 200px;
+  margin: auto;
+  word-break: break-all;
 }
 
 .card-container .back{
@@ -326,6 +341,12 @@ export default {
   color: skyblue;
   font-size: 16px;
 }
+
+.is-watched {
+  color: slateblue;
+  font-size: 16px;
+}
+
 .rating {
   display: inline-block;
   width: 100%;

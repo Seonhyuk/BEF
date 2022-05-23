@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container home">
     <p v-if="idx > 127" class="title">128강</p>
     <p v-else-if="idx > 63" class="title">64강</p>
     <p v-else-if="idx > 31" class="title">32강</p>
@@ -45,6 +45,13 @@ export default {
 </script>
 
 <style scoped>
+
+.home {
+  max-width: 1000px;
+  width: 80%;
+  height: 95vh;
+  background-color: rgba(0, 0, 0, 0.5)
+}
 
 .title {
   color: white;

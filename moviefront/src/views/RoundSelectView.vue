@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1 class="my-5">총 라운드를 선택하세요.</h1>
+  <div class="container home mt-0">
+    <h1 class="py-5">총 라운드를 선택하세요.</h1>
 
     <ul class="flip-cards">
       <li>
@@ -68,6 +68,14 @@ export default {
 </script>
 
 <style scoped>
+
+.home {
+  max-width: 1000px;
+  width: 80%;
+  height: 95vh;
+  background-color: rgba(0, 0, 0, 0.5)
+}
+
 a:hover {
   text-decoration: underline;
 }

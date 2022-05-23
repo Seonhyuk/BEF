@@ -1,6 +1,7 @@
 <template>
   <div class="main-box py-5 container">
-    <h1>{{ profile.name }} 님의 프로필</h1>
+    <h1>{{ profile.name }}({{ profile.username }})</h1>
+    <hr>
 
     <div class="d-flex justify-content-between">
       <div class="sub-box d-flex justify-content-center">
@@ -13,12 +14,12 @@
         <div class="d-flex justify-content-center">
           <div class="my-auto mx-3">
             <p class="hilight-text">팔로워</p>
-            <p>{{ profile.followers.length }}</p>
+            <p>{{ followersLength }}</p>
           </div>
 
           <div class="my-auto mx-3">
             <p class="hilight-text">팔로잉</p>
-            <p>{{ profile.followings.length }}</p>
+            <p>{{ followingsLength }}</p>
           </div>
         </div>
 
@@ -36,7 +37,7 @@
     </div>
     <hr>
   
-    <h1 class="playing-title">{{ profile.name }}님이 좋아하는 영화</h1>
+    <h1 class="playing-title ms-4">{{ profile.name }}님이 좋아하는 영화</h1>
     <div class="movies">
       <ul class="zero-padding">
         <SmallMovieVue
@@ -48,6 +49,28 @@
       </ul>
     </div>
     <hr>
+
+    <h1 class="playing-title ms-4">{{ profile.name }}님이 본 영화</h1>
+    <div class="movies" v-if="watchedLength">
+      <ul class="zero-padding">
+        <SmallMovieVue
+          v-for="movie in profile.watched_movies" 
+          :key="movie.title"
+          :movie="movie"
+          class="element"
+        />
+      </ul>
+    </div>
+    <div v-else>
+      <div class="empty-box">
+        <h2 class="empty-text">{{ profile.name }}님이 본 영화가 없습니다!</h2>
+      </div>
+    </div>
+    <hr>
+
+    <h1 class="playing-title ms-4">{{ profile.name }}님이 작성한 게시글</h1>
+    
+
 
   </div>
 </template>
@@ -63,6 +86,16 @@ export default {
   },
   computed: {
     ...mapGetters(['profile', 'currentUser', 'isLoggedIn']),
+
+    followingsLength () {
+      return this.profile.followings?.length
+    },
+    followersLength () {
+      return this.profile.followers?.length
+    },
+    watchedLength () {
+      return this.profile.watched_movies?.length
+    },
 
     checkFollow () {
       for (let person of this.currentUser.followings) {
@@ -90,10 +123,30 @@ export default {
 
 <style scoped>
 
+hr {
+  width: 90%;
+  margin: 30px auto;
+}
+
+.empty-box {
+  height: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+}
+
+.empty-text {
+  margin: auto;
+  color: gray;
+  font-size: 25px;
+  font-weight: bold;
+}
+
 .main-box {
   min-width: 600px;
   width: 60%;
-  height: 100vh;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
 }
 

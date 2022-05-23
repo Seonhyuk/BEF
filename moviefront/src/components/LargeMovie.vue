@@ -13,7 +13,9 @@
           <ul>
             <li>{{ tournament[i].title }}</li>
             <li><img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1609287743/noticon/oyo23yrstcp0rbd4uiqp.png" alt="" style="width: 18px;">  {{ tournament[i].vote_average }}</li>
-            <li><span>{{ tournament[i].genres[0].name }} </span></li>
+            <li>
+              <span>{{ tournament[i].genres[0].name }} </span>
+            </li>
           </ul>
         </div>
 
