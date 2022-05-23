@@ -10,7 +10,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
-            fields = ('pk', 'username')
+            fields = ('pk', 'username', 'profile_image')
 
     user = UserSerializer(read_only=True)
 

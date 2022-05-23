@@ -3,26 +3,31 @@
     <hr>
     <ul class="comment-list-item">
       <div class="d-flex justify-content-start">
-        <router-link id="comment-user" :to="{ name: 'profile', params: { username: comment.user.username } }">
+        <img v-if="comment.user.profile_image" :src="comment.user.profile_image" alt="" class="profile-image" id="profile-image-true">
+        <img v-else src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="profile-image">
+        <router-link id="comment-user" :to="{ name: 'profile', params: { username: comment.user.username } }" class="mx-2 mt-1">
           {{ comment.user.username }}
         </router-link> 
       </div>
-        <p id="comment-created">{{ comment.created_at }}</p>
-        <p id="comment-content" v-if="!isEditing"><br>{{ payload.content }}</p>
+        <p id="comment-created-time" class="my-1">{{ comment.created_at }}</p>
+        <p id="comment-content" v-if="!isEditing" class="mt-3"><br>{{ payload.content }}</p>
 
-      <div id="edit-delete-btn">
-        <span v-if="isEditing">
-          <input type="text" v-model="payload.content" class="form-control" id="edit-comment-form">
-          <button @click="onUpdate" id="comment-edit-btn" class="mx-2">완료</button>
-          <button @click="switchIsEditing" id="comment-delete-btn">취소</button>
-        </span>
 
-      
-        <span v-if="currentUser.username === comment.user.username && !isEditing">
-          <button id="comment-edit-btn" @click="switchIsEditing" class="mx-2">수정</button>
-          <button id="comment-delete-btn" @click="deleteComment(payload)">삭제</button>
-        </span>
-      </div>
+        <div id="editing">
+          <span v-if="isEditing">
+            <input type="text" v-model="payload.content" class="form-control" id="edit-comment-form">
+            <button id="comment-btn" @click="onUpdate" class="mx-2">완료</button>
+            <button id="comment-btn" @click="switchIsEditing" >취소</button>
+          </span>
+        </div>
+
+        <div id="un-editing">
+          <span v-if="currentUser.username === comment.user.username && !isEditing">
+            <button id="comment-btn" @click="switchIsEditing" class="mx-2">수정</button>
+            <button id="comment-btn" @click="deleteComment(payload)">삭제</button>
+          </span>
+        </div>
+
     </ul>
   </div>
 </template>
@@ -67,49 +72,12 @@ export default {
   color: rgb(173, 173, 173);
   display: inline;
 }
-#comment-content {
-  text-align: start;
-  font-size: 17px;
-  line-height: 1px;
-  margin: 0px;
-}
-#comment-created {
-  text-align: start;
-  font-size: 13px;
-  line-height: 10px;
-  color: rgb(173, 173, 173);
-}
-#edit-delete-btn {
-  position: relative;
-  top: 10px;
-  left: 570px;
-}
-#comment-edit-btn {
-  background: none;
-  border: none;
-  color: rgb(173, 173, 173);
-}
-#comment-edit-btn:hover{
-  color: #F82F62;
-}
-#comment-delete-btn {
-  background: none;
-  border: none;
-  color: rgb(173, 173, 173);
-}
-#comment-delete-btn:hover {
-  color: #F82F62;
-}
-#edit-comment-form {
-  width: 1100px;
-  position: absolute;
-  right: 700px;
-  bottom: 4px;
-}
+
 .form-control {
-  display: block;
-  width: 100%;
-  padding: 0.375rem 0.75rem;
+  display: inline-block;
+  width: 90%;
+  right: 23%;
+
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -130,5 +98,65 @@ export default {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
+#profile-image-true{
+  border-radius: 50%;
+}
+.profile-image {
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  object-fit: cover;
+  float: left;
+}
+#un-editing {
+  width: 30%;
+  justify-content: start;
+  align-content: flex-start;
+  margin-left: 460px;
+}
+#comment-created-time {
+  text-align: start;
+  color: rgb(173, 173, 173);
+}
+#comment-content {
+  text-align: start;
+  margin: 0;
+  line-height: 1px;
+}
+#un-editing {
+  margin-left: 80%;
+}
+#editing {
+  justify-content: end;
+  align-content: flex-end;
+  width: 100%;
+}
+#comment-btn{
+  z-index: 1000;
+  background-color: #F82F62;
+  color: white;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  font-size: 15px;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
 
+@media (prefers-reduced-motion: reduce) {
+  .comment-btn {
+    transition: none;
+  }
+}
+#comment-btn:hover {
+  border: 1px solid white;
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5">
+  <div class="mt-5" id="article-wrap">
   <h5 id="hot-topic-h6">BEF TOPIC</h5>
   <table class="table table-dark table-striped table-hover">
     <thead id="table-head">
@@ -78,5 +78,9 @@
 #td-text {
   text-decoration-line: none;
   color: white;
+}
+#article-wrap {
+  width: 80%;
+  margin: auto;
 }
 </style>

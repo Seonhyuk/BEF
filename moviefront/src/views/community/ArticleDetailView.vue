@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mt-5">
+    <div class="mt-5" id="article-wrap">
       <div>
         <h1>{{ article.title }}</h1>
       </div>
@@ -64,7 +64,7 @@
         'fetchArticle',
         'likeArticle',
         'deleteArticle',
-      ])
+      ]),
     },
     created() {
       if (!this.isLoggedIn) {
@@ -156,5 +156,10 @@
   100% {
     background-position: right;
   }
+}
+#article-wrap {
+  width: 70%;
+  height: 100vh;
+  margin: auto;
 }
 </style>
