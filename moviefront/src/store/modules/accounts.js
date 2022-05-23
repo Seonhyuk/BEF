@@ -196,6 +196,20 @@ export default {
 					dispatch('fetchCurrentUser')
 					dispatch('fetchProfile', yourname)
 				})
+		},
+		changeProfileImage({ dispatch, getters }, img) {
+			axios({
+				url: drf.accounts.changeProfileImage(getters.currentUser.username),
+				method: 'post',
+				header: getters.authHeader,
+				data : {
+					'image': img
+				}
+			})
+				.then(() => {
+					dispatch('fetchCurrentUser')
+					dispatch('fetchProfile', getters.currentUser.username)
+				})
 		}
 	}
 }

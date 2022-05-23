@@ -16,7 +16,8 @@ export default {
 		currentUserInfo: () => HOST + ACCOUNTS + 'user/',
 		profile: () => HOST + ACCOUNTS + 'profile/',
 		nickname: nickname => HOST + ACCOUNTS + 'nickname/' + `${nickname}/`,
-		follow: (myname, yourname) => HOST + ACCOUNTS + 'follow/' + `${myname}/` + `${yourname}/`
+		follow: (myname, yourname) => HOST + ACCOUNTS + 'follow/' + `${myname}/` + `${yourname}/`,
+		changeProfileImage: (username) => HOST + ACCOUNTS + 'profile_image/' + `${username}/`,
 	},
 	movies: {
 		movies: () => HOST + MOVIES,

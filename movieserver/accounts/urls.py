@@ -6,4 +6,6 @@ urlpatterns = [
     path('nickname/<str:nickname>/', views.nickname),
     path('signup_plus/<str:username>/<str:nickname>/', views.signup_plus),
     path('follow/<str:my_name>/<str:your_name>/', views.follow),
+    path('profile_image/<str:username>/', views.change_profile_image),
+    
 ]

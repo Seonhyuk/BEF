@@ -5,7 +5,7 @@
 
     <div class="d-flex justify-content-between">
       <div class="sub-box d-flex justify-content-center">
-        <img v-if="profile.profile_image" :src="profile.profile_image" alt="" class="profile-image my-4">
+        <img v-if="profile.profile_image" :src="img || profile.profile_image" alt="" class="profile-image my-4">
         <img v-else src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="profile-image my-4">
       </div>
 
@@ -27,11 +27,27 @@
           <button v-if="!checkFollow" class="follow-button following" @click="followYou(profile.username)">팔로우</button>
           <button v-else class="follow-button unfollowing" @click="followYou(profile.username)">언팔로우</button>
         </div>
+        
+        <div v-if="isLoggedIn && currentUser.username === profile.username" class="change-box">
+          <div class="button-wrapper">
+            <span class="label">
+              프로필 사진 변경
+            </span>
+            <input 
+              id="upload"
+              type="file" 
+              accept="image/*" 
+              @change="onInputImage" 
+              ref="image"
+              class="upload-box"
+            >
+          </div>
+        </div>
 
-        <button 
-          v-show="isLoggedIn && profile.username === currentUser.username"
-          class="change-button"
-        >프로필 사진 변경</button>
+        <div v-if="isLoggedIn && img && img != currentUser.profile_image && currentUser.username === profile.username" class="">
+          <button @click="returnProfileImage" class="back-button">되돌리기</button>
+          <button @click="changeProfileImage(img)" class="confirm-button">확인</button>
+        </div>
 
         <button 
           @click="goSelectGenre"
@@ -56,7 +72,7 @@
     </div>
     <div v-else>
       <div class="empty-box">
-        <h2 class="empty-text">{{ profile.name }}님이 좋아하는 없습니다!</h2>
+        <h2 class="empty-text">{{ profile.name }}님이 좋아하는 영화가 없습니다!</h2>
       </div>
     </div>
     <hr>
@@ -92,6 +108,11 @@ import SmallMovieVue from '@/components/SmallMovie.vue'
 
 export default {
   name:"profileView",
+  data () {
+    return {
+      img: this.profile?.profile_image,
+    }
+  },
   components: {
     SmallMovieVue
   },
@@ -122,9 +143,30 @@ export default {
 
   },
   methods : {
-    ...mapActions(['fetchProfile', 'followYou']),
+    ...mapActions(['fetchProfile', 'followYou', 'changeProfileImage', ]),
     goSelectGenre() {
       this.$router.push({ name: 'genres' })
+    },
+    encodeBase64ImageFile (image) {
+      return new Promise((resolve, reject) => {
+        let reader = new FileReader()
+        reader.readAsDataURL(image[0])
+        reader.onload = (event) => {
+          resolve(event.target.result)
+        }
+        reader.onerror = (error) => {
+          reject(error)
+        }
+      })
+    },
+    onInputImage() {
+      this.encodeBase64ImageFile(this.$refs.image.files)
+        .then(data => {
+          this.img = data
+        })
+    },
+    returnProfileImage () {
+      this.img = this.profile.profile_image
     }
   },
   created () {
@@ -134,7 +176,10 @@ export default {
     } else {
       this.fetchProfile(this.$route.params.username)
     }
-  }
+
+    this.img = this.profile?.profile_image
+
+  },
 }
 </script>
 
@@ -243,6 +288,42 @@ hr {
   border-radius: 30px;
 }
 
+.back-button {
+  width: 24%;
+  height: 30px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  box-shadow: -1px 0 white, 0 1px white, 1px 0 #FFF, 0 -1px #FFF;
+  background-color: rgba(80, 80, 80, 0.5);
+  font-weight: bold;
+  color: white;
+  margin-right: 1%;
+  border: 0px;
+  border-radius: 30px;
+}
+
+.back-button:hover {
+  background-color: rgb(60, 60, 60);
+}
+
+.confirm-button {
+  width: 24%;
+  height: 30px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  margin-left: 1%;
+  box-shadow: -1px 0 white, 0 1px white, 1px 0 #FFF, 0 -1px #FFF;
+  background-color: hotpink;
+  font-weight: bold;
+  color: white;
+  border: 0px;
+  border-radius: 30px;
+}
+
+.confirm-button:hover {
+  background-color: rgb(243, 86, 143);
+}
+
 .change-button:hover {
   background-color: rgb(188, 67, 112);
 }
@@ -286,4 +367,49 @@ hr {
   font-size: 30px;
 }
 
+.button-wrapper {
+  position: relative;
+  width: 50%;
+  margin: 15px auto 15px auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-wrapper span.label {
+  z-index: 0;
+  display: inline-block;
+  width: 100%;
+  background: rgb(243, 86, 143);
+  cursor: pointer;
+  padding: auto;
+  margin: auto;
+  height: 30px;
+  font-weight: bold;
+  color: white;
+  border: 0px;
+  border-radius: 30px;
+  line-height: 28px;
+  box-shadow: -1px 0 white, 0 1px white, 1px 0 #FFF, 0 -1px #FFF;
+}
+
+.button-wrapper span.label:hover {
+  background-color: rgb(188, 67, 112);
+}
+
+#upload {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 30px;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.change-box {
+  height: 60px;
+}
 </style>

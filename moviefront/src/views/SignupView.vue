@@ -121,13 +121,9 @@ export default {
   stage: 0;
 }
 
-/* config.css */
-
 :root {
   --baseColor: #606468;
 }
-
-/* helpers/align.css */
 
 .align {
   display: grid;
@@ -140,8 +136,6 @@ export default {
   max-inline-size: 20rem;
 }
 
-/* helpers/hidden.css */
-
 #hidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -152,8 +146,6 @@ export default {
   position: absolute;
   width: 1px;
 }
-
-/* helpers/icon.css */
 
 :root {
   --iconFill: var(--baseColor);
@@ -170,8 +162,6 @@ export default {
   inline-size: 1em;
   vertical-align: middle;
 }
-
-/* layout/base.css */
 
 :root {
   --htmlFontSize: 100%;
@@ -205,8 +195,6 @@ body {
   min-block-size: 100vh;
 }
 
-/* modules/anchor.css */
-
 :root {
   --anchorColor: #eee;
 }
@@ -222,8 +210,6 @@ body {
 #a:hover {
   text-decoration: underline;
 }
-
-/* modules/form.css */
 
 :root {
   --formGap: 0.875rem;
@@ -262,8 +248,6 @@ input[type="submit"] {
 .form__input {
   flex: 1;
 }
-
-/* modules/login.css */
 
 :root {
   --loginBorderRadus: 0.25rem;
@@ -323,8 +307,6 @@ input[type="submit"] {
 .login input[type="submit"]:hover {
   background-color: var(--loginSubmitHoverBackgroundColor);
 }
-
-/* modules/text.css */
 
 #p {
   margin-block: 1.5rem;

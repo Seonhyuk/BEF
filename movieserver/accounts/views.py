@@ -67,3 +67,15 @@ def signup_plus(request, username, nickname):
         'user': 'created'
     }
     return Response(data, status=status.HTTP_201_CREATED)
+
+@api_view(['POST'])
+def change_profile_image(request, username):
+    user = User.objects.get(username=username)
+    user.profile_image = request.data['image']
+    user.save()
+
+    data = {
+        'user': 'changed'
+    }
+    
+    return Response(data, status=status.HTTP_200_OK)
