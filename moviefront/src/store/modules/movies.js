@@ -27,6 +27,7 @@ export default {
 
 		searchedMovies: [],
 		searchedMoviesForReview: [],
+		backDropImage: []
 	},
 	getters: {
 		nowMovies: state => state.nowMovies,
@@ -48,7 +49,8 @@ export default {
 		searchedMovies : state => state.searchedMovies,
 		searchedMoviesForReview : state => state.searchedMoviesForReview,
 		
-		genres: state => state.genres
+		genres: state => state.genres,
+		backDropImage: state => state.backDropImage
 	},
 	mutations: {
 		SET_NOW_MOVIES(state, res) {
@@ -108,6 +110,9 @@ export default {
 		GET_GENRES (state, res) {
 			state.genres = res
 		},
+		SET_BACK_DROP_IMAGE (state, res) {
+			state.backDropImage = res
+		}
 
 	},
 	actions: {
@@ -267,6 +272,16 @@ export default {
 					}
 					)
 			}
+		},
+		getMovieBackDropImage({commit}, payload) {
+			axios({
+				url:`https://api.themoviedb.org/3/movie/${payload}/images`,
+				params : {
+					'api_key' : 'e6fcccc78c4a58a99e1758d30d821e54',
+					method: 'get',
+				}
+			})
+				.then(res => { commit('SET_BACK_DROP_IMAGE', res.data)})
 		}
 	}
 }

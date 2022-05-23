@@ -1,11 +1,10 @@
 <template>
   <div class="detail-wrap">
-    <div>
-      <iframe id="movie-youtube"
-        :src="`https://www.youtube.com/embed/${video}?autoplay=1&mute=1`" 
-        frameborder="0"
-        autoplay
-      ></iframe>
+    <div id="back-drop-wrap">
+      <div>
+        <img :src="`https://image.tmdb.org/t/p/original/${setBackImg}`" alt=""  id="detail-poster">
+      </div>
+
     </div>
     <hr>
     <p v-for="review in reviews" :key="review.id">{{ review.content }}</p> 
@@ -13,6 +12,13 @@
 
 
 
+    <!-- <div>
+      <iframe id="movie-youtube"
+        :src="`https://www.youtube.com/embed/${video}?autoplay=1&mute=1`" 
+        frameborder="0"
+        autoplay
+      ></iframe>
+    </div> -->
 
 
     
@@ -57,14 +63,18 @@ export default {
       newReview: {
         content: "",
         like: true,
-      }
+      },
+      num: 0,
     }
   },
   computed: {
-    ...mapGetters(['movieDetail', 'video', 'reviews', 'currentUser'])
+    ...mapGetters(['movieDetail', 'video', 'reviews', 'currentUser', 'backDropImage']),
+    setBackImg() {
+      return this.backDropImage.backdrops[this.num]?.file_path
+    }
   },
   methods: {
-    ...mapActions(['setMovieDetail', 'setReviews', 'createReview']),
+    ...mapActions(['setMovieDetail', 'setReviews', 'createReview', 'getMovieBackDropImage']),
     onSubmit() {
       console.log(this.currentUser.username)
       const payload = {
@@ -74,11 +84,18 @@ export default {
       }
       this.createReview(payload)
       this.newReview.content = ''
-    }
+    },
   },
   created() {
     this.setMovieDetail(this.$route.params.moviePk)
     this.setReviews(this.$route.params.moviePk)
+    this.getMovieBackDropImage(this.$route.params.moviePk)
+  },
+  mounted() {
+    setInterval(() => {
+      this.num +=1
+      this.num %= this.backDropImage?.length
+    }, 1000);
   }
 }
 </script>
@@ -181,5 +198,9 @@ export default {
   width: 100%;
   max-width: 2000px;
 }
-
+#detail-poster {
+  width: 100%;
+  height: 600px;
+  filter: brightness(20%)
+}
 </style>
