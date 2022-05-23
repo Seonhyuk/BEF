@@ -1,5 +1,5 @@
 <template>
-  <div class="main-box py-5">
+  <div class="main-box py-5 container">
     <h1>{{ profile.name }} 님의 프로필</h1>
 
     <div class="d-flex justify-content-between">
@@ -95,6 +95,10 @@ export default {
   width: 60%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.movies::-webkit-scrollbar{
+  width: 0px;
 }
 
 .profile-image {

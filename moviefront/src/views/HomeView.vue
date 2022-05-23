@@ -148,6 +148,10 @@ export default {
   margin: 10 auto;
 }
 
+.movies::-webkit-scrollbar{
+  width: 0px;
+}
+
 .movies > ul {
   padding: 0;
 }
