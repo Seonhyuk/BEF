@@ -12,42 +12,30 @@
         <!-- 네비부분 -->
         <router-link to="/" class="my-auto mx-2" id="router-link-name">Home</router-link>&nbsp;
         <router-link to="/login" v-if="!currentUser.username" class="my-auto mx-2" id="router-link-name">Login</router-link>
-        <router-link to="/nyear" v-if="currentUser.username" class="my-auto mx-2" id="router-link-name">Nyear</router-link>&nbsp;
         <router-link to="/community" v-if="currentUser.username" class="my-auto mx-2" id="router-link-name">Community</router-link>&nbsp;
         <router-link to="/roundselect" v-if="currentUser.username" class="my-auto mx-2" id="router-link-name">Worldcup</router-link>&nbsp;
 
-        <div class="my-auto mx-2">
-          <button id="logout-btn" @click="logout()" v-if="currentUser.username" >Logout</button>
-        </div>
-
-        <!-- <router-link 
-          :to="{ name: 'profile', params:{ username:`${currentUser.username}`} }"
-          v-if="currentUser.username"
-          class="my-auto mx-2"
-        >Profile</router-link> -->
-
-        <!-- 위치조정... -->
-        <!-- 얘네가 아래로 내려간다 -->
         <p class="nav-item dropdown my-auto mx-2" v-if="currentUser.username">
           <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             MY
           </a>
           <ul class="dropdown-menu text-dark" aria-labelledby="navbarDropdown">
             <li><router-link :to="{ name: 'profile', params:{ username:`${currentUser.username}`} }" v-if="currentUser.username" class="dropdown-item text-dark">프로필</router-link></li>
-            <li><a class="dropdown-item" href="#">회원정보수정</a></li>
-            <li><a class="dropdown-item" href="#">회원탈퇴</a></li>
+            <li><a class="dropdown-item text-dark" href="#">회원정보수정</a></li>
+            <li><a class="dropdown-item text-dark" href="#" @click="logout()">로그아웃</a></li>
+            <li><a class="dropdown-item text-dark" href="#">회원탈퇴</a></li>
           </ul>
         </p>
 
-        <div class="mx-2 my-auto">
-          <input type="text" v-model="query" class="search-bar text-black form-control">
-          <button  @click="[setSearchedMovies(query), removeQuery()]" class="search-button my-auto" id="create-article-btn">검색</button>
+        <div class="mx-2 my-auto d-flex">
+          <input type="text" v-model="query" class="search-bar text-white form-control my-auto mx-2">
+          <button  @click="[setSearchedMovies(query), removeQuery()]" class="search-button my-auto search-button" id="create-article-btn"><img class="search-image" src="./assets/research.png" alt=""></button>
         </div>
       </div>
 
     </nav>
     
-    <router-view class="container"/>
+    <router-view/>
   </div>
 </template>
 
@@ -66,7 +54,7 @@ export default {
     ...mapGetters(['currentUser'])
   },
   methods: {
-    ...mapActions(['setSearchedMovies', 'logout', 'fetchCurrentUser']),
+    ...mapActions(['setSearchedMovies', 'logout', 'fetchCurrentUser', 'setNowMovies', 'setLastMovies', 'setWinMovies', 'setRecommendMovies',]),
     removeQuery () {
       this.query = ''
       router.push({name: 'search'})
@@ -74,6 +62,14 @@ export default {
   },
   created () {
     this.fetchCurrentUser()
+  },
+  mounted () {
+    this.setNowMovies()
+    this.setLastMovies()
+    this.setWinMovies()
+    if (this.currentUser.username) {
+      this.setRecommendMovies(this.currentUser.username)
+    }
   }
 }
 </script>
@@ -177,5 +173,14 @@ nav a.router-link-exact-active {
 }
 #create-article-btn:hover {
   border: 1px solid white;
+}
+
+.search-button {
+  width: 50px;
+  height: 35px;
+}
+
+.search-image {
+  width: 100%
 }
 </style>

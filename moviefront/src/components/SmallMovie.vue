@@ -4,23 +4,52 @@
       <div class="card-cols">
         <div class="card-col" ontouchstart="this.classList.toggle('hover');">
 					<div class="card-container">
-						<div class="front" :style="{backgroundImage: `url(https://image.tmdb.org/t/p/original/${ movie.poster_path })`}"></div>
-            <div class="back">
+						<div class="front" v-if="posterPath" :style="{backgroundImage: `url(https://image.tmdb.org/t/p/original/${ posterPath })`}"></div>
+						<div class="front" v-else style="background-color: gray;"></div>
+
+            <div class="back" v-if="backdropPath" :style="{backgroundImage: `url(https://image.tmdb.org/t/p/original/${ backdropPath })`}">
+              <div class="black">
 							<div class="inner">
 								<p @click="goDetail()">{{ movie.title }}</p>
                 <p><img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1609287743/noticon/oyo23yrstcp0rbd4uiqp.png" alt="" style="width: 18px;" @click="goDetail()"> {{ movie.vote_average}}</p>
+                <br>
                 <hr>
-                <button class="btn btn-sm mt-4" @click="goDetail()">더보기</button>
                 <br>
                 
-                <div class="d-flex mx-2 mt-5 pt-5">
+                <div class="">
                   <p @click="onSelect(1)" v-if="isLiked" class="is-liked btn btn-sm">좋아요👍</p>
-                  <p class="btn btn-sm" @click="onSelect(1)" v-else>좋아요👍</p><br>
+                  <p class="btn btn-sm button-color" @click="onSelect(1)" v-else>좋아요👍</p><br>
 
                   <p @click="onSelect(2)" v-if="isDisliked" class="is-disliked btn btn-sm">별로예요👎</p>
-                  <p class="btn btn-sm" @click="onSelect(2)" v-else>별로예요👎</p><br>
+                  <p class="btn btn-sm button-color" @click="onSelect(2)" v-else>별로예요👎</p><br>
                 </div>
 
+                <button class="btn btn-sm mt-4 button-color" @click="goDetail()">더보기</button>
+
+              </div>
+              </div>
+            </div>
+
+            <div class="back" v-else style="background-color: gray;">
+              <div class="black">
+							<div class="inner">
+								<p @click="goDetail()">{{ movie.title }}</p>
+                <p><img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1609287743/noticon/oyo23yrstcp0rbd4uiqp.png" alt="" style="width: 18px;" @click="goDetail()"> {{ movie.vote_average}}</p>
+                <br>
+                <hr>
+                <br>
+                
+                <div class="">
+                  <p @click="onSelect(1)" v-if="isLiked" class="is-liked btn btn-sm">좋아요👍</p>
+                  <p class="btn btn-sm button-color" @click="onSelect(1)" v-else>좋아요👍</p><br>
+
+                  <p @click="onSelect(2)" v-if="isDisliked" class="is-disliked btn btn-sm">별로예요👎</p>
+                  <p class="btn btn-sm button-color" @click="onSelect(2)" v-else>별로예요👎</p><br>
+                </div>
+
+                <button class="btn btn-sm mt-4 button-color" @click="goDetail()">더보기</button>
+
+              </div>
               </div>
             </div>
           </div>
@@ -60,6 +89,12 @@ export default {
       }
       return false
     },
+    posterPath () {
+      return this.movie?.poster_path
+    },
+    backdropPath () {
+      return this.movie?.backdrop_path
+    }
   },
   methods: {
     goDetail () {
@@ -124,7 +159,7 @@ export default {
 .front,
 .back{
 	background-size: cover;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.25);
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
 	border-radius: 10px;
 	background-position: center;
 	-webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
@@ -142,11 +177,24 @@ export default {
 	font-size: 1;
 }
 
-.back{
+/* .back{
   background: #cedce7;
   background: -webkit-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
   background: -o-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
   background: linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
+} */
+
+.back > .black {
+  width: 100%;
+  min-height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  background-size: cover;
+  background-position: center;
+  color: white;
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .front:after{
@@ -269,13 +317,14 @@ export default {
 	}
 }
 
-
 .is-liked {
   color: #ec1266;
+  font-size: 16px;
 }
 
 .is-disliked {
-  color: #ec1266;
+  color: skyblue;
+  font-size: 16px;
 }
 .rating {
   display: inline-block;
@@ -301,6 +350,11 @@ export default {
 
 .active {
   color: #2EBDD1;
+}
+
+.button-color {
+  color: white;
+  font-size: 16px;
 }
 
 </style>

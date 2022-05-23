@@ -70,10 +70,10 @@ def now_playing(request):
 @api_view(['GET'])
 def last_year_showing(request):
     today = datetime.today()
-    last_year = today.year - 1
+    last_year = today.year - 5
     month = today.month
 
-    movies = list(Movie.objects.filter(release_date__year=f'{last_year}', release_date__month=f'{month}'))[:10]
+    movies = list(Movie.objects.filter(release_date__year__gte=f'{last_year}', release_date__year__lte=f'{today.year - 1}', release_date__month=f'{month}').order_by('-popularity'))[:10]
 
     serializer = MovieSerializer(movies, many=True)
 

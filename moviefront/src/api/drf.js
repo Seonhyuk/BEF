@@ -26,14 +26,9 @@ export default {
 		lastMovies: () => HOST + MOVIES + 'last_year/',
 		winMovies: () => HOST + MOVIES + 'winner/',
 
-		recommendMovies: () => HOST + MOVIES + 'recommend/',
-		nyearMovies: year => HOST + MOVIES + 'nyear/' + `${year}/`,
+		recommendMovies: username => HOST + MOVIES + 'recommend/' + `${username}/`,
 
-		// likeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'like/',
-		// dislikeMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'dislike/',
-		// watchedMovie: moviePk => HOST + MOVIES + `${moviePk}/` + 'watched/',
 		selectMovie: moviePk => HOST + MOVIES + 'select/' + `${moviePk}/`,
-
 
 		searchMovie: query => HOST + MOVIES + 'search/' + `${query}/`,
 		

@@ -132,11 +132,11 @@ export default {
 			})
 				.then(res => commit('SET_WIN_MOVIES', res.data))
 		},
-		setRecommendMovies({commit}, username) {
+		setRecommendMovies({commit, getters}, username) {
 			axios({
-				url : drf.movies.recommendMovies(),
+				url : drf.movies.recommendMovies(username),
 				method: 'GET',
-				username: username
+				authHeader: getters.authHeader
 			})
 				.then(res => commit('SET_RECOMMEND_MOVIES', res.data))
 		},
