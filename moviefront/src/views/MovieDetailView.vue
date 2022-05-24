@@ -93,16 +93,16 @@
 
         <div id="back-drop-wrap2">
           <img :src="`https://image.tmdb.org/t/p/original/${setBackImg}`" alt=""  id="detail-poster2">
-          <div id="down-img3-wrap">
+            <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button" id="review-modal-btn">리뷰남기기</a>
+            <div id="down-img3-wrap">
             <img id="down-img3" src="@/assets/down.png" alt="" @click="move3">
           </div>
         </div>
 
-        <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button" id="review-modal-btn">리뷰남기기</a>
 
         <div id="review-list-wrap">
           <div id="review-wrap">
-            <h2 class="mt-5 text-start mx-5">BEF들의 후기	&#128172;</h2>
+            <h2 class="mt-5 text-start mx-5" id="review-h2">BEF들의 후기	&#128172;</h2>
             <div class="text-start mx-5" v-for="review in reviews" :key="review.id" :review="review" id="review-item">
               <img v-if="review.user.profile_image" :src="review.user.profile_image" alt="" class="profile-image" id="profile-image-true">
               <img v-else src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="profile-image">
@@ -191,7 +191,9 @@ export default {
       window.scrollTo({left:0, top:backDropLocation+50, behavior:"smooth"})
     },
     move3() {
-      window.scrollTo({left:0, top:2900, behavior:"smooth"})
+      const reviewLocation = document.querySelector('#review-h2').offsetTop
+      console.log(reviewLocation)
+      window.scrollTo({left:0, top:reviewLocation, behavior:"smooth"})
     },
     moveUp() {
       window.scrollTo({left:0, top:0, behavior:"smooth"})
@@ -316,12 +318,11 @@ export default {
   width: 100%;
   height: 92vh;
   filter: brightness(25%);
-  border: solid blue;
 }
 #detail-poster2 {
   width: 100%;
-  height: 100vh;
   filter: brightness(50%);
+  display: inline-block;
 }
 
 #movie-title-img {
@@ -433,9 +434,8 @@ export default {
   border: 1px solid white;
 }
 #review-modal-btn{
-  position: absolute;
-  bottom: 1300px;
-  left: 43.5%;
+  position: relative;
+  bottom: 600px;
   z-index: 1000;
   margin: 5px;
   background-color: #F82F62;
@@ -476,7 +476,6 @@ export default {
   text-align: center;
   display: flex;
   justify-content: center;
-  border: solid red;
 }
 #div-inner {
   display: inline-block;
@@ -571,12 +570,10 @@ export default {
   z-index: 1000;
 }
 #down-img1-wrap {
-  border: solid;
   height: 50px;
   margin-top: 25%;
 }
 #down-img1 {
-  border: solid;
   z-index: 1000;
   width: 40px;
   height: 40px;
@@ -584,7 +581,6 @@ export default {
 #down-img2-wrap {
   position: relative;
   z-index: 1000;
-  border: solid;
   height: 50px;
   margin-top: 50%;
 }
@@ -595,17 +591,12 @@ export default {
   left: 920px;
   z-index: 2000;
 }
-#down-img3-wrap {
-  border: solid;
-  height: 300px;
-  width: 200px;
-  margin: auto;
-}
 #down-img3 {
   width: 40px;
   height: 40px;
-  bottom: 920px;
-  left: 920px;
+  bottom: 1180px;
+  left: 49%;
+  position: absolute;
 }
 #up-img1 {
   width: 40px;
@@ -617,4 +608,8 @@ export default {
 #up-img-wrap {
   height: 100px;
 }
+#back-drop-wrap2 {
+  display: inline-block;
+}
+
 </style>
