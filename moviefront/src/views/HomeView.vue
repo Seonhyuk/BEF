@@ -156,6 +156,7 @@ export default {
   width: 3px;
 }
 
+
 .movies > ul {
   padding: 0;
 }

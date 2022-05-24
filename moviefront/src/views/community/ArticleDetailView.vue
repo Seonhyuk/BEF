@@ -15,9 +15,9 @@
       </div>
       <div class="article-content-wrap">
         <h5 v-if="article.shared_poster" class="mt-4 mb-4">🏆{{ article.user.name }} 님이 뽑은 인생영화🏆</h5>
-          <div id="poster-wrap">
-            <img :src="`https://image.tmdb.org/t/p/original/${article.shared_poster}`" alt="" id="poster">
-          </div>
+        <div id="poster-wrap" v-if="article.shared_poster">
+          <img :src="`https://image.tmdb.org/t/p/original/${article.shared_poster}`" alt="" id="poster">
+        </div>
         <p class="box mt-5" id="article-content">
           {{ article.content }}
         </p>
