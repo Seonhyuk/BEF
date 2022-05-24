@@ -2,15 +2,23 @@
   <div>
     <div class="mt-5" id="article-wrap">
       <div>
-        <h1>{{ article.title }}</h1>
+        <h1 class="mb-5">{{ article.title }}</h1>
       </div>
       <div>
-        <router-link :to="{ name: 'profile', params: {username: article.user.username} }" id="article-user-name"><p class="d-flex justify-content-start">작성자 {{ article.user.username }}</p></router-link>
+        <div>
+          <img v-if="article.user.profile_image" :src="article.user.profile_image" alt="" class="profile-image" id="profile-image-true">
+          <img v-else src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="profile-image">
+        </div>
+        <router-link :to="{ name: 'profile', params: {username: article.user.username} }" id="article-user-name"><p class="d-flex justify-content-start mx-1">{{ article.user.name }} ({{ article.user.username }})</p></router-link>
         <p id="article-created-text">{{ article.created_at}}</p>
         <hr>
       </div>
       <div class="article-content-wrap">
-        <p class="box">
+        <h5 v-if="article.shared_poster" class="mt-4 mb-4">🏆{{ article.user.name }} 님이 뽑은 인생영화🏆</h5>
+          <div id="poster-wrap">
+            <img :src="`https://image.tmdb.org/t/p/original/${article.shared_poster}`" alt="" id="poster">
+          </div>
+        <p class="box mt-5" id="article-content">
           {{ article.content }}
         </p>
       </div>
@@ -161,5 +169,26 @@
   width: 70%;
   height: 100vh;
   margin: auto;
+}
+#poster-wrap {
+  width: 50%;
+  height: 70%;
+  margin: auto;
+}
+#poster {
+  width: 80%;
+}
+#article-content {
+  font-size: 20px;
+}
+#profile-image-true{
+  border-radius: 50%;
+}
+.profile-image {
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  object-fit: cover;
+  float: left;
 }
 </style>

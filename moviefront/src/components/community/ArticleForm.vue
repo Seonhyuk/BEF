@@ -1,6 +1,7 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <img v-if="newArticle.shared_poster" :src="`https://image.tmdb.org/t/p/original/${newArticle.shared_poster}`" alt="" class="poster">
+    <h5 v-if="newArticle.shared_poster" class="mt-5">&#x1F389;우승작 공유하기!&#x1F389;</h5>
+    <img v-if="newArticle.shared_poster" :src="`https://image.tmdb.org/t/p/original/${newArticle.shared_poster}`" alt="" class="poster mb-5">
     <div class="mb-3">
       <input v-model="newArticle.title" type="text" id="article-title" class="form-control" placeholder="제목"/>
     </div>

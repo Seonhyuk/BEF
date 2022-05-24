@@ -6,7 +6,7 @@
         <img v-if="comment.user.profile_image" :src="comment.user.profile_image" alt="" class="profile-image" id="profile-image-true">
         <img v-else src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="profile-image">
         <router-link id="comment-user" :to="{ name: 'profile', params: { username: comment.user.username } }" class="mx-2 mt-1">
-          {{ comment.user.username }}
+          {{ comment.user.name }} ({{ comment.user.username }})
         </router-link> 
       </div>
         <p id="comment-created-time" class="my-1">{{ comment.created_at }}</p>

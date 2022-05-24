@@ -68,9 +68,11 @@
                 <h4 id="avg-text" v-if="avg1">&#x2B50;</h4>
                 <h4 v-if="avghigh" id="avghigh">&#x2728;BEF가 뽑은 인생영화!&#x2728;</h4>
                 <h6 id="avg-text">평점 {{ movieDetail.vote_average }} 점</h6>
+                <div id="down-img1-wrap">
+                  <img id="down-img1" src="@/assets/down.png" alt="" @click="move1">
+                </div>
               </div>
             </div>
-            <img id="down-img1" src="@/assets/down.png" alt="" @click="move1">
           </div>
 
         </div>
@@ -84,12 +86,16 @@
             frameborder="0"
             autoplay
           ></iframe>
-          <img id="down-img2" src="@/assets/down.png" alt="" @click="move2">
+          <div id="down-img2-wrap">
+            <img id="down-img2" src="@/assets/down.png" alt="" @click="move2">
+          </div>
         </div>
 
         <div id="back-drop-wrap2">
           <img :src="`https://image.tmdb.org/t/p/original/${setBackImg}`" alt=""  id="detail-poster2">
-          <img id="down-img3" src="@/assets/down.png" alt="" @click="move3">
+          <div id="down-img3-wrap">
+            <img id="down-img3" src="@/assets/down.png" alt="" @click="move3">
+          </div>
         </div>
 
         <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button" id="review-modal-btn">리뷰남기기</a>
@@ -302,18 +308,20 @@ export default {
   margin: 0px;
   padding: 0px;
   width: 100%;
+  height: 70%;
   max-width: 2000px;
   position: relative;
 }
 #detail-poster {
-  width: 1920px;
-  height: 880px;
-  filter: brightness(25%)
+  width: 100%;
+  height: 92vh;
+  filter: brightness(25%);
+  border: solid blue;
 }
 #detail-poster2 {
-  width: 1920px;
-  height: 900px;
-  filter: brightness(55%)
+  width: 100%;
+  height: 100vh;
+  filter: brightness(50%);
 }
 
 #movie-title-img {
@@ -468,6 +476,7 @@ export default {
   text-align: center;
   display: flex;
   justify-content: center;
+  border: solid red;
 }
 #div-inner {
   display: inline-block;
@@ -561,26 +570,40 @@ export default {
   position: absolute;
   z-index: 1000;
 }
+#down-img1-wrap {
+  border: solid;
+  height: 50px;
+  margin-top: 25%;
+}
 #down-img1 {
+  border: solid;
+  z-index: 1000;
   width: 40px;
   height: 40px;
-  position: absolute;
-  left: 920px;
-  top: 790px;
-
+}
+#down-img2-wrap {
+  position: relative;
+  z-index: 1000;
+  border: solid;
+  height: 50px;
+  margin-top: 50%;
 }
 #down-img2 {
   width: 40px;
   height: 40px;
-  position: absolute;
   top: 990px;
   left: 920px;
-  z-index: 1000;
+  z-index: 2000;
+}
+#down-img3-wrap {
+  border: solid;
+  height: 300px;
+  width: 200px;
+  margin: auto;
 }
 #down-img3 {
   width: 40px;
   height: 40px;
-  position: absolute;
   bottom: 920px;
   left: 920px;
 }
@@ -594,5 +617,4 @@ export default {
 #up-img-wrap {
   height: 100px;
 }
-
 </style>
