@@ -288,6 +288,14 @@ export default {
 		},
 		clearRecommendMovies({ commit }) {
 			commit('CLEAR_RECOMMEND_MOVIES')
+		},
+
+		addVote({ getters }, movieId) {
+			axios({
+				url: drf.movies.addVote(movieId),
+				method: 'post',
+				header: getters.authHeader
+			})
 		}
 	}
 }

@@ -36,6 +36,7 @@ export default {
 		
 		roundSelect: exponent => HOST + MOVIES + 'matchup/' + `${exponent}/`,
 		worldCup: exponent => HOST + MOVIES + 'worldcup/' + `${exponent}/`,
+		addVote: movieId => HOST + MOVIES + 'add_vote/' + `${movieId}/`,
 	
 		reviews: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEWS,
 		comment: (moviePk, reviewPk) =>

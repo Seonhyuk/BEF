@@ -25,7 +25,7 @@
             <img :src="`https://image.tmdb.org/t/p/w500/${tournament[i].backdrop_path}`" alt="Brohm Lake">
           </figure>
 
-          <button @click="fillMovie(i)">선택</button>
+          <button @click="[fillMovie(i), isWinner()]">선택</button>
 
           <div class="design-container">
             <span class="design design--1"></span>
@@ -57,7 +57,12 @@ export default {
     ...mapGetters(['tournament'])
   },
   methods: {
-    ...mapActions(['fillMovie'])
+    ...mapActions(['fillMovie', 'addVote']),
+    isWinner() {
+      if (this.i < 4) {
+        this.addVote(this.tournament[this.i].id)
+      }
+    }
   }
 }
 </script>

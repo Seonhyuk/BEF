@@ -325,15 +325,6 @@ def winner(request):
 
 
 @api_view(['GET'])
-def nyear_movies(request, year):
-    movies = Movie.objects.filter(release_date__year=f'{year}').order_by('-popularity')[:40]
-
-    serializer = MovieSerializer(movies, many=True)
-
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
 def get_genres(request):
     genres = Genre.objects.all()
     serializers = GenreSerializer(genres, many=True)
@@ -392,5 +383,15 @@ def select(request, movie_pk):
 
     return Response(serializers.data)
 
-    
 
+@api_view(['POST'])
+def add_score(request, movie_pk):
+    movie = Movie.objects.get(pk=movie_pk)
+    movie.vote += 1
+    movie.save()
+
+    data = {
+        'data': 'success',
+    }
+
+    return Response(data, status=status.HTTP_200_OK)
