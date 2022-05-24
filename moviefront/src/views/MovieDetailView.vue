@@ -1,5 +1,58 @@
 <template>
   <v-container id="main">
+    <form @submit.prevent="onSubmit()">
+      <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalToggleLabel">{{ currentUser.name }}님의 리뷰를 남겨주세요	&#128064;</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="exampleModalBody">
+            <input type="text" id="content" v-model="newReview.content" class="form-control" placeholder="리뷰를 입력하세요.." @submit.prevent>             
+            </div>
+            <div class="modal-footer">
+              <button data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" id="modal-submit-btn" type="button">다음</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalToggleLabel2">전반적인 영화는 어땠나요?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="exampleModalBody2">
+            <label for="radio1" class="text_obj">
+              <input 
+                type="radio" 
+                name="like" 
+                id="radio1"
+                :value="true"
+                v-model="newReview.like"
+              ><span>좋았어요😍</span>
+            </label> vs 
+    
+            <label for="radio2" class="text_obj">
+              <input 
+                type="radio" 
+                name="like" 
+                id="radio2" 
+                :value="false"
+                v-model="newReview.like"
+              ><span>별로에요😥</span>
+            </label>
+            </div>
+            <div class="modal-footer">
+              <button id="comment-btn" data-bs-dismiss="modal">제출</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
     <div v-scroll:#main="handelScroll">
       <div class="detail-wrap">
         <div id="back-drop-wrap">
@@ -38,60 +91,8 @@
           <img :src="`https://image.tmdb.org/t/p/original/${setBackImg}`" alt=""  id="detail-poster2">
           <img id="down-img3" src="@/assets/down.png" alt="" @click="move3">
         </div>
-          <!-- 모달창 -->
-        <form @submit.prevent="onSubmit()">
-          <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalToggleLabel">{{ currentUser.name }}님의 리뷰를 남겨주세요	&#128064;</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="exampleModalBody">
-                <input type="text" id="content" v-model="newReview.content" class="form-control" placeholder="리뷰를 입력하세요..">            
-                </div>
-                <div class="modal-footer">
-                  <button data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" id="modal-submit-btn" type="button">다음</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalToggleLabel2">전반적인 영화는 어땠나요?</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="exampleModalBody2">
-                <label for="radio1" class="text_obj">
-                  <input 
-                    type="radio" 
-                    name="like" 
-                    id="radio1"
-                    :value="true"
-                    v-model="newReview.like"
-                  ><span>좋았어요😍</span>
-                </label> vs 
-        
-                <label for="radio2" class="text_obj">
-                  <input 
-                    type="radio" 
-                    name="like" 
-                    id="radio2" 
-                    :value="false"
-                    v-model="newReview.like"
-                  ><span>별로에요😥</span>
-                </label>
-                </div>
-                <div class="modal-footer">
-                  <button id="comment-btn">제출</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button" id="review-modal-btn">리뷰남기기</a>
-        </form>
+
+        <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button" id="review-modal-btn">리뷰남기기</a>
 
         <div id="review-list-wrap">
           <div id="review-wrap">
@@ -104,70 +105,17 @@
               </router-link> 
               <p id="review-user-name">{{ review.content }}</p>
             </div>
-              <div v-if="noReviews" class="mt-5" id="no-reviews">
-                <h2>아직 작성된 리뷰가 없어요...😅</h2>
-                <p>첫번째 리뷰를 남겨보세요!</p>
-                <div id="no-rivews-form">
-                  <form @submit.prevent="onSubmit()">
-                    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                      <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalToggleLabel">{{ currentUser.name }}님의 리뷰를 남겨주세요	&#128064;</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body" id="exampleModalBody">
-                          <input type="text" id="content" v-model="newReview.content" class="form-control" placeholder="리뷰를 입력하세요..">            
-                          </div>
-                          <div class="modal-footer">
-                            <button data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" id="modal-submit-btn" type="button">다음</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-                      <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalToggleLabel2">전반적인 영화는 어땠나요?</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body" id="exampleModalBody2">
-                          <label for="radio1" class="text_obj">
-                            <input 
-                              type="radio" 
-                              name="like" 
-                              id="radio1"
-                              :value="true"
-                              v-model="newReview.like"
-                            ><span>좋았어요😍</span>
-                          </label> vs 
-                  
-                          <label for="radio2" class="text_obj">
-                            <input 
-                              type="radio" 
-                              name="like" 
-                              id="radio2" 
-                              :value="false"
-                              v-model="newReview.like"
-                            ><span>별로에요😥</span>
-                          </label>
-                          </div>
-                          <div class="modal-footer">
-                            <button id="comment-btn">제출</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button" id="review-modal-btn2">리뷰남기기</a>
-                  </form>
-                </div>
-
+            <div v-if="noReviews" class="mt-5" id="no-reviews">
+              <h2>아직 작성된 리뷰가 없어요...😅</h2>
+              <p>첫번째 리뷰를 남겨보세요!</p>
+              <div id="no-rivews-form">
+                <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button" id="review-modal-btn2">리뷰남기기</a>
               </div>
+            </div>
             
-        <div id="up-img-wrap">
-          <img id="up-img1" src="@/assets/upupup.png" alt="" @click="moveUp">
-        </div>
+            <div id="up-img-wrap">
+              <img id="up-img1" src="@/assets/upupup.png" alt="" @click="moveUp">
+            </div>
           </div>
         </div>
       </div>
