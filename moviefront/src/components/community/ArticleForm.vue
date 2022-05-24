@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent="onSubmit">
+    <img v-if="newArticle.shared_poster" :src="`https://image.tmdb.org/t/p/original/${newArticle.shared_poster}`" alt="" class="poster">
     <div class="mb-3">
       <input v-model="newArticle.title" type="text" id="article-title" class="form-control" placeholder="제목"/>
     </div>
@@ -13,7 +14,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
   export default {
     name: 'ArticleForm',
@@ -26,10 +27,13 @@ import { mapActions } from 'vuex'
         newArticle: {
           title: this.article.title,
           content: this.article.content,
+          shared_poster: '',
         }
       }
     },
-
+    computed: {
+      ...mapGetters(['sharedPoster', 'sharedTitle',]),
+    },
     methods: {
       ...mapActions(['createArticle', 'updateArticle']),
       onSubmit() {
@@ -44,10 +48,24 @@ import { mapActions } from 'vuex'
         }
       },
     },
+
+    created () {
+      if (this.sharedPoster) {
+        this.newArticle.shared_poster = this.sharedPoster
+        this.newArticle.title = this.sharedTitle
+      }
+    }
+
   }
 </script>
 
 <style scoped>
+
+.poster {
+  height: 400px;
+  width: 300px;
+}
+
 
 #article-content {
   height: 300px;

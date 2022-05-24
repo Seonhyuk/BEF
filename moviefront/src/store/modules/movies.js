@@ -27,7 +27,10 @@ export default {
 
 		searchedMovies: [],
 		searchedMoviesForReview: [],
-		backDropImage: []
+		backDropImage: [],
+
+		sharedPoster: '',
+		sharedTitle: '',
 	},
 	getters: {
 		nowMovies: state => state.nowMovies,
@@ -50,7 +53,10 @@ export default {
 		searchedMoviesForReview : state => state.searchedMoviesForReview,
 		
 		genres: state => state.genres,
-		backDropImage: state => state.backDropImage
+		backDropImage: state => state.backDropImage,
+
+		sharedPoster: state => state.sharedPoster,
+		sharedTitle: state => state.sharedTitle,
 	},
 	mutations: {
 		SET_NOW_MOVIES(state, res) {
@@ -115,6 +121,12 @@ export default {
 		},
 		CLEAR_RECOMMEND_MOVIES (state) {
 			state.recommendMovies = []
+		},
+		SET_SHARED_POSTER (state, poster_path) {
+			state.sharedPoster = poster_path
+		},
+		SET_SHARED_TITLE (state, title) {
+			state.sharedTitle = `[${title}] #월드컵우승 `
 		}
 
 	},
@@ -296,6 +308,12 @@ export default {
 				method: 'post',
 				header: getters.authHeader
 			})
+		},
+		setSharedPoster({ commit }, poster_path) {
+			commit('SET_SHARED_POSTER', poster_path)
+		},
+		setSharedTitle({ commit }, title) {
+			commit('SET_SHARED_TITLE', title)
 		}
 	}
 }

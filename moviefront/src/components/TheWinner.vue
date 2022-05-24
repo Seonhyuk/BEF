@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'TheWinner',
@@ -27,7 +27,6 @@ export default {
   },
   data () {
     return {
-      num: 1,
       payload: {
         movie : '',
         poster : '',
@@ -36,9 +35,13 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['setSharedPoster', 'setSharedTitle']),
+
     shareCommunity: function () {
-      console.log(this.payload)
-      this.$router.push({ name: 'share', params: { payload: `${this.payload}`}})
+      this.setSharedPoster(this.tournament[1].poster_path)
+      this.setSharedTitle(this.tournament[1].title)
+
+      this.$router.push({ name: 'articleNew' })
     }
   },
   mounted() {
