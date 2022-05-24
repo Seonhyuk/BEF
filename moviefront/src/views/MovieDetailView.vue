@@ -78,7 +78,7 @@
 
 
 
-        <div class="video-wrap">
+        <div class="video-wrap" id="videoWrap">
           <iframe
             :src="`https://www.youtube.com/embed/${video}?autoplay=1&mute=0`" 
             frameborder="0"
@@ -87,7 +87,7 @@
           <img id="down-img2" src="@/assets/down.png" alt="" @click="move2">
         </div>
 
-        <div id="back-drop-wrap">
+        <div id="back-drop-wrap2">
           <img :src="`https://image.tmdb.org/t/p/original/${setBackImg}`" alt=""  id="detail-poster2">
           <img id="down-img3" src="@/assets/down.png" alt="" @click="move3">
         </div>
@@ -140,7 +140,6 @@ export default {
   computed: {
     ...mapGetters(['movieDetail', 'video', 'reviews', 'currentUser', 'backDropImage']),
     setBackImg() {
-      console.log(this.backDropImage.backdrops[this.num]?.file_path)
       return this.backDropImage.backdrops[this.num]?.file_path
     },
     avg5() {
@@ -178,10 +177,12 @@ export default {
       this.newReview.content = ''
     },
     move1() {
-      window.scrollTo({left:0, top:1100, behavior:"smooth"})
+      const videoLocation = document.querySelector('#videoWrap').offsetTop
+      window.scrollTo({left:0, top:videoLocation+200, behavior:"smooth"})
     },
     move2() {
-      window.scrollTo({left:0, top:2000, behavior:"smooth"})
+      const backDropLocation = document.querySelector('#detail-poster2').offsetTop
+      window.scrollTo({left:0, top:backDropLocation+50, behavior:"smooth"})
     },
     move3() {
       window.scrollTo({left:0, top:2900, behavior:"smooth"})
@@ -330,7 +331,6 @@ export default {
   padding-bottom: 56.25%;
   height: 0px;
   overflow: hidden;
-  margin-bottom: 20px;
 }
 .video-wrap iframe {
   position: absolute;
@@ -427,7 +427,7 @@ export default {
 #review-modal-btn{
   position: absolute;
   bottom: 1300px;
-  left: 45%;
+  left: 43.5%;
   z-index: 1000;
   margin: 5px;
   background-color: #F82F62;
@@ -473,7 +473,6 @@ export default {
   display: inline-block;
   margin: 0 auto;
   position: absolute;
-  left: 27%;
   top: 10%;
   width: 50%;
   height: 200px;
@@ -483,7 +482,7 @@ export default {
 }
 #review-wrap {
   width: 80%;
-  height: 100%;
+  height: 830px;
   display: inline-block;
 }
 .profile-image {
@@ -566,13 +565,16 @@ export default {
   width: 40px;
   height: 40px;
   position: absolute;
+  left: 920px;
   top: 790px;
+
 }
 #down-img2 {
   width: 40px;
   height: 40px;
   position: absolute;
-  top: 1000px;
+  top: 990px;
+  left: 920px;
   z-index: 1000;
 }
 #down-img3 {
@@ -580,12 +582,17 @@ export default {
   height: 40px;
   position: absolute;
   bottom: 920px;
+  left: 920px;
 }
 #up-img1 {
   width: 40px;
   height: 40px;
+  left: 920px;
+  position: absolute; 
+  bottom: 10px;
 }
 #up-img-wrap {
   height: 100px;
 }
+
 </style>

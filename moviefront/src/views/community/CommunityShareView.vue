@@ -1,6 +1,6 @@
 <template>
   <div id="new-article-wrap">
-    <h1 id="new-article-title" class="mt-5">New Article</h1>
+    <h1 id="new-article-title" class="mt-5">공유하기</h1>
     <article-form :article="article" action="create"></article-form>
   </div>
 </template>
@@ -28,7 +28,8 @@ import { mapGetters } from 'vuex'
       if (!this.isLoggedIn) {
       this.$router.push({ name: 'login'})
     }
-    }
+    },
+    props: ['payload']
   }
 </script>
 

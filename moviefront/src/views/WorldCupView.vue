@@ -47,9 +47,8 @@ export default {
 <style scoped>
 
 .home {
-  max-width: 1000px;
   width: 80%;
-  height: 95vh;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5)
 }
 
