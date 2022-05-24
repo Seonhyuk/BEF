@@ -87,7 +87,6 @@ export default {
 						if (res.data.data) {
 							alert('이미 사용중인 닉네임입니다.')
 						} else {
-		
 							axios({
 								url: drf.accounts.signup(),
 								method: 'post',
@@ -210,6 +209,31 @@ export default {
 					dispatch('fetchCurrentUser')
 					dispatch('fetchProfile', getters.currentUser.username)
 				})
+		},
+		changeNickname({ getters, dispatch }, newNickname) {
+			if (newNickname === getters.currentUser.name) {
+				alert('현재 닉네임과 같습니다.')
+			} else {
+				axios({
+					url: drf.accounts.nickname(newNickname),
+					method: 'get',
+				})
+					.then(res => {
+						if (res.data.data) {
+							alert('이미 사용중인 닉네임입니다.')
+						} else {
+							axios({
+								url: drf.accounts.newNickname(getters.currentUser.username, newNickname),
+								method: 'post',
+								header: getters.authHeader,
+							})
+								.then(() => {
+									dispatch('fetchCurrentUser')
+									router.push({name: 'profile', params: { username: getters.currentUser.username}})
+								})
+						}
+					})
+			}
 		}
 	}
 }

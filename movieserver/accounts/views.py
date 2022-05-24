@@ -1,7 +1,3 @@
-import base64
-
-import pprint
-
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 
 from django.contrib.auth import get_user_model
@@ -78,4 +74,17 @@ def change_profile_image(request, username):
         'user': 'changed'
     }
     
+    return Response(data, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def change_nickname(request, username, new_nickname):
+    user = User.objects.get(username=username)
+    user.name = new_nickname
+    user.save()
+
+    data = {
+        'user': 'updated'
+    }
+
     return Response(data, status=status.HTTP_200_OK)

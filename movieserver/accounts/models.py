@@ -25,7 +25,7 @@ class User(AbstractUser):
     followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
     
     # 이 사람에게 최근 추천된 영화
-    recently_recommended_movies = deque()
+    recently_recommended_movies = models.ManyToManyField(Movie, related_name='recently_recommend')
 
     def __str__(self) -> str:
         return self.name

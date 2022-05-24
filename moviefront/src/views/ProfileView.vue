@@ -1,6 +1,15 @@
 <template>
   <div class="main-box py-5 container">
-    <h1 class="fw-bold">{{ profile.name }}({{ profile.username }})</h1>
+    <h1 class="fw-bold">
+      {{ profile.name }}({{ profile.username }}) 
+      <button 
+        v-if="currentUser.username === profile.username"
+        class="nickname-button"
+        @click="goChangeNickname"
+      >닉네임 변경</button>
+    </h1>
+
+    
     <hr>
 
     <div class="d-flex justify-content-between">
@@ -96,7 +105,14 @@
     <hr>
 
     <h1 class="playing-title ms-4">{{ profile.name }}님이 작성한 게시글</h1>
-    
+    <div v-if="articlesLength">
+      
+    </div>
+    <div v-else>
+      <div class="empty-box">
+        <h2 class="empty-text">{{ profile.name }}님이 작성한 게시글이 없습니다!</h2>
+      </div>
+    </div>
 
 
   </div>
@@ -131,10 +147,14 @@ export default {
     likedLength () {
       return this.profile.wished_to_movies?.length
     },
+    articlesLength () {
+      return this.profile.articles?.length
+    },
+    
 
     checkFollow () {
-      for (let person of this.currentUser.followings) {
-        if (person.username === this.profile.username) {
+      for (let person of this.currentUser?.followings) {
+        if (person.username === this.profile?.username) {
           return true
         }
       }
@@ -167,6 +187,9 @@ export default {
     },
     returnProfileImage () {
       this.img = this.profile.profile_image
+    },
+    goChangeNickname () {
+      this.$router.push({ name: 'changeNickname'})
     }
   },
   created () {
@@ -286,6 +309,19 @@ hr {
   color: white;
   border: 0px;
   border-radius: 30px;
+}
+
+.nickname-button {
+  width: 100px;
+  height: 30px;
+  margin: auto;
+  background-color: rgb(243, 86, 143);
+  font-weight: bold;
+  color: white;
+  font-size: 16px;
+  border: 0px;
+  border-radius: 30px;
+  box-shadow: -1px 0 white, 0 1px white, 1px 0 #FFF, 0 -1px #FFF;
 }
 
 .back-button {

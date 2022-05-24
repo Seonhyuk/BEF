@@ -33,7 +33,7 @@
       </ul>
     </div>
 
-    <div class="button-box d-flex justify-content-center">
+    <div class="button-box">
       <div class="go-button">      
         <a href="https://www.cgv.co.kr/" class="movie-page">
           <img class="logo-img" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1606805205/noticon/tvxwnc0q46bsfbpzokzx.png" alt=""> CGV 바로가기
@@ -116,13 +116,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setNowMovies', 'setLastMovies', 'setWinMovies', 'setRecommendMovies', 'fetchCurrentUser',]),
+    ...mapActions(['setNowMovies', 'setLastMovies', 'setWinMovies', 'setRecommendMovies', 'fetchCurrentUser', 'clearRecommendMovies',]),
   },
   created() {
     this.setNowMovies()
     this.setLastMovies()
     this.setWinMovies()
     if (this.currentUser.username) {
+      this.clearRecommendMovies()
       this.setRecommendMovies(this.currentUser.username)
     }
   },
@@ -152,7 +153,7 @@ export default {
 }
 
 .movies::-webkit-scrollbar{
-  width: 1px;
+  width: 3px;
 }
 
 .movies > ul {
@@ -190,13 +191,18 @@ hr {
   margin: auto;
 }
 
+.button-box {
+  height: auto;
+}
+
 .go-button {
   width: 250px;
+  min-width: 250px;
   height: 40px;
   background-color: rgba(50, 50, 50, 0.5);
-  display: flex;
+  display: inline-block;
   border-radius: 30px;
-  margin: 0px 10px;
+  margin: 5px 10px;
   font-weight: bold;
 }
 
@@ -204,7 +210,8 @@ hr {
   width: 40px;
 }
 .logo-img2 {
-  width: 30px;
+  width: 40px;
+  padding: 4px;
 }
 
 .add-button {

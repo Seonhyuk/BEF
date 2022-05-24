@@ -60,6 +60,8 @@ def now_playing(request):
 
         if len(result) == 10:
             break
+
+    result.sort(key=lambda x: -x.popularity)
     
     serializer = MovieSerializer(result, many=True)
 
@@ -112,24 +114,26 @@ def recommend(request, username):
 
     recommend = []
 
+    lst = deque(user.recently_recommended_movies.all())
+
     while len(recommend) < 12:
         for i in range(len(movies)):
             for j in range(len(movies[i])):
                 m = movies[i][j]
                 if user.watched_movies.filter(pk=m.pk).exists() or user.wished_to_movies.filter(pk=m.pk).exists():
                     continue
-                elif user.disliked_movies.filter(pk=m.pk).exists() or m.pk in user.recently_recommended_movies or m in recommend:
+                elif user.disliked_movies.filter(pk=m.pk).exists() or user.recently_recommended_movies.filter(pk=m.pk).exists() or m in recommend:
                     continue
                 else:
                     recommend.append(m)
-                    user.recently_recommended_movies.append(m.pk)
-                    if len(user.recently_recommended_movies) > 200:
-                        user.recently_recommended_movies.popleft()
+                    user.recently_recommended_movies.add(m)
+                    lst.append(m)
+                    if len(lst) > 200:
+                        movie = lst.popleft()
+                        user.recently_recommended_movies.delete(movie)
                     break
             if len(recommend) >= 12:
                 break       
-    
-    print(len(user.recently_recommended_movies))
 
     serializer = MovieSerializer(recommend, many=True)
 

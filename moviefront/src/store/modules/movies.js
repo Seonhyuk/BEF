@@ -112,6 +112,9 @@ export default {
 		},
 		SET_BACK_DROP_IMAGE (state, res) {
 			state.backDropImage = res
+		},
+		CLEAR_RECOMMEND_MOVIES (state) {
+			state.recommendMovies = []
 		}
 
 	},
@@ -282,6 +285,9 @@ export default {
 				}
 			})
 				.then(res => { commit('SET_BACK_DROP_IMAGE', res.data)})
+		},
+		clearRecommendMovies({ commit }) {
+			commit('CLEAR_RECOMMEND_MOVIES')
 		}
 	}
 }

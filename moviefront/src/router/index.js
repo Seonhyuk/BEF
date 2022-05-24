@@ -5,6 +5,8 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import changeNicknameView from '@/views/changeNicknameView.vue'
+
 import SearchView from '@/views/SearchView.vue'
 import MovieDetailView from '@/views/MovieDetailView.vue'
 import RoundSelectView from '@/views/RoundSelectView.vue'
@@ -86,6 +88,11 @@ const routes = [
     path: '/genres',
     name: 'genres',
     component: SelectGenreView
+  },
+  {
+    path: '/nickname',
+    name: 'changeNickname',
+    component: changeNicknameView
   }
 ]
 
