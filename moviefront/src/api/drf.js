@@ -12,6 +12,7 @@ export default {
 		logout: () => HOST + ACCOUNTS + 'logout/',
 		signup: () => HOST + ACCOUNTS + 'signup/',
 		signupPlus: (username, nickname) => HOST + ACCOUNTS + 'signup_plus/' + `${username}/` + `${nickname}/`,
+		changePassword: () => HOST + ACCOUNTS + 'password/change/',
 
 		currentUserInfo: () => HOST + ACCOUNTS + 'user/',
 		profile: () => HOST + ACCOUNTS + 'profile/',

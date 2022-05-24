@@ -234,6 +234,21 @@ export default {
 						}
 					})
 			}
+		},
+		changePassword({ getters, dispatch }, credentials) {
+			axios({
+				url: drf.accounts.changePassword(),
+				method: 'post',
+				headers: getters.authHeader,
+				data: credentials,
+			})
+				.then(() => {
+					dispatch('fetchCurrentUser')
+					router.push({name: 'home'})
+				})
+				.catch(err => {
+					console.log(err.response.data)
+				})
 		}
 	}
 }

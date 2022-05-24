@@ -130,7 +130,7 @@ def recommend(request, username):
                     lst.append(m)
                     if len(lst) > 200:
                         movie = lst.popleft()
-                        user.recently_recommended_movies.delete(movie)
+                        user.recently_recommended_movies.remove(movie)
                     break
             if len(recommend) >= 12:
                 break       

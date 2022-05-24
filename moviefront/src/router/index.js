@@ -6,6 +6,8 @@ import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import changeNicknameView from '@/views/changeNicknameView.vue'
+import PasswordChangeView from '@/views/PasswordChangeView.vue'
+
 
 import SearchView from '@/views/SearchView.vue'
 import MovieDetailView from '@/views/MovieDetailView.vue'
@@ -39,6 +41,11 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignupView
+  },
+  {
+    path: '/changepassword',
+    name: 'changepassword',
+    component: PasswordChangeView,
   },
   {
     path: '/profile/:username',

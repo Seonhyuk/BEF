@@ -20,10 +20,9 @@
             MY
           </a>
           <ul class="dropdown-menu text-dark" aria-labelledby="navbarDropdown">
-            <li><router-link :to="{ name: 'profile', params:{ username:`${currentUser.username}`} }" v-if="currentUser.username" class="dropdown-item text-dark">프로필</router-link></li>
-            <li><a class="dropdown-item text-dark" href="#">회원정보수정</a></li>
+            <li><router-link :to="{ name: 'profile', params:{ username:`${currentUser.username}`} }" class="dropdown-item text-dark">프로필</router-link></li>
+            <li><router-link :to="{ name: 'changepassword' }" class="dropdown-item text-dark">비밀번호변경</router-link></li>
             <li><a class="dropdown-item text-dark" href="#" @click="logout()">로그아웃</a></li>
-            <li><a class="dropdown-item text-dark" href="#">회원탈퇴</a></li>
           </ul>
         </p>
 

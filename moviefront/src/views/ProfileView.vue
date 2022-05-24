@@ -106,7 +106,24 @@
 
     <h1 class="playing-title ms-4">{{ profile.name }}님이 작성한 게시글</h1>
     <div v-if="articlesLength">
-      
+      <table class="table table-dark table-striped table-hover">
+        <thead id="table-head">
+          <tr>
+            <th scope="col">제목</th>
+            <th scope="col">내용</th>
+            <th scope="col">좋아요</th>
+            <th scope="col">댓글수</th>
+          </tr>
+        </thead>
+        <tbody v-for="article in profile.articles" :key="article.pk">
+          <tr>
+            <td scope="row"><router-link :to="{ name: 'article', params: {articlePk: article.pk} }" id="td-text">{{ article.title }}</router-link></td>
+            <td><router-link :to="{ name: 'article', params: {articlePk: article.pk} }" id="td-text">{{ article.content }}</router-link></td>
+            <th>{{ article.like_count }}</th>
+            <th>{{ article.comment_count }}</th>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div v-else>
       <div class="empty-box">
@@ -447,5 +464,10 @@ hr {
 
 .change-box {
   height: 60px;
+}
+
+#td-text {
+  text-decoration-line: none;
+  color: white;
 }
 </style>
