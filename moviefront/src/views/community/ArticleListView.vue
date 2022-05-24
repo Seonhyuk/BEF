@@ -1,35 +1,40 @@
 <template>
-  <div class="mt-5" id="article-wrap">
-  <h5 id="hot-topic-h6">BEF TOPIC</h5>
-  <table class="table table-dark table-striped table-hover">
-    <thead id="table-head">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">제목</th>
-        <th scope="col">내용</th>
-        <th scope="col">작성자</th>
-        <th scope="col">좋아요</th>
-        <th scope="col">댓글수</th>
-      </tr>
-    </thead>
-    <tbody v-for="article in articles" :key="article.pk">
-      <tr>
-        <th scope="row">{{ article.pk }}</th>
-        <td><router-link :to="{ name: 'article', params: {articlePk: article.pk} }" id="td-text">{{ article.title }}</router-link></td>
-        <td><router-link :to="{ name: 'article', params: {articlePk: article.pk} }" id="td-text">{{ article.content }}</router-link></td>
-        <td><router-link :to="{ name: 'profile', params: {username: article.user.username} }" id="td-text">{{ article.user.username }}</router-link></td>
-        <th>{{ article.like_count}}</th>
-        <th>{{ article.comment_count}}</th>
-      </tr>
-    </tbody>
-  </table>
-  
-  <div class="d-flex justify-content-end">
-    <router-link :to="{ name: 'articleNew'}"><button class="btn btn-sm" id="create-btn">글쓰기</button></router-link>
-  </div>
+  <div class="container">
+    <div class="row">
+      <!-- 게시글들 -->
+      <div class="mt-5 col-12 col-lg-9" id="article-wrap">
+      <h5 id="hot-topic-h6">BEF TOPIC</h5>
+      <table class="table table-dark table-striped table-hover">
+        <thead id="table-head">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">제목</th>
+            <th scope="col">내용</th>
+            <th scope="col">작성자</th>
+            <th scope="col">좋아요</th>
+            <th scope="col">댓글수</th>
+          </tr>
+        </thead>
+        <tbody v-for="article in articles" :key="article.pk">
+          <tr>
+            <th scope="row">{{ article.pk }}</th>
+            <td><router-link :to="{ name: 'article', params: {articlePk: article.pk} }" id="td-text">{{ article.title }}</router-link></td>
+            <td><router-link :to="{ name: 'article', params: {articlePk: article.pk} }" id="td-text">{{ article.content }}</router-link></td>
+            <td><router-link :to="{ name: 'profile', params: {username: article.user.username} }" id="td-text">{{ article.user.username }}</router-link></td>
+            <th>{{ article.like_count}}</th>
+            <th>{{ article.comment_count}}</th>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="d-flex justify-content-end">
+        <router-link :to="{ name: 'articleNew'}"><button class="btn btn-sm" id="create-btn">글쓰기</button></router-link>
+      </div>
 
 
 
+      </div>
+    </div>
   </div>
 </template>
 
