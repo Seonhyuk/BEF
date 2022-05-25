@@ -111,7 +111,7 @@ const routes = [
   },
   {
     path: '/customcard',
-    name: 'CustomCard',
+    name: 'customCard',
     component: CustomCardView
   },
 ]
