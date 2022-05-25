@@ -9,6 +9,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import UserSerializer
+from .models import CustomCard
 
 
 from .models import User
@@ -99,3 +100,25 @@ def delete_user(request, username):
     }
 
     return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['POST'])
+def make_card(request, username):
+    user = User.objects.get(username=username)
+    card = CustomCard()
+
+    card.user = user
+    card.card_img = request.data['img']
+    card.title = request.data['title']
+    card.viewed_date = request.data['date']
+    card.with_person = request.data['withPerson']
+    card.like = request.data['liked']
+    card.description = request.data['description']
+    card.left_color = request.data['leftColor']
+    card.right_color = request.data['rightColor']
+
+    card.save()
+
+    data = {
+        'data': 'success'
+    }
+    return Response(data, status=status.HTTP_201_CREATED)

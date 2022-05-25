@@ -21,6 +21,7 @@ export default {
 		changeProfileImage: (username) => HOST + ACCOUNTS + 'profile_image/' + `${username}/`,
 		newNickname: (username, newNickname) => HOST + ACCOUNTS + 'change_nickname/' + `${username}/` + `${newNickname}/`,
 		deleteUser: username => HOST + ACCOUNTS + 'delete_user/' + `${username}/`,
+		makeCard: username => HOST + ACCOUNTS + 'make_card/' + `${username}/`
 	},
 	movies: {
 		movies: () => HOST + MOVIES,

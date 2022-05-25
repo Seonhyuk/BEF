@@ -29,3 +29,15 @@ class User(AbstractUser):
 
     def __str__(self) -> str:
         return self.name
+
+
+class CustomCard(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cards')
+    card_img = models.TextField(null=False)
+    title = models.CharField(max_length=30, null=False)
+    viewed_date = models.DateField()
+    with_person = models.CharField(max_length=30, null=True)
+    like = models.BooleanField(default=True)
+    description = models.CharField(max_length=50, null=True)
+    left_color = models.IntegerField()
+    right_color = models.IntegerField()

@@ -262,6 +262,17 @@ export default {
 					dispatch('fetchCurrentUser')
 					alert('회원탈퇴가 완료되었습니다.')
 				})
+		},
+		makeCard({ getters }, cardData) {
+			axios({
+				url: drf.accounts.makeCard(getters.currentUser.username),
+				method: 'post',
+				headers: getters.authHeader,
+				data: cardData,
+			})
+				.then(() => {
+					router.push({ name: 'profile', params: { username: getters.currentUser.username }})
+				})
 		}
 	}
 }

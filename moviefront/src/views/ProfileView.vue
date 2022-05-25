@@ -67,7 +67,25 @@
 
     </div>
     <hr>
-  
+    <div class="d-flex justify-content-between" v-if="currentUser.username === profile.username">
+      <h1 class="playing-title ms-4">{{ profile.name }}님의 무비카드</h1>
+      <router-link :to="{ name: 'CustomCard' }">무비카드 만들기</router-link>
+    </div>
+    <h1 class="playing-title ms-4" v-else>{{ profile.name }}님의 무비카드</h1>
+    <div class="movies d-flex justify-content-center" v-if="cardsLength">
+        <MovieCardVue
+          v-for="card in profile.cards"
+          :key="card.id"
+          :card="card"
+        />
+    </div>
+    <div v-else>
+      <div class="empty-box">
+        <h2 class="empty-text">{{ profile.name }}님의 무비카드가 없습니다!</h2>
+      </div>
+    </div>
+    <hr>
+
     <h1 class="playing-title ms-4">{{ profile.name }}님이 좋아하는 영화</h1>
     <div class="movies" v-if="likedLength">
       <ul class="zero-padding">
@@ -142,6 +160,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import SmallMovieVue from '@/components/SmallMovie.vue'
+import MovieCardVue from '@/components/MovieCard.vue'
 
 export default {
   name:"profileView",
@@ -151,8 +170,9 @@ export default {
     }
   },
   components: {
-    SmallMovieVue
-  },
+    SmallMovieVue,
+    MovieCardVue,
+},
   computed: {
     ...mapGetters(['profile', 'currentUser', 'isLoggedIn']),
 
@@ -171,7 +191,9 @@ export default {
     articlesLength () {
       return this.profile.articles?.length
     },
-    
+    cardsLength () {
+      return this.profile.cards?.length
+    },
 
     checkFollow () {
       for (let person of this.currentUser?.followings) {

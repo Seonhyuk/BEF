@@ -14,6 +14,7 @@ import MovieDetailView from '@/views/MovieDetailView.vue'
 import RoundSelectView from '@/views/RoundSelectView.vue'
 import WorldCupView from '@/views/WorldCupView.vue'
 import SelectGenreView from '@/views/SelectGenresView.vue'
+import CustomCardView from '@/views/CustomCardView.vue'
 
 
 import ArticleListView from '@/views/community/ArticleListView.vue'
@@ -107,7 +108,12 @@ const routes = [
     name: 'share',
     component: CommunityShareView,
     props: true
-  }
+  },
+  {
+    path: '/customcard',
+    name: 'CustomCard',
+    component: CustomCardView
+  },
 ]
 
 const router = new VueRouter({
