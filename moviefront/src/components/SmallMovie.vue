@@ -10,7 +10,7 @@
             <div class="back" v-if="backdropPath" :style="{backgroundImage: `url(https://image.tmdb.org/t/p/original/${ backdropPath })`}">
               <div class="black">
                 <div class="inner">
-                  <p @click="goDetail() ">{{ movie.title }}</p>
+                  <p @click="goDetail()" class="text-size">{{ movie.title }}</p>
                   <p><img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1609287743/noticon/oyo23yrstcp0rbd4uiqp.png" alt="" style="width: 18px;" @click="goDetail()"> {{ movie.vote_average}}</p>
                   <br>
                   <hr>
@@ -258,6 +258,10 @@ export default {
   width: 200px;
   margin: auto;
   word-break: break-all;
+}
+
+.text-size {
+  font-size: 13px;
 }
 
 .card-container .back{

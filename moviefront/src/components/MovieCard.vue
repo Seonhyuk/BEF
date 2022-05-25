@@ -1,22 +1,24 @@
 <template>
   <div>
-			<div class="custom-card custom-color animated m-5" :style="{ '--custom-color1': color[card.left_color], '--custom-color2': color[card.right_color] }">
-				<img v-if="card.card_img" class="inner-image" :src="card.card_img" alt="">
-				<div class="inner-box">
-					<p class="inner-text first-text">{{ card.title }}</p>
-					<p v-if="card.viewed_date" class="inner-text">{{ computedDate }}</p>
-					<p v-if="card.with_person" class="inner-text">👨‍👦 {{ card.with_person }}</p>
-					<p v-if="card.like" class="inner-text">👍🏻 좋았어요</p>
-					<p v-else class="inner-text">👎🏻 별로였어요</p>
-					<p v-if="card.description" class="inner-text">{{ card.description }}</p>
-				</div>
-			</div>
-			<custom class="hover"></custom>
+    <button v-if="card.user === currentUser.pk" @click="onClick" class="delete-button">삭제</button>
+    <div class="custom-card custom-color animated m-5" :style="{ '--custom-color1': color[card.left_color], '--custom-color2': color[card.right_color] }">
+      <img v-if="card.card_img" class="inner-image" :src="card.card_img" alt="">
+      <div class="inner-box">
+        <p class="inner-text first-text">{{ card.title }}</p>
+        <p v-if="card.viewed_date" class="inner-text">{{ computedDate }}</p>
+        <p v-if="card.with_person" class="inner-text">👨‍👦 {{ card.with_person }}</p>
+        <p v-if="card.like" class="inner-text">👍🏻 좋았어요</p>
+        <p v-else class="inner-text">👎🏻 별로였어요</p>
+        <p v-if="card.description" class="inner-text">{{ card.description }}</p>
+      </div>
+    </div>
+    <custom class="hover"></custom>
 	</div>
 </template>
 
 <script>
 import $ from 'jquery'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
 	name: 'movieCard',
@@ -31,11 +33,20 @@ export default {
 		}
 	},
 	computed: {
+    ...mapGetters(['currentUser']),
 		computedDate () {
 			const t = new Date(this.card.viewed_date)
 			return `${t.getFullYear()}년 ${t.getMonth() + 1}월 ${t.getDate()}일`
 		}
 	},
+  methods: {
+    ...mapActions(['deleteCard']),
+    onClick() {
+      if (confirm('삭제하시겠습니까?')) {
+        this.deleteCard(this.card.id)
+      }
+    }
+  },
 	mounted() {
 		var x
 		var $cards = $(".card")
@@ -91,7 +102,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 :root {
     --color1: rgb(0, 231, 255);
     --color2: rgb(255, 0, 231);
@@ -105,7 +116,7 @@ export default {
     height: 100vw;
     position: relative;
     overflow: hidden;
-    margin: 20px;
+    margin: 30px 30px 60px 30px !important;
     overflow: hidden;
     z-index: 10;
     touch-action: none;
@@ -406,5 +417,17 @@ export default {
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .delete-button {
+    background-color: gray;
+    border: 0px;
+    color: white;
+    border-radius: 5px;
+  }
+
+  .delete-button:hover {
+    border: 1px white solid;
+    /* box-shadow: -1px 0 #FFF, 0 1px #FFF, 1px 0 #FFF, 0 -1px #FFF; */
   }
 </style>

@@ -8,7 +8,7 @@
     </div>
     <div class="mt-3">
       <button id="share-btn" class="mb-2" @click="shareCommunity">커뮤니티 공유하기</button> <br>
-      <button id="share-btn2" @clikc="sendkakao" class="kakao">카카오톡 공유하기</button>
+      <button id="share-btn2" @click="sendkakao" class="kakao">카카오톡 공유하기</button>
     </div>
     <!-- 아래가 꽉차서 빈 디브태그 만들어놓은거에요 -->
     <div id="none-div">
@@ -49,7 +49,7 @@ export default {
       this.$router.push({ name: 'articleNew' })
     },
     sendkakao() {
-      window.Kakao.Link.sendEdefault({
+      window.Kakao.Link.sendDefault({
         objectType: 'text',
         content: {
           text: 'BEF 인생영화 월드컵',

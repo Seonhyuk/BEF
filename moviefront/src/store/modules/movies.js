@@ -25,8 +25,6 @@ export default {
 
 		genres:[],
 
-		nyearMovies: [],
-
 		searchedMovies: [],
 		searchedMoviesForReview: [],
 		backDropImage: [],
@@ -50,7 +48,6 @@ export default {
 		idx : state => state.idx,
 		oIdx : state => state.oIdx,
 
-		nyearMovies : state => state.nyearMovies,
 		searchedMovies : state => state.searchedMovies,
 		searchedMoviesForReview : state => state.searchedMoviesForReview,
 		
@@ -72,9 +69,6 @@ export default {
 		},
 		SET_RECOMMEND_MOVIES(state, res) {
 			state.recommendMovies = [...state.recommendMovies, ...res]
-		},
-		SET_NYEAR_MOVIES(state, res) {
-			state.nyearMovies = res
 		},
 		SET_SEARCHED_MOVIES(state, res) {
 			state.searchedMovies = res
@@ -162,13 +156,6 @@ export default {
 			})
 				.then(res => commit('SET_RECOMMEND_MOVIES', res.data))
 		},
-		setNyearMovies({commit}, year) {
-			axios({
-				url : drf.movies.nyearMovies(year),
-				method: 'GET',
-			})
-				.then(res => commit('SET_NYEAR_MOVIES', res.data))
-		},
 		setSearchedMovies({commit}, query) {
 			query.trim()
 			if (query) {
@@ -234,7 +221,7 @@ export default {
 			})
 				.then(res => {
 					console.log(res.data)
-					dispatch('setMovieDetail', getters.movieDetail.id)
+					dispatch('setReviews', getters.movieDetail.id)
 				})
 		},
 		setExponent({commit}, exponent) {

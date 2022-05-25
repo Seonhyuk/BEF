@@ -125,6 +125,7 @@
               <span id="like-status" v-if="review.like">[좋아요😍]</span>
               <span id="like-status" v-if="!review.like">[별로예요😥]</span>
               <span id="review-content"> {{ review.content }}</span>
+              <button v-if="review.user.id === currentUser.pk" @click="onClick(review.id)" class="delete-button">삭제</button>
               <hr>
             </div>
             <div v-if="noReviews" class="mt-5" id="no-reviews">
@@ -196,7 +197,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['setMovieDetail', 'setReviews', 'createReview', 'getMovieBackDropImage']),
+    ...mapActions(['setMovieDetail', 'setReviews', 'createReview', 'getMovieBackDropImage', 'deleteReview']),
     onSubmit() {
       const payload = {
         moviePk: this.$route.params.moviePk,
@@ -205,6 +206,11 @@ export default {
       }
       this.createReview(payload)
       this.newReview.content = ''
+    },
+    onClick(pk) {
+      if (confirm('삭제하시겠습니까?')) {
+        this.deleteReview(pk)
+      }
     },
     move1() {
       const videoLocation = document.querySelector('#videoWrap').offsetTop
@@ -651,5 +657,17 @@ export default {
 }
 #review-text-cnt {
   font-size: 20px;
+}
+
+.delete-button {
+  background-color: gray;
+  color: white;
+  border: 0px;
+  margin-left: 30px;
+  border-radius: 10px;
+}
+
+.delete-button:hover {
+  box-shadow: -1px 0 #FFF, 0 1px #FFF, 1px 0 #FFF, 0 -1px #FFF
 }
 </style>

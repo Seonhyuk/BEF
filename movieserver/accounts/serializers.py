@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
 
       class Meta:
             model = get_user_model()
-            fields = ('username', 'name', 'disliked_movies', 'liked_genre', 'wished_to_movies', 'watched_movies', 'profile_image', 'followers', 'followings', 'articles', 'cards',)
+            fields = ('pk', 'username', 'name', 'disliked_movies', 'liked_genre', 'wished_to_movies', 'watched_movies', 'profile_image', 'followers', 'followings', 'articles', 'cards',)
             depth = 1
 
 
