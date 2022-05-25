@@ -2,7 +2,7 @@
   <div id="app">
     <nav class="d-flex justify-content-between py-3 sticky-top" style="height: 80px; background-color: rgba(20, 20, 20);">
       <!-- 로고 부분 -->
-      <router-link to="/">
+      <router-link to="/home">
         <a class="navbar-brand mx-3">
           <img src="@/assets/logo.png" alt="logo" width="100">
         </a>
@@ -10,7 +10,7 @@
 
       <div class="list-inline d-flex ">
         <!-- 네비부분 -->
-        <router-link to="/" class="my-auto mx-2" id="router-link-name">Home</router-link>&nbsp;
+        <router-link to="/home" class="my-auto mx-2" id="router-link-name">Home</router-link>&nbsp;
         <router-link to="/login" v-if="!currentUser.username" class="my-auto mx-2" id="router-link-name">Login</router-link>
         <router-link to="/community" v-if="currentUser.username" class="my-auto mx-2" id="router-link-name">Community</router-link>&nbsp;
         <router-link to="/roundselect" v-if="currentUser.username" class="my-auto mx-2" id="router-link-name">Worldcup</router-link>&nbsp;
