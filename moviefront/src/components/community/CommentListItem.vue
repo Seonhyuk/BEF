@@ -9,7 +9,7 @@
           {{ comment.user.name }} ({{ comment.user.username }})
         </router-link> 
       </div>
-        <p id="comment-created-time" class="my-1">{{ comment.created_at }}</p>
+        <p id="comment-created-time" class="my-1">{{ commentDate }}</p>
         <p id="comment-content" v-if="!isEditing" class="mt-3"><br>{{ payload.content }}</p>
 
 
@@ -50,6 +50,10 @@ export default {
   },
   computed: {
     ...mapGetters(['currentUser']),
+    commentDate() {
+      let date = this.comment.created_at.substring(0,10)
+      return date
+    }
   },
   methods: {
     ...mapActions(['updateComment', 'deleteComment']),

@@ -10,7 +10,7 @@
 			/>
 			<hr>
 			<router-link :to="{ name: 'profile', params: { username: `${currentUser.username}`}}">
-				<button class="confirm-button mb-5">확인</button>
+				<button class="confirm-button mb-5">완료</button>
 			</router-link>
 		</div>
 	</div>
@@ -51,18 +51,16 @@ export default {
 }
 
 .confirm-button {
-	min-width: 200px;
+	min-width: 80px;
 	height: 50px;
-	border-radius: 30px;
-	border: solid 1px white;
+	border-radius: 10px;
 	color: white;
-	font-weight: bold;
 	font-size: 14px;
 	background-color: #F82F62;
 }
 
 .confirm-button:hover {
-	background-color: #bf234a;
+	border: solid 1px rgb(255, 255, 255)
 }
 
 hr {

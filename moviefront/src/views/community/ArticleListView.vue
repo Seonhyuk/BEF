@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
-    <div class="row">
+  <div class="container mt-5">
+    <div>
       <!-- 게시글들 -->
-      <div class="mt-5 col-12 col-lg-9" id="article-wrap">
+      <div id="article-wrap">
       <h5 id="hot-topic-h6">BEF TOPIC</h5>
       <table class="table table-dark table-striped table-hover">
         <thead id="table-head">

@@ -1,48 +1,52 @@
 <template>
   <div class="container home mt-0">
-    <h1 class="py-5">총 라운드를 선택하세요.</h1>
+    <div>
+      <h1 class="pt-5">총 라운드를 선택하세요.</h1>
+    </div>
 
-    <ul class="flip-cards">
-      <li>
-        <div class="large button card-front d-flex justify-content-center">
-          <a href="#" class="m-auto">32강</a>
-        </div>
+    <div class="mt-5 pt-5">
+      <ul class="flip-cards">
+        <li>
+          <div class="large button card-front d-flex justify-content-center">
+            <a href="#" class="m-auto">32강</a>
+          </div>
 
-        <div class="panel card-back d-flex justify-content-center">
-          <a href="#" class="m-auto" @click="onSelect(5)">Go!</a>
-        </div>
-      </li>
+          <div class="panel card-back d-flex justify-content-center">
+            <a href="#" class="m-auto" @click="onSelect(5)">Go!</a>
+          </div>
+        </li>
 
-      <li>
-        <div class="large button card-front d-flex justify-content-center">
-          <a href="#" class="m-auto">64강</a>
-        </div>
+        <li>
+          <div class="large button card-front d-flex justify-content-center">
+            <a href="#" class="m-auto">64강</a>
+          </div>
 
-        <div class="panel card-back d-flex justify-content-center">
-          <a href="#" class="m-auto" @click="onSelect(6)">Go!</a>
-        </div>
-      </li>
+          <div class="panel card-back d-flex justify-content-center">
+            <a href="#" class="m-auto" @click="onSelect(6)">Go!</a>
+          </div>
+        </li>
 
-      <li>
-        <div class="large button card-front d-flex justify-content-center">
-          <a href="#" class="m-auto">128강</a>
-        </div>
+        <li>
+          <div class="large button card-front d-flex justify-content-center">
+            <a href="#" class="m-auto">128강</a>
+          </div>
 
-        <div class="panel card-back d-flex justify-content-center">
-          <a href="#" class="m-auto" @click="onSelect(7)">Go!</a>
-        </div>
-      </li>
+          <div class="panel card-back d-flex justify-content-center">
+            <a href="#" class="m-auto" @click="onSelect(7)">Go!</a>
+          </div>
+        </li>
 
-      <li>
-        <div class="large button card-front d-flex justify-content-center">
-          <a href="#" class="m-auto">256강</a>
-        </div>
+        <li>
+          <div class="large button card-front d-flex justify-content-center">
+            <a href="#" class="m-auto">256강</a>
+          </div>
 
-        <div class="panel card-back d-flex justify-content-center">
-          <a href="#" class="m-auto" @click="onSelect(8)">Go!</a>
-        </div>
-      </li>
-    </ul>
+          <div class="panel card-back d-flex justify-content-center">
+            <a href="#" class="m-auto" @click="onSelect(8)">Go!</a>
+          </div>
+        </li>
+      </ul>
+    </div>
 
   </div>
 </template>
@@ -72,7 +76,7 @@ export default {
 .home {
   max-width: 1000px;
   width: 80%;
-  height: 95vh;
+  height: 1500px;
   background-color: rgba(0, 0, 0, 0.5)
 }
 

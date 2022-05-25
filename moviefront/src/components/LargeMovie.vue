@@ -9,7 +9,7 @@
           <figure>
             <img :src="`https://image.tmdb.org/t/p/w500/${tournament[i].poster_path}`" alt="">
           </figure>
-
+          
           <ul>
             <li>{{ tournament[i].title }}</li>
             <li><img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1609287743/noticon/oyo23yrstcp0rbd4uiqp.png" alt="" style="width: 18px;">  {{ tournament[i].vote_average }}</li>

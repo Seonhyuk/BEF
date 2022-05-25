@@ -1,12 +1,12 @@
 <template>
   <div class="container home">
-    <p v-if="idx > 127" class="title">128강</p>
-    <p v-else-if="idx > 63" class="title">64강</p>
-    <p v-else-if="idx > 31" class="title">32강</p>
-    <p v-else-if="idx > 15" class="title">16강</p>
-    <p v-else-if="idx > 7" class="title">8강</p>
-    <p v-else-if="idx > 3" class="title">4강</p>
-    <p v-else-if="idx > 1" class="title">2강</p>
+    <p v-if="idx > 127" class="title py-5">128강</p>
+    <p v-else-if="idx > 63" class="title py-5">64강</p>
+    <p v-else-if="idx > 31" class="title py-5">32강</p>
+    <p v-else-if="idx > 15" class="title py-5">16강</p>
+    <p v-else-if="idx > 7" class="title py-5">8강</p>
+    <p v-else-if="idx > 3" class="title py-5">4강</p>
+    <p v-else-if="idx > 1" class="title py-5">FINAL ROUND<br> 과연 주인공은?!&#128064;</p>
 
     <div v-if="idx > 1" class="d-flex justify-content-center">
       <large-movie
@@ -48,7 +48,7 @@ export default {
 
 .home {
   width: 80%;
-  height: 100%;
+  height: 1500px;
   background-color: rgba(0, 0, 0, 0.5)
 }
 

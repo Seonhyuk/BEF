@@ -10,7 +10,7 @@
           <img v-else src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="profile-image">
         </div>
         <router-link :to="{ name: 'profile', params: {username: article.user.username} }" id="article-user-name"><p class="d-flex justify-content-start mx-1">{{ article.user.name }} ({{ article.user.username }})</p></router-link>
-        <p id="article-created-text">{{ article.created_at}}</p>
+        <p id="article-created-text">{{  articleDate }}</p>
         <hr>
       </div>
       <div class="article-content-wrap">
@@ -65,6 +65,10 @@
       ...mapGetters(['isAuthor', 'article', 'isLoggedIn']),
       likeCount() {
         return this.article.like_users?.length
+      },
+      articleDate() {
+        let date = this.article.created_at.substring(0,10)
+        return date
       }
     },
     methods: {

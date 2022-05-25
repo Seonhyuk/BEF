@@ -131,7 +131,7 @@
 
     <hr>
 
-    <button v-if="isLoggedIn && currentUser.username === profile.username">회원탈퇴</button>
+    <button v-if="isLoggedIn && currentUser.username === profile.username" id="delete-count-btn">회원탈퇴</button>
   </div>
 </template>
 
@@ -284,79 +284,74 @@ hr {
 }
 
 .follow-button {
-  width: 50%;
+  width: 30%;
   height: 30px;
   margin: 15px auto 15px auto;
-  box-shadow: -1px 0 white, 0 1px white, 1px 0 #FFF, 0 -1px #FFF;
 }
 
 .following {
-  background-color: cadetblue;
+  background-color: rgba(2,126,251,1);
   border: 0px;
-  border-radius: 30px;
+  border-radius: 10px;
   color: white;
-  font-weight: bold;
 }
 
 .unfollowing {
-  background-color: gray;
+  background-color:#F82F62;
   color: snow;
-  font-weight: bold;
+
   border: 0px;
-  border-radius: 30px;
+  border-radius: 10px;
 }
 
 .following:hover {
-  background: transparent;
-  background: linear-gradient(0deg, transparent, 0%, rgba(2,126,251,1) 100%);
+  border: 1px solid white;
 }
 
 .unfollowing:hover {
-  background: transparent;
-  background: linear-gradient(0deg, transparent, 0%, rgba(80, 80, 80, 1) 100%);
+  border: 1px solid white;
 }
 
 .change-button {
   width: 50%;
   height: 30px;
   margin: 15px auto 15px auto;
-  box-shadow: -1px 0 white, 0 1px white, 1px 0 #FFF, 0 -1px #FFF;
-  background-color: rgb(243, 86, 143);
-  font-weight: bold;
+  background-color: #F82F62;
   color: white;
   border: 0px;
-  border-radius: 30px;
+  border-radius: 10px;
 }
 
 .nickname-button {
   width: 100px;
   height: 30px;
   margin: auto;
-  background-color: rgb(243, 86, 143);
-  font-weight: bold;
+  background-color:  #494949;
   color: white;
   font-size: 16px;
   border: 0px;
-  border-radius: 30px;
-  box-shadow: -1px 0 white, 0 1px white, 1px 0 #FFF, 0 -1px #FFF;
+  border-radius: 5px;
 }
+
+.nickname-button:hover {
+  border: 2px solid #fff;
+}
+
 
 .back-button {
   width: 24%;
   height: 30px;
   margin-top: 0;
   margin-bottom: 10px;
-  box-shadow: -1px 0 white, 0 1px white, 1px 0 #FFF, 0 -1px #FFF;
-  background-color: rgba(80, 80, 80, 0.5);
-  font-weight: bold;
+  background-color: #f187a2;
   color: white;
   margin-right: 1%;
   border: 0px;
-  border-radius: 30px;
+  border-radius: 10px;
 }
 
 .back-button:hover {
-  background-color: rgb(60, 60, 60);
+  background-color: #F82F62;
 }
 
 .confirm-button {
@@ -365,36 +360,39 @@ hr {
   margin-top: 0;
   margin-bottom: 10px;
   margin-left: 1%;
-  box-shadow: -1px 0 white, 0 1px white, 1px 0 #FFF, 0 -1px #FFF;
-  background-color: hotpink;
-  font-weight: bold;
+  background-color: #f187a2;
   color: white;
   border: 0px;
-  border-radius: 30px;
+  border-radius: 10px;
 }
 
 .confirm-button:hover {
-  background-color: rgb(243, 86, 143);
+  background-color: #F82F62;
 }
 
 .change-button:hover {
-  background-color: rgb(188, 67, 112);
+  background-color: #F82F62;
 }
 
 .change-button2 {
-  width: 50%;
-  height: 30px;
-  margin: 15px auto 15px auto;
-  box-shadow: -1px 0 white, 0 1px white, 1px 0 #FFF, 0 -1px #FFF;
-  background-color: rgb(91, 199, 209);
-  font-weight: bold;
+  z-index: 0;
+  display: inline-block;
+  width: 130px;
+  background: rgba(2,126,251,1);
+  cursor: pointer;
+  padding: auto;
+  margin: auto;
+  height: 34px;
   color: white;
   border: 0px;
-  border-radius: 30px;
+  border-radius: 10px;
+  line-height: 28px;
+  text-align: center;
+  font-size: 1rem;
 }
 
 .change-button2:hover {
-  background-color: rgb(75, 164, 172);
+  border: 2px solid #FFF;
 }
 
 .movies {
@@ -432,22 +430,22 @@ hr {
 .button-wrapper span.label {
   z-index: 0;
   display: inline-block;
-  width: 100%;
-  background: rgb(243, 86, 143);
+  width: 130px;
+  background: #F82F62;
   cursor: pointer;
   padding: auto;
   margin: auto;
-  height: 30px;
-  font-weight: bold;
+  height: 34px;
   color: white;
   border: 0px;
-  border-radius: 30px;
+  border-radius: 10px;
   line-height: 28px;
-  box-shadow: -1px 0 white, 0 1px white, 1px 0 #FFF, 0 -1px #FFF;
+  text-align: center;
+  font-size: 1rem;
 }
 
 .button-wrapper span.label:hover {
-  background-color: rgb(188, 67, 112);
+  border: 2px solid #fff;
 }
 
 #upload {
@@ -470,5 +468,33 @@ hr {
   text-decoration-line: none;
   color: white;
 }
+#delete-count-btn{
+  z-index: 1000;
+  background-color: #494949;
+  color: white;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  font-size: 15px;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
 
+@media (prefers-reduced-motion: reduce) {
+  .delete-count-btn {
+    transition: none;
+  }
+}
+#delete-count-btn:hover {
+  border: 1px solid white;
+}
 </style>

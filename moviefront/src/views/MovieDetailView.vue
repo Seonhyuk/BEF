@@ -53,7 +53,7 @@
       </div>
     </form>
 
-    <div v-scroll:#main="handelScroll">
+    <!-- <div v-scroll:#main="handelScroll"> -->
       <div class="detail-wrap">
         <div id="back-drop-wrap">
           <div>
@@ -102,14 +102,30 @@
 
         <div id="review-list-wrap">
           <div id="review-wrap">
-            <h2 class="mt-5 text-start mx-5" id="review-h2">BEF들의 후기	&#128172;</h2>
-            <div class="text-start mx-5" v-for="review in reviews" :key="review.id" :review="review" id="review-item">
+            <h2 class="mt-5 text-start mx-5 mb-5" id="review-h2">BEF들의 후기	&#128172; <br><p><span id="review-text-cnt"> 총 {{ reviews.length }}개의 리뷰가 있어요!</span></p></h2>
+            <div id="review-overview">
+              <div id="emo-wrap">
+                <h3 v-if="percentLike > 90 && percentLike <= 100">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</h3>
+                <h3 v-if="percentLike > 70 && percentLike <= 90">&#x2B50;&#x2B50;&#x2B50;&#x2B50;</h3>
+                <h3 v-if="percentLike > 60 && percentLike <= 70">&#x2B50;&#x2B50;&#x2B50;</h3>
+                <h3 v-if="percentLike > 50 && percentLike <= 60">&#x2B50;&#x2B50;</h3>
+                <h3 v-if="percentLike <= 50">&#x2B50;</h3>
+                <h2 v-if="percentLike">{{ percentLike }}%</h2>
+                
+                <h3 v-if="!percentLike">&#x2B50;</h3>
+                <h2 v-if="!percentLike">0%</h2>
+              </div>
+            </div>
+            <div class="text-start mx-5 mb-3" v-for="review in reviews" :key="review.id" :review="review" id="review-item">
               <img v-if="review.user.profile_image" :src="review.user.profile_image" alt="" class="profile-image" id="profile-image-true">
               <img v-else src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="profile-image">
               <router-link id="comment-user" :to="{ name: 'profile', params: { username: review.user.username } }">
                 {{ review.user.username }}
-              </router-link> 
-              <p id="review-user-name">{{ review.content }}</p>
+              </router-link><br>
+              <span id="like-status" v-if="review.like">[좋아요😍]</span>
+              <span id="like-status" v-if="!review.like">[별로예요😥]</span>
+              <sapn id="review-content"> {{ review.content }}</sapn>
+              <hr>
             </div>
             <div v-if="noReviews" class="mt-5" id="no-reviews">
               <h2>아직 작성된 리뷰가 없어요...😅</h2>
@@ -125,7 +141,7 @@
           </div>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   </v-container>
 </template>
 
@@ -168,7 +184,16 @@ export default {
     },
     noReviews() {
       return !this.reviews.length
-    }
+    },
+    percentLike() {
+      let likes = 0
+      for(let i=0; i<this.reviews.length; i++) {
+        if(this.reviews[i].like === true) {
+          likes += 1
+        }
+      }
+      return Math.round(likes/this.reviews.length * 100)
+    },
   },
   methods: {
     ...mapActions(['setMovieDetail', 'setReviews', 'createReview', 'getMovieBackDropImage']),
@@ -208,7 +233,7 @@ export default {
     setInterval(() => {
       this.num = (this.num + 1) % this.backDropImage?.backdrops.length
     }, 5000);
-  }
+  },
 }
 </script>
 
@@ -594,22 +619,39 @@ export default {
 #down-img3 {
   width: 40px;
   height: 40px;
-  bottom: 1180px;
+  bottom: 1100px;
   left: 49%;
   position: absolute;
+}
+#up-img-wrap {
+  height: 100px;
 }
 #up-img1 {
   width: 40px;
   height: 40px;
   left: 920px;
-  position: absolute; 
   bottom: 10px;
-}
-#up-img-wrap {
-  height: 100px;
 }
 #back-drop-wrap2 {
   display: inline-block;
+  height: 800px;
 }
-
+#like-status {
+  color: rgb(179, 180, 180);
+}
+#emo-wrap {
+  width: 200px;
+  height: 100px;
+  margin-top: 20px;
+  position: absolute;
+  right: 15%;
+  bottom: 710px;
+}
+#emo {
+  width: 70px;
+  height: 70px;
+}
+#review-text-cnt {
+  font-size: 20px;
+}
 </style>

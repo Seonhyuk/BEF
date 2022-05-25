@@ -1,101 +1,119 @@
 <template>
-  <div class="home container p-0">
-
-    <div v-if="nowMovies.length" id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img :src="`https://image.tmdb.org/t/p/original/${nowMovies[0].backdrop_path}`" class="d-block w-100 border-color" alt="...">
+  <div>
+    <div class="home container">
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
         </div>
-        <div class="carousel-item" v-for="idx in [1, 2, 3, 4]" :key="idx">
-          <img :src="`https://image.tmdb.org/t/p/original/${nowMovies[idx].backdrop_path}`" class="d-block w-100 border-color" alt="...">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="@/assets/24z.jpg" class="d-block w-100" alt="..." id="banner-img" @click="go614409">
+          </div>
+          <div class="carousel-item">
+            <img src="@/assets/27z.jpg" class="d-block w-100" alt="..." id="banner-img" @click="go619803">
+          </div>
+          <div class="carousel-item">
+            <a href="https://www.youtube.com/watch?v=mrr6sTpv8z0">
+            <img src="@/assets/28z.jpg" class="d-block w-100" alt="..." id="banner-img"></a>
+          </div>
+          <div class="carousel-item">
+            <img src="@/assets/33.jpg" class="d-block w-100" alt="..." id="banner-img" @click="go372058">
+          </div>
+          <div class="carousel-item">
+            <img src="@/assets/30zz.jpg" class="d-block w-100" alt="..." id="banner-img" @click="go670">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <h1 class="playing-title ms-4">상영중 영화 🎥</h1>
+      <div class="movies">
+        <ul>
+          <SmallMovieVue
+            v-for="(movie, index) in nowMovies" 
+            :key="index"
+            :movie="movie"
+            class="element"
+          />
+        </ul>
+      </div>
+
+      <div class="button-box">
+        <div class="go-button">      
+          <a href="https://www.cgv.co.kr/" class="movie-page">
+            <img class="logo-img" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1606805205/noticon/tvxwnc0q46bsfbpzokzx.png" alt=""> CGV 바로가기
+          </a>
+        </div>
+        <div class="go-button">      
+          <a href="https://www.lottecinema.co.kr/NLCHS" class="movie-page">
+            <img class="logo-img2" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1628833346/noticon/icooufnsm31pwr1fc7ei.png" alt=""> 롯데시네마 바로가기
+          </a>
+        </div>
+        <div class="go-button">      
+          <a href="https://www.megabox.co.kr/" class="movie-page">
+            <img class="logo-img" src="../assets/megabox.png" alt=""> 메가박스 바로가기
+          </a>
         </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
 
 
-    <h1 class="playing-title mt-4 ms-4">상영중 영화 🎥</h1>
-    <div class="movies">
-      <ul>
-        <SmallMovieVue
-          v-for="(movie, index) in nowMovies" 
-          :key="index"
-          :movie="movie"
-          class="element"
-        />
-      </ul>
-    </div>
-
-    <div class="button-box">
-      <div class="go-button">      
-        <a href="https://www.cgv.co.kr/" class="movie-page">
-          <img class="logo-img" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1606805205/noticon/tvxwnc0q46bsfbpzokzx.png" alt=""> CGV 바로가기
-        </a>
-      </div>
-      <div class="go-button">      
-        <a href="https://www.lottecinema.co.kr/NLCHS" class="movie-page">
-          <img class="logo-img2" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1628833346/noticon/icooufnsm31pwr1fc7ei.png" alt=""> 롯데시네마 바로가기
-        </a>
-      </div>
-      <div class="go-button">      
-        <a href="https://www.megabox.co.kr/" class="movie-page">
-          <img class="logo-img" src="../assets/megabox.png" alt=""> 메가박스 바로가기
-        </a>
-      </div>
-    </div>
-
-
-    <hr>
-
-    <h1 class="playing-title ms-4">{{ theMonth + 1 }}월엔 이 영화 🎬</h1>
-    <div class="movies">
-      <ul>
-        <SmallMovieVue
-          v-for="movie in lastMovies" 
-          :key="movie.title"
-          :movie="movie"
-          class="element"
-        />
-      </ul>
-    </div>
-    <hr>
-
-    <h1 class="playing-title ms-4">B.E.F들의 PICK!</h1>
-    <div class="movies">
-      <ul>
-        <SmallMovieVue
-          v-for="movie in winMovies" 
-          :key="movie.poster_path"
-          :movie="movie"
-          class="element"
-        />
-      </ul>
-    </div>
-
-    <div v-if="isLoggedIn">
       <hr>
-      <h1 class="playing-title ms-4">{{ currentUser.name }}님을 위한 추천 영화 🌹</h1>
-      <div class="row">
-        <SmallMovieVue 
-          class="col-6 col-lg-3" 
-          v-for="movie in recommendMovies"
-          :key="movie.id"
-          :movie="movie"
-        />
+
+      <h1 class="playing-title ms-4">{{ theMonth + 1 }}월엔 이 영화 🎬</h1>
+      <div class="movies">
+        <ul>
+          <SmallMovieVue
+            v-for="movie in lastMovies" 
+            :key="movie.title"
+            :movie="movie"
+            class="element"
+          />
+        </ul>
+      </div>
+      <hr>
+
+      <h1 class="playing-title ms-4">B.E.F들의 PICK!</h1>
+      <div class="movies">
+        <ul>
+          <SmallMovieVue
+            v-for="movie in winMovies" 
+            :key="movie.poster_path"
+            :movie="movie"
+            class="element"
+          />
+        </ul>
       </div>
 
-      <button 
-        @click="setRecommendMovies(currentUser.username)"
-        class="add-button"
-      >더 보기</button>
+      <div v-if="isLoggedIn">
+        <hr>
+        <h1 class="playing-title ms-4">{{ currentUser.name }}님을 위한 추천 영화 🌹</h1>
+        <div class="row">
+          <SmallMovieVue 
+            class="col-6 col-lg-3" 
+            v-for="movie in recommendMovies"
+            :key="movie.id"
+            :movie="movie"
+          />
+        </div>
+
+        <button 
+          @click="setRecommendMovies(currentUser.username)"
+          class="add-button"
+        >더 보기</button>
+      </div>
     </div>
+
+
 
   </div>
 </template>
@@ -117,6 +135,18 @@ export default {
   },
   methods: {
     ...mapActions(['setNowMovies', 'setLastMovies', 'setWinMovies', 'setRecommendMovies', 'fetchCurrentUser', 'clearRecommendMovies',]),
+    go614409() {
+      this.$router.push({ name: 'moviedetail', params: { moviePk: 614409 }})
+    },
+    go619803() {
+      this.$router.push({ name: 'moviedetail', params: { moviePk: 619803 }})
+    },
+    go670() {
+      this.$router.push({ name: 'moviedetail', params: { moviePk: 670 }})
+    },
+    go372058() {
+      this.$router.push({ name: 'moviedetail', params: { moviePk: 372058 }})
+    }
   },
   created() {
     this.setNowMovies()
@@ -142,7 +172,8 @@ export default {
 .home {
   max-width: 1000px;
   width: 80%;
-  background-color: rgba(0, 0, 0, 0.5)
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0;
 }
 
 .movies {
@@ -223,5 +254,11 @@ hr {
   margin: 20px 10px;
   font-weight: bold;
   color: white;
+}
+#banner-wrap{
+  height: 670px;
+}
+#banner-img {
+  cursor: pointer;
 }
 </style>
