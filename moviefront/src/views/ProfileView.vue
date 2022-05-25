@@ -37,41 +37,39 @@
           <button v-else class="follow-button unfollowing" @click="followYou(profile.username)">언팔로우</button>
         </div>
         
-
-          <div v-if="isLoggedIn && currentUser.username === profile.username">
-            <!-- <button @change="onInputImage" ref="image" accept="image/*" type="file" class="upload-box">프로필 사진 변경</button> -->
-              <span class="label">
-                프로필 사진 변경
-              </span>
-              <input 
-                id="upload"
-                type="file" 
-                accept="image/*" 
-                @change="onInputImage" 
-                ref="image"
-                class="upload-box change-button2">
+        <div v-if="isLoggedIn && currentUser.username === profile.username" class="change-box">
+          <div class="button-wrapper">
+            <span class="label">
+              프로필 사진 변경
+            </span>
+            <input 
+              id="upload"
+              type="file" 
+              accept="image/*" 
+              @change="onInputImage" 
+              ref="image"
+              class="upload-box">
           </div>
+        </div>
 
-          <div v-if="isLoggedIn && img && img != currentUser.profile_image && currentUser.username === profile.username" class="">
-            <button @click="returnProfileImage" class="back-button">되돌리기</button>
-            <button @click="changeProfileImage(img)" class="confirm-button">확인</button>
-          </div>
-
-          <button 
-            @click="goSelectGenre"
-            v-show="isLoggedIn && profile.username === currentUser.username"
-            class="change-button2 my-1"
-          >선호 장르 선택</button>
+        <div v-if="isLoggedIn && img && img != currentUser.profile_image && currentUser.username === profile.username" class="">
+          <button @click="returnProfileImage" class="back-button">되돌리기</button>
+          <button @click="changeProfileImage(img)" class="confirm-button">확인</button>
+        </div>
+        <button 
+          @click="goSelectGenre"
+          v-show="isLoggedIn && profile.username === currentUser.username"
+          class="change-button2 my-1"
+        >선호 장르 선택</button>
 
       </div>
-
     </div>
     <hr>
     <div class="d-flex justify-content-between" v-if="currentUser.username === profile.username">
       <h1 class="playing-title ms-4">{{ profile.name }}님의 포토카드</h1>
     </div>
     <h1 class="playing-title ms-4" v-else>{{ profile.name }}님의 무비카드</h1>
-    <div class="movies d-flex justify-content-center" v-if="cardsLength">
+    <div class="movies d-flex" v-if="cardsLength">
         <MovieCardVue
           v-for="card in profile.cards"
           :key="card.id"
@@ -316,6 +314,7 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-content: center;
 }
 
 .follow-button {
@@ -412,7 +411,7 @@ hr {
 .change-button2 {
   z-index: 0;
   display: inline-block;
-  width: 280px;
+  width: 50%;
   background: rgba(2,126,251,1);
   cursor: pointer;
   padding: auto;
@@ -453,10 +452,11 @@ hr {
   font-size: 30px;
 }
 
+
 .button-wrapper {
   position: relative;
   width: 50%;
-  margin: auto;
+  margin: 15px auto 15px auto;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -464,18 +464,18 @@ hr {
 
 .button-wrapper span.label {
   z-index: 0;
-  width: 280px;
-  background: #F82F62;
+  display: inline-block;
+  width: 100%;
+  background: rgb(243, 86, 143);
   cursor: pointer;
+  padding: auto;
+  margin: auto;
   height: 34px;
+  font-weight: bold;
   color: white;
   border: 0px;
   border-radius: 10px;
   line-height: 28px;
-  font-size: 1rem;
-  display: inline-block;
-  position: absolute;
-  bottom: 10%;
 }
 
 .button-wrapper span.label:hover {
@@ -484,7 +484,7 @@ hr {
 
 #upload {
   display: inline-block;
-  position: relative;
+  position: absolute;
   z-index: 1;
   width: 100%;
   height: 30px;

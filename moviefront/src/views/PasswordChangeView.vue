@@ -66,10 +66,6 @@ export default {
   stage: 0;
 }
 
-:root {
-  --baseColor: #606468;
-}
-
 .align {
   display: grid;
   place-items: center;
@@ -92,10 +88,6 @@ export default {
   width: 1px;
 }
 
-:root {
-  --iconFill: var(--baseColor);
-}
-
 .icons {
   display: none;
 }
@@ -103,21 +95,9 @@ export default {
 .icon {
   block-size: 1em;
   display: inline-block;
-  fill: var(--iconFill);
+  fill: #606468;
   inline-size: 1em;
   vertical-align: middle;
-}
-
-:root {
-  --htmlFontSize: 100%;
-
-  --bodyBackgroundColor: #2c3338;
-  --bodyColor: var(--baseColor);
-  --bodyFontFamily: "Open Sans";
-  --bodyFontFamilyFallback: sans-serif;
-  --bodyFontSize: 0.875rem;
-  --bodyFontWeight: 400;
-  --bodyLineHeight: 1.5;
 }
 
 * {
@@ -126,26 +106,21 @@ export default {
 
 html {
   box-sizing: border-box;
-  font-size: var(--htmlFontSize);
+  font-size: 100%;
 }
 
 body {
-  background-color: var(--bodyBackgroundColor);
-  color: var(--bodyColor);
-  font-family: var(--bodyFontFamily), var(--bodyFontFamilyFallback);
-  font-size: var(--bodyFontSize);
-  font-weight: var(--bodyFontWeight);
-  line-height: var(--bodyLineHeight);
+  background-color: #2c3338;
+  color: #606468;
+  font-size: 0.875rem;;
+  font-weight: 400;
+  line-height: 1.5;
   margin: 0;
   min-block-size: 100vh;
 }
 
-:root {
-  --anchorColor: #eee;
-}
-
 #a {
-  color: var(--anchorColor);
+  color: #eee;;
   outline: 0;
   text-decoration: none;
 }
@@ -154,10 +129,6 @@ body {
 
 #a:hover {
   text-decoration: underline;
-}
-
-:root {
-  --formGap: 0.875rem;
 }
 
 input {
@@ -177,7 +148,7 @@ input[type="submit"] {
 
 .form {
   display: grid;
-  gap: var(--formGap);
+  gap: 0.875rem;
 }
 
 .form input[type="password"],
@@ -194,60 +165,46 @@ input[type="submit"] {
   flex: 1;
 }
 
-:root {
-  --loginBorderRadus: 0.25rem;
-  --loginColor: #eee;
-
-  --loginInputBackgroundColor: #3b4148;
-  --loginInputHoverBackgroundColor: #434a52;
-
-  --loginLabelBackgroundColor: #363b41;
-
-  --loginSubmitBackgroundColor: #F82F62;
-  --loginSubmitColor: #eee;
-  --loginSubmitHoverBackgroundColor: #F82F62;
-}
-
 .login {
-  color: var(--loginColor);
+  color: #eee;
 }
 
 .login label,
 .login input[type="text"],
 .login input[type="password"],
 .login input[type="submit"] {
-  border-radius: var(--loginBorderRadus);
+  border-radius: 0.25rem;
   padding: 1rem;
 }
 
 .login label {
-  background-color: var(--loginLabelBackgroundColor);
+  background-color: #363b41;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   padding-inline: 1.25rem;
 }
 
 .login input[type="password"]{
-  background-color: var(--loginInputBackgroundColor);
+  background-color: #3b4148;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
 
 .login input[type="password"]:focus,
 .login input[type="password"]:hover {
-  background-color: var(--loginInputHoverBackgroundColor);
+  background-color: #434a52;
 }
 
 .login input[type="submit"] {
-  background-color: var(--loginSubmitBackgroundColor);
-  color: var(--loginSubmitColor);
+  background-color: #F82F62;
+  color: #eee;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .login input[type="submit"]:focus,
 .login input[type="submit"]:hover {
-  background-color: var(--loginSubmitHoverBackgroundColor);
+  background-color: #F82F62;
 }
 
 #p {
