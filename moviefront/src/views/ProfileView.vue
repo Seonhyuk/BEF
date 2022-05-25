@@ -466,7 +466,7 @@ hr {
   z-index: 0;
   display: inline-block;
   width: 100%;
-  background: rgb(243, 86, 143);
+  background: #F82F62;
   cursor: pointer;
   padding: auto;
   margin: auto;
