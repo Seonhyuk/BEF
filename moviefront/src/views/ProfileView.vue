@@ -161,6 +161,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import SmallMovieVue from '@/components/SmallMovie.vue'
 import MovieCardVue from '@/components/MovieCard.vue'
+import swal from 'sweetalert'
 
 export default {
   name:"profileView",
@@ -235,16 +236,36 @@ export default {
       this.$router.push({ name: 'changeNickname'})
     },
     onDeleteButton () {
-      if (confirm('정말 탈퇴하시겠습니까?')) {
-        if (prompt("'회원탈퇴' 를 입력해주세요") === '회원탈퇴') {
-          this.deleteUser(this.currentUser.username)
-        }
-      }
+      swal({
+        title: '회원탈퇴',
+        text: '정말 탈퇴하시겠습니까?',
+        icon: 'warning',
+        buttons: ['아니오', '네'],
+      })
+        .then(result => {
+          if (result) {
+            swal({
+              text: "'회원탈퇴' 를 입력해주세요",
+              content: {
+                element: 'input',
+                attributes: {
+                  placeholder: '회원탈퇴',
+                },
+              },
+              buttons: ['취소', '확인']
+            })
+              .then(result => {
+                if (result === '회원탈퇴') {
+                  this.deleteUser(this.currentUser.username)
+                }
+              })
+          }
+        })
     }
   },
   created () {
     if (!this.$route.params.username) {
-      alert('잘못된 접근입니다.')
+      alert('잘못된 접근입니다.') 
       this.$router.push({ name: 'home' })
     } else {
       this.fetchProfile(this.$route.params.username)

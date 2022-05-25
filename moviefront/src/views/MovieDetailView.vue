@@ -148,7 +148,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-//
+import swal from 'sweetalert'
+
 export default {
   name: 'MovieDetailView',
   data () {
@@ -208,9 +209,16 @@ export default {
       this.newReview.content = ''
     },
     onClick(pk) {
-      if (confirm('삭제하시겠습니까?')) {
-        this.deleteReview(pk)
-      }
+      swal({
+        text: '삭제하시겠습니까?',
+        icon: 'warning',
+        buttons: ['아니오', '예']
+      })
+        .then(result => {
+          if (result) {
+            this.deleteReview(pk)
+          }
+        })
     },
     move1() {
       const videoLocation = document.querySelector('#videoWrap').offsetTop

@@ -19,6 +19,7 @@
 <script>
 import $ from 'jquery'
 import { mapGetters, mapActions } from 'vuex'
+import swal from 'sweetalert'
 
 export default {
 	name: 'movieCard',
@@ -42,9 +43,16 @@ export default {
   methods: {
     ...mapActions(['deleteCard']),
     onClick() {
-      if (confirm('삭제하시겠습니까?')) {
-        this.deleteCard(this.card.id)
-      }
+      swal({
+        text: '삭제하시겠습니까?',
+        icon: 'warning',
+        buttons: ['아니오','예']
+      })
+        .then(result => {
+          if (result) {
+            this.deleteCard(this.card.id)
+          }
+        })
     }
   },
 	mounted() {

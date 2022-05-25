@@ -98,9 +98,9 @@
       <div v-if="isLoggedIn">
         <hr>
         <h1 class="playing-title ms-4">{{ currentUser.name }}님을 위한 추천 영화 🌹</h1>
-        <div class="row">
+        <div class="row movie-boxes">
           <SmallMovieVue 
-            class="col-6 col-lg-3" 
+            class="col-6 col-lg-3 py-2" 
             v-for="movie in recommendMovies"
             :key="movie.id"
             :movie="movie"
@@ -170,6 +170,11 @@ export default {
 
 <style scoped>
 
+.movie-boxes {
+  width: 97%;
+  margin: auto;
+}
+
 .home {
   max-width: 1000px;
   width: 80%;
@@ -178,10 +183,10 @@ export default {
 }
 
 .movies {
-  width: 100%;
+  width: 95%;
   overflow-x: auto;
   white-space: nowrap;
-  margin: 10 auto;
+  margin: auto !important;
 }
 
 .movies::-webkit-scrollbar{

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
 
 import BefView from '@/views/BefView.vue'
 import HomeView from '../views/HomeView.vue'
@@ -23,6 +24,8 @@ import ArticleDetailView from '@/views/community/ArticleDetailView.vue'
 import ArticleNewView from '@/views/community/ArticleNewView'
 import ArticleEditView from '@/views/community/ArticleEditView'
 import CommunityShareView from '@/views/community/CommunityShareView'
+
+import PageNotFound from '@/views/PageNotFoundView.vue'
 
 
 
@@ -50,11 +53,6 @@ const routes = [
     component: SignupView
   },
   {
-    path: '/changepassword',
-    name: 'changepassword',
-    component: PasswordChangeView,
-  },
-  {
     path: '/profile/:username',
     name: 'profile',
     component: ProfileView
@@ -68,6 +66,22 @@ const routes = [
     path: '/moviedetail/:moviePk',
     name: 'moviedetail',
     component: MovieDetailView
+  },
+  {
+    path: '/roundselect',
+    name: 'roundselect',
+    component: RoundSelectView
+  },
+  {
+    path: '/worldcup',
+    name: 'worldcup',
+    component: WorldCupView
+  },
+  // login Required
+  {
+    path: '/changepassword',
+    name: 'changepassword',
+    component: PasswordChangeView,
   },
   {
     path: '/community', 
@@ -90,16 +104,6 @@ const routes = [
     component: ArticleEditView
   },
   {
-    path: '/roundselect',
-    name: 'roundselect',
-    component: RoundSelectView
-  },
-  {
-    path: '/worldcup',
-    name: 'worldcup',
-    component: WorldCupView
-  },
-  {
     path: '/genres',
     name: 'genres',
     component: SelectGenreView
@@ -120,6 +124,15 @@ const routes = [
     name: 'customCard',
     component: CustomCardView
   },
+
+  {
+    path: '*',
+    redirect: '/404'
+  },
+  {
+    path: '/404',
+    component: PageNotFound
+  }
 ]
 
 const router = new VueRouter({
@@ -129,6 +142,28 @@ const router = new VueRouter({
     return { x: 0, y: 0 } 
   },
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const { isLoggedIn } = store.getters
+  const authPages = [
+    'changepassword', 
+    'articles', 
+    'articleNew', 
+    'article', 
+    'articleEdit', 
+    'genres', 
+    'changeNickname', 
+    'share',
+    'customCard'
+  ]
+  const isAuthRequired = authPages.includes(to.name)
+
+  if (isAuthRequired && !isLoggedIn) {
+    next({ name: 'login'})
+  } else {
+    next()
+  }
 })
 
 export default router
