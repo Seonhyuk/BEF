@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="home container">
-      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -36,6 +36,7 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+      
       <h1 class="playing-title ms-4">상영중 영화 🎥</h1>
       <div class="movies">
         <ul>

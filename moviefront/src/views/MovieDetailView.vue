@@ -198,7 +198,6 @@ export default {
   methods: {
     ...mapActions(['setMovieDetail', 'setReviews', 'createReview', 'getMovieBackDropImage']),
     onSubmit() {
-      console.log(this.currentUser.username)
       const payload = {
         moviePk: this.$route.params.moviePk,
         username: this.currentUser.username,
@@ -217,7 +216,6 @@ export default {
     },
     move3() {
       const reviewLocation = document.querySelector('#review-h2').offsetTop
-      console.log(reviewLocation)
       window.scrollTo({left:0, top:reviewLocation, behavior:"smooth"})
     },
     moveUp() {

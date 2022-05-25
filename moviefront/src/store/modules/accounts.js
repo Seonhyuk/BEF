@@ -35,7 +35,8 @@ export default {
 		SET_AUTH_ERROR: (state, error) => state.authError = error,
 		REMOVE_CURRENT_USER : state => state.currentUser = {},
 
-		SET_IS_USED: (state, result) => state.isUsed = result
+		SET_IS_USED: (state, result) => state.isUsed = result,
+		SET_REMOVE_USER: state => state.currentUser = {},
 	},
 
 	actions: {
@@ -165,6 +166,7 @@ export default {
 					.catch(err => {
 						if (err.response.status === 401) {
 							dispatch('removeToken')
+							commit('SET_REMOVE_USER')
 							router.push({ name: 'login' })
 						}
 					})
@@ -248,6 +250,17 @@ export default {
 				})
 				.catch(err => {
 					console.log(err.response.data)
+				})
+		},
+		deleteUser({ getters, dispatch }, username) {
+			axios({
+				url: drf.accounts.deleteUser(username),
+				method: 'delete',
+				headers: getters.authHeader
+			})
+				.then(() => {
+					dispatch('fetchCurrentUser')
+					alert('회원탈퇴가 완료되었습니다.')
 				})
 		}
 	}

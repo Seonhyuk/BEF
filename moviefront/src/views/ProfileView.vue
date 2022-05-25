@@ -131,7 +131,11 @@
 
     <hr>
 
-    <button v-if="isLoggedIn && currentUser.username === profile.username" id="delete-count-btn">회원탈퇴</button>
+    <button 
+      v-if="isLoggedIn && currentUser.username === profile.username" 
+      id="delete-count-btn"
+      @click="onDeleteButton"
+    >회원탈퇴</button>
   </div>
 </template>
 
@@ -180,7 +184,7 @@ export default {
 
   },
   methods : {
-    ...mapActions(['fetchProfile', 'followYou', 'changeProfileImage', ]),
+    ...mapActions(['fetchProfile', 'followYou', 'changeProfileImage', 'deleteUser',]),
     goSelectGenre() {
       this.$router.push({ name: 'genres' })
     },
@@ -207,6 +211,13 @@ export default {
     },
     goChangeNickname () {
       this.$router.push({ name: 'changeNickname'})
+    },
+    onDeleteButton () {
+      if (confirm('정말 탈퇴하시겠습니까?')) {
+        if (prompt("'회원탈퇴' 를 입력해주세요") === '회원탈퇴') {
+          this.deleteUser(this.currentUser.username)
+        }
+      }
     }
   },
   created () {

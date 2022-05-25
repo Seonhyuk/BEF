@@ -88,3 +88,14 @@ def change_nickname(request, username, new_nickname):
     }
 
     return Response(data, status=status.HTTP_200_OK)
+
+@api_view(['DELETE'])
+def delete_user(request, username):
+    user = User.objects.get(username=username)
+    user.delete()
+
+    data = {
+        'delete': 'success',
+    }
+
+    return Response(data, status=status.HTTP_204_NO_CONTENT)

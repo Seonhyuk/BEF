@@ -19,7 +19,8 @@ export default {
 		nickname: nickname => HOST + ACCOUNTS + 'nickname/' + `${nickname}/`,
 		follow: (myname, yourname) => HOST + ACCOUNTS + 'follow/' + `${myname}/` + `${yourname}/`,
 		changeProfileImage: (username) => HOST + ACCOUNTS + 'profile_image/' + `${username}/`,
-		newNickname: (username, newNickname) => HOST + ACCOUNTS + 'change_nickname/' + `${username}/` + `${newNickname}/`
+		newNickname: (username, newNickname) => HOST + ACCOUNTS + 'change_nickname/' + `${username}/` + `${newNickname}/`,
+		deleteUser: username => HOST + ACCOUNTS + 'delete_user/' + `${username}/`,
 	},
 	movies: {
 		movies: () => HOST + MOVIES,
