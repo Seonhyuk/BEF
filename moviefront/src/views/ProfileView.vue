@@ -69,7 +69,7 @@
     <hr>
     <div class="d-flex justify-content-between" v-if="currentUser.username === profile.username">
       <h1 class="playing-title ms-4">{{ profile.name }}님의 무비카드</h1>
-      <router-link :to="{ name: 'CustomCard' }">무비카드 만들기</router-link>
+      <router-link :to="{ name: 'customCard' }">무비카드 만들기</router-link>
     </div>
     <h1 class="playing-title ms-4" v-else>{{ profile.name }}님의 무비카드</h1>
     <div class="movies d-flex justify-content-center" v-if="cardsLength">
