@@ -37,32 +37,32 @@
           <button v-else class="follow-button unfollowing" @click="followYou(profile.username)">언팔로우</button>
         </div>
         
-        <div v-if="isLoggedIn && currentUser.username === profile.username" class="change-box">
-          <div class="button-wrapper">
-            <span class="label">
-              프로필 사진 변경
-            </span>
-            <input 
-              id="upload"
-              type="file" 
-              accept="image/*" 
-              @change="onInputImage" 
-              ref="image"
-              class="upload-box"
-            >
+
+          <div v-if="isLoggedIn && currentUser.username === profile.username">
+            <!-- <button @change="onInputImage" ref="image" accept="image/*" type="file" class="upload-box">프로필 사진 변경</button> -->
+              <span class="label">
+                프로필 사진 변경
+              </span>
+              <input 
+                id="upload"
+                type="file" 
+                accept="image/*" 
+                @change="onInputImage" 
+                ref="image"
+                class="upload-box change-button2">
           </div>
-        </div>
 
-        <div v-if="isLoggedIn && img && img != currentUser.profile_image && currentUser.username === profile.username" class="">
-          <button @click="returnProfileImage" class="back-button">되돌리기</button>
-          <button @click="changeProfileImage(img)" class="confirm-button">확인</button>
-        </div>
+          <div v-if="isLoggedIn && img && img != currentUser.profile_image && currentUser.username === profile.username" class="">
+            <button @click="returnProfileImage" class="back-button">되돌리기</button>
+            <button @click="changeProfileImage(img)" class="confirm-button">확인</button>
+          </div>
 
-        <button 
-          @click="goSelectGenre"
-          v-show="isLoggedIn && profile.username === currentUser.username"
-          class="change-button2 my-1"
-        >선호 장르 선택</button>
+          <button 
+            @click="goSelectGenre"
+            v-show="isLoggedIn && profile.username === currentUser.username"
+            class="change-button2 my-1"
+          >선호 장르 선택</button>
+
       </div>
 
     </div>
@@ -456,7 +456,7 @@ hr {
 .button-wrapper {
   position: relative;
   width: 50%;
-  margin: 15px auto 15px auto;
+  margin: auto;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -464,19 +464,18 @@ hr {
 
 .button-wrapper span.label {
   z-index: 0;
-  display: inline-block;
   width: 280px;
   background: #F82F62;
   cursor: pointer;
-  padding: auto;
-  margin: auto;
   height: 34px;
   color: white;
   border: 0px;
   border-radius: 10px;
   line-height: 28px;
-  text-align: center;
   font-size: 1rem;
+  display: inline-block;
+  position: absolute;
+  bottom: 10%;
 }
 
 .button-wrapper span.label:hover {
@@ -485,7 +484,7 @@ hr {
 
 #upload {
   display: inline-block;
-  position: absolute;
+  position: relative;
   z-index: 1;
   width: 100%;
   height: 30px;
@@ -556,4 +555,5 @@ hr {
   text-decoration: none;
   color: white;
 }
+
 </style>
