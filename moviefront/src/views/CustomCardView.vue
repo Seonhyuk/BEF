@@ -52,8 +52,8 @@
 						</div>
 
 						<!-- css 필요 -->
-						<div>
-							<label for="radio1" class="text_obj">
+						<div class="important2">
+							<label for="radio1" class="text_obj important">
 								<input 
 									type="radio" 
 									name="like" 
@@ -63,7 +63,7 @@
 								><span>좋았어요😍</span>
 							</label> vs 
 			
-							<label for="radio2" class="text_obj">
+							<label for="radio2" class="text_obj important">
 								<input 
 									type="radio" 
 									name="like" 
@@ -141,7 +141,7 @@ import { mapActions, mapGetters } from 'vuex'
 import $ from 'jquery'
 
 export default {
-	name: 'customCard',
+	name: 'CustomCard',
 	data () {
 		return {
 			color: [
@@ -717,5 +717,173 @@ export default {
 .label-box7:hover {
 	opacity: 0.5;
 }
+
+.important {
+  background-color: rgba(0, 0, 0, 0) !important;
+  margin: 20px auto !important;
+  padding: 0 !important;
+}
+
+@use postcss-preset-env {
+  stage: 0;
+}
+
+.align {
+  display: grid;
+  place-items: center;
+}
+
+.grid {
+  inline-size: 90%;
+  margin-inline: auto;
+  max-inline-size: 20rem;
+}
+
+#hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.icons {
+  display: none;
+}
+
+.icon {
+  block-size: 1em;
+  display: inline-block;
+  fill: #606468;
+  inline-size: 1em;
+  vertical-align: middle;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+body {
+  background-color: #2c3338;
+  color: #606468;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+  min-block-size: 100vh;
+}
+
+#a {
+  color: #eee;
+  outline: 0;
+  text-decoration: none;
+}
+
+#a:focus,
+
+#a:hover {
+  text-decoration: underline;
+}
+
+
+:root {
+  --formGap: 0.875rem;
+}
+
+input {
+  background-image: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  transition: background-color 0.3s;
+}
+
+input[type="submit"] {
+  cursor: pointer;
+}
+
+.form {
+  display: grid;
+  gap: 0.875rem;
+}
+
+.form input[type="text"],
+.form input[type="submit"] {
+  inline-size: 100%;
+}
+
+.form__field {
+  display: flex;
+}
+
+.form__input {
+  flex: 1;
+}
+
+.login {
+  color: var(--loginColor);
+}
+
+.login label,
+.login input[type="text"],
+.login input[type="submit"] {
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.login label {
+  background-color: #434a52;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  padding-inline: 1.25rem;
+}
+
+.login input[type="text"] {
+  background-color: #3b4148;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.login input[type="text"]:focus,
+.login input[type="text"]:hover {
+  background-color: #434a52;
+}
+
+.login input[type="submit"] {
+  background-color: #F82F62;
+  color: #eee;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.login input[type="submit"]:focus,
+.login input[type="submit"]:hover {
+  background-color: #F82F62;
+}
+
+#p {
+  margin-block: 1.5rem;
+	color: #414850;
+}
+
+.text--center {
+  text-align: center;
+}
+
+#login-title {
+	padding: 5px;
+}
+
 
 </style>
