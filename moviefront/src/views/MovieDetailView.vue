@@ -109,7 +109,7 @@
                 <h3 v-if="percentLike > 70 && percentLike <= 90">&#x2B50;&#x2B50;&#x2B50;&#x2B50;</h3>
                 <h3 v-if="percentLike > 60 && percentLike <= 70">&#x2B50;&#x2B50;&#x2B50;</h3>
                 <h3 v-if="percentLike > 50 && percentLike <= 60">&#x2B50;&#x2B50;</h3>
-                <h3 v-if="percentLike <= 50">&#x2B50;</h3>
+                <h3 v-if="percentLike <= 50 && percentLike > 0">&#x2B50;</h3>
                 <h2 v-if="percentLike">{{ percentLike }}%</h2>
                 
                 <h3 v-if="!percentLike">&#x2B50;</h3>
