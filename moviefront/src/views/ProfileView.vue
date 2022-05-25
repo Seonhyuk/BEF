@@ -68,8 +68,7 @@
     </div>
     <hr>
     <div class="d-flex justify-content-between" v-if="currentUser.username === profile.username">
-      <h1 class="playing-title ms-4">{{ profile.name }}님의 무비카드</h1>
-      <router-link :to="{ name: 'customCard' }">무비카드 만들기</router-link>
+      <h1 class="playing-title ms-4">{{ profile.name }}님의 포토카드</h1>
     </div>
     <h1 class="playing-title ms-4" v-else>{{ profile.name }}님의 무비카드</h1>
     <div class="movies d-flex justify-content-center" v-if="cardsLength">
@@ -83,6 +82,9 @@
       <div class="empty-box">
         <h2 class="empty-text">{{ profile.name }}님의 무비카드가 없습니다!</h2>
       </div>
+    </div>
+    <div id="movie-card-btn">
+      <router-link :to="{ name: 'customCard' }" id="movie-card-text">My카드 만들기</router-link>
     </div>
     <hr>
 
@@ -410,7 +412,7 @@ hr {
 .change-button2 {
   z-index: 0;
   display: inline-block;
-  width: 130px;
+  width: 280px;
   background: rgba(2,126,251,1);
   cursor: pointer;
   padding: auto;
@@ -463,7 +465,7 @@ hr {
 .button-wrapper span.label {
   z-index: 0;
   display: inline-block;
-  width: 130px;
+  width: 280px;
   background: #F82F62;
   cursor: pointer;
   padding: auto;
@@ -529,5 +531,29 @@ hr {
 }
 #delete-count-btn:hover {
   border: 1px solid white;
+}
+#movie-card-btn {
+  position: relative;
+  left: 40%;
+  display: inline;
+  padding: 12px;
+}
+#movie-card-btn {
+  width: 120px;
+  margin: auto;
+  background-color:  #494949;
+  color: white;
+  font-size: 16px;
+  border: 0px;
+  border-radius: 5px;
+}
+
+#movie-card-btn:hover {
+  border: 2px solid #fff;
+}
+
+#movie-card-text {
+  text-decoration: none;
+  color: white;
 }
 </style>

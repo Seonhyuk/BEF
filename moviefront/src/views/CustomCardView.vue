@@ -1,8 +1,11 @@
 <template>
   <div class="home2 container">
-		<h1>나만의 무비카드 만들기</h1>
+		<div class="pt-5 pb-3">
+      <h1>My 포토카드 &#127912;</h1>
+      <p id="photo-overview" class="mt-3">아름다운 순간들을 포토카드로 간직하세요!</p>
+    </div>
 		<hr>
-		<div class="d-flex justify-content-evenly">
+		<div class="d-flex justify-content-evenly mt-5">
 			<div class="custom-card custom-color animated m-5" :style="{ '--custom-color1': color[cardData.leftColor], '--custom-color2': color[cardData.rightColor] }">
 				<img v-if="cardData.img" class="inner-image" :src="cardData.img" alt="">
 				<div class="inner-box">
@@ -60,7 +63,7 @@
 									id="radio1"
 									:value="true"
 									v-model="cardData.liked"
-								><span>좋았어요😍</span>
+								><span id="like-movie">좋았어요😍</span>
 							</label> vs 
 			
 							<label for="radio2" class="text_obj important">
@@ -152,7 +155,7 @@ export default {
 				title: '',
 				date: '',
 				withPerson: '',
-				liked: true,
+				liked: '',
 				description: '',
 				leftColor: 0,
 				rightColor: 6,
@@ -586,8 +589,7 @@ export default {
   position: relative;
   width: 300px;
   text-align: center;
-
-  margin: 30px auto;
+  margin-top: 15%;
 }
 
 .button-wrapper span.label {
@@ -598,9 +600,10 @@ export default {
   background: #00bfff;
   cursor: pointer;
   color: #fff;
-  padding: 10px 0;
+  padding: 17px 0;
   text-transform:uppercase;
-  font-size:12px;
+  font-size:15px;
+  border-radius: 5px;
 }
 
 #upload {
@@ -608,7 +611,6 @@ export default {
   position: absolute;
   z-index: 1;
   width: 100%;
-  height: 50px;
   top: 0;
   left: 0;
   opacity: 0;
@@ -631,7 +633,7 @@ export default {
 .text_obj input[type="radio"] + span {
   display: inline-block;
   padding: 10px 15px;
-  border-radius: 20px;
+  border-radius: 10px;
   text-align: center;
   cursor: pointer;
   font-size: 17px;
@@ -720,7 +722,7 @@ export default {
 
 .important {
   background-color: rgba(0, 0, 0, 0) !important;
-  margin: 20px auto !important;
+  margin: 0 !important;
   padding: 0 !important;
 }
 
@@ -738,7 +740,9 @@ export default {
   margin-inline: auto;
   max-inline-size: 20rem;
 }
-
+.important2 {
+  height: 50px;
+}
 #hidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -884,6 +888,7 @@ input[type="submit"] {
 #login-title {
 	padding: 5px;
 }
-
-
+#photo-overview {
+  color: #858585;
+}
 </style>

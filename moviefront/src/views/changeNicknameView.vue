@@ -60,19 +60,20 @@ export default {
 }
 
 .icons {
+  
   display: none;
 }
 
 .icon {
   block-size: 1em;
   display: inline-block;
-  fill: var(--iconFill);
+  fill: #606468;
   inline-size: 1em;
   vertical-align: middle;
 }
 
 .input-box {
-	color: black;
+	color: rgb(255, 255, 255);
 }
 
 .playing-title {
@@ -111,7 +112,8 @@ input {
 }
 
 label {
-  background-color: var(--loginLabelBackgroundColor);
+  border-radius: 5px;
+  background-color: #434a52;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   padding-inline: 1.25rem;
@@ -119,33 +121,37 @@ label {
 
 label,
 input[type="text"] {
-  border-radius: var(--loginBorderRadus);
+  border-radius: 5px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
   padding: 1rem;
 }
 
 input[type="text"] {
-  background-color: var(--loginInputBackgroundColor);
+  color: black;
+  background-color: #434a52;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
 
 input[type="text"]:focus,
 input[type="text"]:hover {
-  background-color: var(--loginInputHoverBackgroundColor);
+  background-color: #eee;
 }
 
 .submit-button {
-	border: 0px;
-	border-radius: var(--loginBorderRadus);
+	border-radius: 10px;
 	padding: 1rem;
-	background-color: var(--loginSubmitBackgroundColor);
-  color: var(--loginSubmitColor);
+  background-color: #F82F62;
+  color: #eee;
   font-weight: 700;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 
 .submit-button:focus,
 .submit-button:hover {
-  background-color: rgb(218, 67, 112);
+  background-color:#F82F62;
 }
 
 </style>
