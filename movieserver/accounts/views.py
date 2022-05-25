@@ -122,3 +122,14 @@ def make_card(request, username):
         'data': 'success'
     }
     return Response(data, status=status.HTTP_201_CREATED)
+
+@api_view(['DELETE'])
+def delete_card(request, card_id):
+    card = CustomCard(pk=card_id)
+    card.delete()
+
+    data = {
+        'delete': 'success'
+    }
+
+    return Response(data, status=status.HTTP_204_NO_CONTENT)

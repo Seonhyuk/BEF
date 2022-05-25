@@ -21,7 +21,8 @@ export default {
 		changeProfileImage: (username) => HOST + ACCOUNTS + 'profile_image/' + `${username}/`,
 		newNickname: (username, newNickname) => HOST + ACCOUNTS + 'change_nickname/' + `${username}/` + `${newNickname}/`,
 		deleteUser: username => HOST + ACCOUNTS + 'delete_user/' + `${username}/`,
-		makeCard: username => HOST + ACCOUNTS + 'make_card/' + `${username}/`
+		makeCard: username => HOST + ACCOUNTS + 'make_card/' + `${username}/`,
+		deleteCard: cardPk => HOST + ACCOUNTS + 'delete_card/' + `${cardPk}/`,
 	},
 	movies: {
 		movies: () => HOST + MOVIES,
@@ -42,8 +43,10 @@ export default {
 		addVote: movieId => HOST + MOVIES + 'add_vote/' + `${movieId}/`,
 	
 		reviews: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEWS,
+		deleteReview: reviewPk => HOST + MOVIES + 'delete_review/' + `${reviewPk}/`,
 		comment: (moviePk, reviewPk) =>
 			HOST + MOVIES + `${moviePk}/` + REVIEWS + `${reviewPk}/`,
+
 
 		genres: () => HOST + MOVIES + 'genres/',
 		like_genre: () => HOST + MOVIES + 'like_genre/'

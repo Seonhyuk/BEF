@@ -311,9 +311,17 @@ def get_movie_review(request, movie_id):
 
 
 # 리뷰를 업데이트하는 함수
-@api_view(['PUT'])
-def update_review(request, review_id):
-    pass
+@api_view(['DELETE'])
+def delete_review(request, review_id):
+    review = Review.objects.get(pk=review_id)
+    review.delete()
+
+    data = {
+        'delete': 'success',
+    }
+
+    return Response(data, status=status.HTTP_204_NO_CONTENT)
+
     
 @api_view(['GET'])
 def winner(request):

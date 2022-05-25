@@ -1,6 +1,7 @@
 import router from '@/router'
 import axios from 'axios'
 import drf from '@/api/drf'
+import swal from 'sweetalert'
 
 export default {
 
@@ -64,7 +65,7 @@ export default {
 					router.push({ name: 'home' })
 				})
 				.catch(err => {
-					alert('ID와 비밀번호를 확인하세요.')
+					swal('ID와 비밀번호를 확인하세요.')
 					commit('SET_AUTH_ERROR', err.response.data)
 				})
 		},
@@ -77,7 +78,7 @@ export default {
 			}
 
 			if (!credentials.nickname) {
-				alert('닉네임을 입력해주세요!')
+				swal('닉네임을 입력해주세요!')
 			}	else {
 
 				axios({
@@ -86,7 +87,7 @@ export default {
 				})
 					.then(res => {
 						if (res.data.data) {
-							alert('이미 사용중인 닉네임입니다.')
+							swal('이미 사용중인 닉네임입니다.')
 						} else {
 							axios({
 								url: drf.accounts.signup(),
@@ -119,7 +120,7 @@ export default {
 								.catch(err => {
 									commit('SET_AUTH_ERROR', err.response.data)
 									for (let error in getters.authError) {
-										alert(getters.authError[error][0])
+										swal(getters.authError[error][0])
 									}
 								})
 						}
@@ -137,7 +138,7 @@ export default {
 				.then(() => {
 					dispatch('removeToken')
 					commit('REMOVE_CURRENT_USER')
-					alert('로그아웃 되었습니다.')
+					swal('로그아웃 되었습니다.')
 					router.push({ name: 'home' })
 				})
 				.catch(err => {
@@ -214,7 +215,7 @@ export default {
 		},
 		changeNickname({ getters, dispatch }, newNickname) {
 			if (newNickname === getters.currentUser.name) {
-				alert('현재 닉네임과 같습니다.')
+				swal('현재 닉네임과 같습니다.')
 			} else {
 				axios({
 					url: drf.accounts.nickname(newNickname),
@@ -222,7 +223,7 @@ export default {
 				})
 					.then(res => {
 						if (res.data.data) {
-							alert('이미 사용중인 닉네임입니다.')
+							swal('이미 사용중인 닉네임입니다.')
 						} else {
 							axios({
 								url: drf.accounts.newNickname(getters.currentUser.username, newNickname),
@@ -260,7 +261,7 @@ export default {
 			})
 				.then(() => {
 					dispatch('fetchCurrentUser')
-					alert('회원탈퇴가 완료되었습니다.')
+					swal('회원탈퇴가 완료되었습니다.')
 				})
 		},
 		makeCard({ getters }, cardData) {
@@ -272,6 +273,17 @@ export default {
 			})
 				.then(() => {
 					router.push({ name: 'profile', params: { username: getters.currentUser.username }})
+				})
+		},
+		deleteCard({ getters, dispatch }, cardPk) {
+			axios({
+				url: drf.accounts.deleteCard(cardPk),
+				method: 'delete',
+				headers: getters.authHeader
+			})
+				.then(res => {
+					console.log(res.data)
+					dispatch('fetchProfile', getters.currentUser.username)
 				})
 		}
 	}

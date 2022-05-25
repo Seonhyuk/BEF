@@ -124,7 +124,7 @@
               </router-link><br>
               <span id="like-status" v-if="review.like">[좋아요😍]</span>
               <span id="like-status" v-if="!review.like">[별로예요😥]</span>
-              <sapn id="review-content"> {{ review.content }}</sapn>
+              <span id="review-content"> {{ review.content }}</span>
               <hr>
             </div>
             <div v-if="noReviews" class="mt-5" id="no-reviews">

@@ -40,7 +40,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import router from './router'
 
 export default {
   name: "App",
@@ -56,7 +55,7 @@ export default {
     ...mapActions(['setSearchedMovies', 'logout', 'fetchCurrentUser', 'setNowMovies', 'setLastMovies', 'setWinMovies', 'setRecommendMovies',]),
     removeQuery () {
       this.query = ''
-      router.push({name: 'search'})
+      
     }
   },
   created () {

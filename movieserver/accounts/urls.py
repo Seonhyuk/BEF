@@ -10,4 +10,5 @@ urlpatterns = [
     path('change_nickname/<str:username>/<str:new_nickname>/', views.change_nickname),
     path('delete_user/<str:username>/', views.delete_user),
     path('make_card/<str:username>/', views.make_card),
+    path('delete_card/<int:card_id>/', views.delete_card),
 ]

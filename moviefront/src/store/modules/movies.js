@@ -1,5 +1,7 @@
 import axios from 'axios'
 import drf from '@/api/drf'
+import router from '@/router'
+import swal from 'sweetalert'
 
 const URL = 'https://www.googleapis.com/youtube/v3/search'
 const API_KEY = process.env.VUE_APP_YOUTUBE_API_KEY
@@ -174,9 +176,12 @@ export default {
 					url : drf.movies.searchMovie(query),
 					method: 'GET',
 				})
-				.then(res => commit('SET_SEARCHED_MOVIES', res.data))
+				.then(res => {
+					commit('SET_SEARCHED_MOVIES', res.data)
+					router.push({name: 'search'})
+				})
 			} else {
-				alert('검색어를 입력해주세요')
+				swal('검색어를 입력해주세요')
 			}
 		},
 		setMovieDetail({commit}, moviePk) {
@@ -219,6 +224,17 @@ export default {
 			})
 				.then( () => {
 					dispatch('setReviews', moviePk)
+				})
+		},
+		deleteReview({ dispatch, getters }, reviewPk) {
+			axios({
+				url: drf.movies.deleteReview(reviewPk),
+				method: 'delete',
+				header: getters.authHeader
+			})
+				.then(res => {
+					console.log(res.data)
+					dispatch('setMovieDetail', getters.movieDetail.id)
 				})
 		},
 		setExponent({commit}, exponent) {
@@ -268,7 +284,7 @@ export default {
 
 		selectMovie({ dispatch, getters }, payload) {
 			if (!getters.isLoggedIn) {
-				alert('로그인한 회원만 선택할 수 있습니다.')
+				swal('로그인한 회원만 선택할 수 있습니다.')
 			} else {
 				const moviePk = payload.moviePk
 				const username = getters.currentUser.username

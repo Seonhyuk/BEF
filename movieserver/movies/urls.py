@@ -15,4 +15,5 @@ urlpatterns = [
     path('like_genre/', views.like_genres),
     path('select/<int:movie_pk>/', views.select),
     path('add_vote/<int:movie_pk>/', views.add_score),
+    path('delete_review/<int:review_id>/', views.delete_review),
 ]
