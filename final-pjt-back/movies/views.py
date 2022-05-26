@@ -113,8 +113,8 @@ def recommend(request, username):
         movies[i].sort(key=lambda x: -(((x.popularity - avg_popularity) / sd_popularity) * 0.7 + ((x.vote_average - avg_points) / sd_points) * 0.3))
 
     recommend = []
-
-    lst = deque(user.recently_recommended_movies.all())
+    a = f'{user.recently_recommended_movies.through._meta.db_table}.id'
+    lst = deque(user.recently_recommended_movies.all().order_by(a))
 
     while len(recommend) < 12:
         for i in range(len(movies)):
@@ -132,6 +132,7 @@ def recommend(request, username):
                         movie = lst.popleft()
                         user.recently_recommended_movies.remove(movie)
                     break
+
             if len(recommend) >= 12:
                 break       
 
