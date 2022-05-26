@@ -1,6 +1,7 @@
 import axios from 'axios'
 import drf from '@/api/drf'
 import router from '@/router'
+import swal from 'sweetalert'
 
 import _ from 'lodash'
 
@@ -155,18 +156,25 @@ export default {
     },
 
     deleteComment({ commit, getters }, { articlePk, commentPk }) {
-      if (confirm('정말 삭제하시겠습니까?')) {
-        axios({
-          url: drf.articles.comment(articlePk.id, commentPk),
-          method: 'delete',
-          data: {},
-          headers: getters.authHeader,
+      swal({
+        text: '정말 삭제하시겠습니까?',
+        icon: 'warning',
+        buttons: ['아니오', '예']
+      })
+        .then(result => {
+          if (result) {
+            axios({
+              url: drf.articles.comment(articlePk.id, commentPk),
+              method: 'delete',
+              data: {},
+              headers: getters.authHeader,
+            })
+              .then(res => {
+                commit('SET_ARTICLE_COMMENTS', res.data)
+              })
+              .catch(err => console.error(err.response))
+          }
         })
-          .then(res => {
-            commit('SET_ARTICLE_COMMENTS', res.data)
-          })
-          .catch(err => console.error(err.response))
-      }
     },
     setMostLikedUsers({ commit }) {
       axios({
