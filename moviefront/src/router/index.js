@@ -67,6 +67,7 @@ const routes = [
     name: 'moviedetail',
     component: MovieDetailView
   },
+  // login Required
   {
     path: '/roundselect',
     name: 'roundselect',
@@ -77,7 +78,6 @@ const routes = [
     name: 'worldcup',
     component: WorldCupView
   },
-  // login Required
   {
     path: '/changepassword',
     name: 'changepassword',
@@ -153,7 +153,9 @@ router.beforeEach((to, from, next) => {
     'genres', 
     'changeNickname', 
     'share',
-    'customCard'
+    'customCard',
+    'roundselect',
+    'worldcup'
   ]
   const unAuthPages = [
     'login',
