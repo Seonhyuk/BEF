@@ -122,7 +122,7 @@ export default {
 			state.sharedPoster = poster_path
 		},
 		SET_SHARED_TITLE (state, title) {
-			state.sharedTitle = `[${title}] #월드컵우승 `
+			state.sharedTitle = title ? `[${title}] #월드컵우승 ` : ''
 		}
 
 	},

@@ -100,7 +100,7 @@
         <h1 class="playing-title ms-4 px-4 mb-4">{{ currentUser.name }}님을 위한 추천작 🌹</h1>
         <div class="row movie-boxes">
           <SmallMovieVue 
-            class="col-6 col-lg-2 py-2" 
+            class="col-6 col-lg-2 col-md-3 py-2" 
             v-for="movie in recommendMovies"
             :key="movie.id"
             :movie="movie"

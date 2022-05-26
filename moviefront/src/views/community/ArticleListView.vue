@@ -7,29 +7,29 @@
         <div id="most-like" class="col-12 col-lg-6">
           <p id="most-article-text" class="pt-3">좋아요 TOP5🏆</p>
           <hr id="most-article-text">
-          <p v-if="mostArticle[0]"><router-link :to="{ name: 'profile', params: {username: mostArticle[0]} }" id="most-article-text"><p>1등 {{ mostArticle[0]}} 님</p></router-link>
+          <p v-if="mostLikedUsers[0]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[0]} }" id="most-article-text"><p>1등 {{ mostArticle[0]}} 님</p></router-link></p>
           <p v-else id="most-article-text">1등 아직 없어요😅</p>
-          <p v-if="mostArticle[1]"><router-link :to="{ name: 'profile', params: {username: mostArticle[1]} }" id="most-article-text"><p>2등 {{ mostArticle[1]}} 님</p></router-link>
+          <p v-if="mostLikedUsers[1]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[1]} }" id="most-article-text"><p>2등 {{ mostArticle[1]}} 님</p></router-link></p>
           <p v-else id="most-article-text">2등 아직 없어요😅</p>
-          <p v-if="mostArticle[2]"><router-link :to="{ name: 'profile', params: {username: mostArticle[2]} }" id="most-article-text"><p>3등 {{ mostArticle[2]}} 님</p></router-link>
+          <p v-if="mostLikedUsers[2]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[2]} }" id="most-article-text"><p>3등 {{ mostArticle[2]}} 님</p></router-link></p>
           <p v-else id="most-article-text">3등 아직 없어요😅</p>
-          <p v-if="mostArticle[3]"><router-link :to="{ name: 'profile', params: {username: mostArticle[3]} }" id="most-article-text"><p>4등 {{ mostArticle[3]}} 님</p></router-link>
+          <p v-if="mostLikedUsers[3]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[3]} }" id="most-article-text"><p>4등 {{ mostArticle[3]}} 님</p></router-link></p>
           <p v-else id="most-article-text">4등 아직 없어요😅</p>
-          <p v-if="mostArticle[4]"><router-link :to="{ name: 'profile', params: {username: mostArticle[4]} }" id="most-article-text"><p>5등 {{ mostArticle[4]}} 님</p></router-link>
+          <p v-if="mostLikedUsers[4]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[4]} }" id="most-article-text"><p>5등 {{ mostArticle[4]}} 님</p></router-link></p>
           <p v-else id="most-article-text">5등 아직 없어요😅</p>
         </div>
         <div id="most-article" class="col-12 col-lg-6">
           <p id="most-article-text" class="pt-3">게시글 TOP5🏆</p>
           <hr id="most-article-text">
-          <p v-if="mostArticle[0]"><router-link :to="{ name: 'profile', params: {username: mostArticle[0]} }" id="most-article-text"><p>1등 {{ mostArticle[0]}} 님</p></router-link>
+          <p v-if="mostArticle[0]"><router-link :to="{ name: 'profile', params: {username: mostArticle[0]} }" id="most-article-text"><p>1등 {{ mostArticle[0]}} 님</p></router-link></p>
           <p v-else id="most-article-text">1등 아직 없어요😅</p>
-          <p v-if="mostArticle[1]"><router-link :to="{ name: 'profile', params: {username: mostArticle[1]} }" id="most-article-text"><p>2등 {{ mostArticle[1]}} 님</p></router-link>
+          <p v-if="mostArticle[1]"><router-link :to="{ name: 'profile', params: {username: mostArticle[1]} }" id="most-article-text"><p>2등 {{ mostArticle[1]}} 님</p></router-link></p>
           <p v-else id="most-article-text">2등 아직 없어요😅</p>
-          <p v-if="mostArticle[2]"><router-link :to="{ name: 'profile', params: {username: mostArticle[2]} }" id="most-article-text"><p>3등 {{ mostArticle[2]}} 님</p></router-link>
+          <p v-if="mostArticle[2]"><router-link :to="{ name: 'profile', params: {username: mostArticle[2]} }" id="most-article-text"><p>3등 {{ mostArticle[2]}} 님</p></router-link></p>
           <p v-else id="most-article-text">3등 아직 없어요😅</p>
-          <p v-if="mostArticle[3]"><router-link :to="{ name: 'profile', params: {username: mostArticle[3]} }" id="most-article-text"><p>4등 {{ mostArticle[3]}} 님</p></router-link>
+          <p v-if="mostArticle[3]"><router-link :to="{ name: 'profile', params: {username: mostArticle[3]} }" id="most-article-text"><p>4등 {{ mostArticle[3]}} 님</p></router-link></p>
           <p v-else id="most-article-text">4등 아직 없어요😅</p>
-          <p v-if="mostArticle[4]"><router-link :to="{ name: 'profile', params: {username: mostArticle[4]} }" id="most-article-text"><p>5등 {{ mostArticle[4]}} 님</p></router-link>
+          <p v-if="mostArticle[4]"><router-link :to="{ name: 'profile', params: {username: mostArticle[4]} }" id="most-article-text"><p>5등 {{ mostArticle[4]}} 님</p></router-link></p>
           <p v-else id="most-article-text">5등 아직 없어요😅</p>
         </div>
       </div>
@@ -61,7 +61,7 @@
       </table>
       
       <div class="d-flex justify-content-end">
-        <router-link :to="{ name: 'articleNew'}"><button class="btn btn-sm" id="create-btn">글쓰기</button></router-link>
+        <router-link :to="{ name: 'articleNew'}"><button class="btn btn-sm" id="create-btn" @click="onClick">글쓰기</button></router-link>
       </div>
 
 
@@ -80,7 +80,7 @@
   export default {
     name: 'ArticleList',
     computed: {
-      ...mapGetters(['articles', 'isLoggedIn']),
+      ...mapGetters(['articles', 'isLoggedIn', 'mostLikedUsers']),
       articleCnt () {
         return this.articles.length
       },
@@ -114,15 +114,21 @@
       },
     },
     methods: {
-      ...mapActions(['fetchArticles'])
+      ...mapActions(['fetchArticles', 'setSharedPoster', 'setSharedTitle', 'setMostLikedUsers']),
+      onClick () {
+        this.setSharedPoster('')
+        this.setSharedTitle('')
+      }
     },
     created() {
-    if (!this.isLoggedIn) {
-      console.log(this.isLoggedIn)
-      this.$router.push({ name: 'login'})
-    } else {
-      this.fetchArticles()
-    }
+      if (!this.isLoggedIn) {
+        console.log(this.isLoggedIn)
+        this.$router.push({ name: 'login'})
+      } else {
+        this.fetchArticles()
+      }
+      this.setMostLikedUsers()
+      console.log(this.mostLikedUsers)
     },
   }
 </script>
@@ -147,12 +153,7 @@
   text-decoration-line: none;
   color: white;
 }
-/* #article-wrap {
-  border: solid white;
-}
-#ranking-wrap{
-  border: solid white;
-} */
+
 #most-article {
   height: 270px;
   display: inline-block;

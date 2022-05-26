@@ -157,7 +157,19 @@ router.beforeEach((to, from, next) => {
     'share',
     'customCard'
   ]
+  const unAuthPages = [
+    'login',
+    'signup',
+  ]
+
   const isAuthRequired = authPages.includes(to.name)
+  const NotAuthentication = unAuthPages.includes(to.name)
+
+  if (NotAuthentication && isLoggedIn) {
+    next({ name: 'home' })
+  } else {
+    next()
+  }
 
   if (isAuthRequired && !isLoggedIn) {
     next({ name: 'login'})

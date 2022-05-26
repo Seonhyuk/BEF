@@ -250,7 +250,11 @@ export default {
 					router.push({name: 'home'})
 				})
 				.catch(err => {
-					console.log(err.response.data)
+					if (err.response.data.old_password) {
+						swal(err.response.data.old_password[0])
+					} else if (err.response.data.new_password2) {
+						swal(err.response.data.new_password2[0])
+					}
 				})
 		},
 		deleteUser({ getters, dispatch }, username) {

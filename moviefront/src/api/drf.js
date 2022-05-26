@@ -23,6 +23,7 @@ export default {
 		deleteUser: username => HOST + ACCOUNTS + 'delete_user/' + `${username}/`,
 		makeCard: username => HOST + ACCOUNTS + 'make_card/' + `${username}/`,
 		deleteCard: cardPk => HOST + ACCOUNTS + 'delete_card/' + `${cardPk}/`,
+		mostLikedUsers: () => HOST + ACCOUNTS + 'most_liked_users/'
 	},
 	movies: {
 		movies: () => HOST + MOVIES,

@@ -49,9 +49,9 @@ export default {
 	data () {
 		return {
       credentials: {
-				old_password: '',
-				new_password1: '',
+        new_password1: '',
 				new_password2: '',
+				old_password: '',
 			}
 		}
 	},

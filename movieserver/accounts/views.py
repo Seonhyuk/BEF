@@ -133,3 +133,30 @@ def delete_card(request, card_id):
     }
 
     return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET'])
+def most_liked_users(request):
+    users = list(User.objects.all())
+
+    result = []
+    for user in users:
+        a = 0
+        for article in list(user.articles.all()):
+            num = len(list(article.like_users.all()))
+            a += num
+            
+        result.append([a, user.username])
+    
+    result.sort()
+
+    results = []
+    for r in result:
+        if r[0]:
+            results.append(r[1])
+    
+    data = {
+        'result': results
+    }
+
+    return Response(data, status=status.HTTP_200_OK)

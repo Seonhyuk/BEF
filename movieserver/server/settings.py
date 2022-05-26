@@ -154,6 +154,8 @@ REST_FRAMEWORK = {
     ]
 }
 
+OLD_PASSWORD_FIELD_ENABLED = True
+
 SITE_ID = 1
 
 MEDIA_URL = '/media/'

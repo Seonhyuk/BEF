@@ -11,4 +11,5 @@ urlpatterns = [
     path('delete_user/<str:username>/', views.delete_user),
     path('make_card/<str:username>/', views.make_card),
     path('delete_card/<int:card_id>/', views.delete_card),
+    path('most_liked_users/', views.most_liked_users),
 ]

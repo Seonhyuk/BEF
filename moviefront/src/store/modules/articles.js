@@ -9,6 +9,7 @@ export default {
   state: {
     articles: [],
     article: {},
+    mostLikedUsers: [],
   },
 
   getters: {
@@ -18,12 +19,14 @@ export default {
       return state.article.user?.username === getters.currentUser.username
     },
     isArticle: state => !_.isEmpty(state.article),
+    mostLikedUsers: state => state.mostLikedUsers
   },
 
   mutations: {
     SET_ARTICLES: (state, articles) => state.articles = articles,
     SET_ARTICLE: (state, article) => state.article = article,
     SET_ARTICLE_COMMENTS: (state, comments) => (state.article.comments = comments),
+    SET_MOST_LIKED_USERS: (state, users) => state.mostLikedUsers = users
   },
 
   actions: {
@@ -143,19 +146,27 @@ export default {
     },
 
     deleteComment({ commit, getters }, { articlePk, commentPk }) {
-      console.log(articlePk)
-        if (confirm('정말 삭제하시겠습니까?')) {
-          axios({
-            url: drf.articles.comment(articlePk.id, commentPk),
-            method: 'delete',
-            data: {},
-            headers: getters.authHeader,
+      if (confirm('정말 삭제하시겠습니까?')) {
+        axios({
+          url: drf.articles.comment(articlePk.id, commentPk),
+          method: 'delete',
+          data: {},
+          headers: getters.authHeader,
+        })
+          .then(res => {
+            commit('SET_ARTICLE_COMMENTS', res.data)
           })
-            .then(res => {
-              commit('SET_ARTICLE_COMMENTS', res.data)
-            })
-            .catch(err => console.error(err.response))
-        }
-      },
+          .catch(err => console.error(err.response))
+      }
+    },
+    setMostLikedUsers({ commit }) {
+      axios({
+        url: drf.accounts.mostLikedUsers(),
+        method: 'get'
+      })
+        .then(res => {
+          commit('SET_MOST_LIKED_USERS', res.data.result)
+        })
+    }
   },
 }
