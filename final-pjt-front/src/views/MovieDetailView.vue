@@ -223,7 +223,7 @@ export default {
     },
     move1() {
       const videoLocation = document.querySelector('#videoWrap').offsetTop
-      window.scrollTo({left:0, top:videoLocation+200, behavior:"smooth"})
+      window.scrollTo({left:0, top:videoLocation+40, behavior:"smooth"})
     },
     move2() {
       const backDropLocation = document.querySelector('#detail-poster2').offsetTop

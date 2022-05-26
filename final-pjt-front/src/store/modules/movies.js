@@ -184,9 +184,12 @@ export default {
 							key: API_KEY,
 							type: 'video',
 							part: 'snippet',
-							q: res.data.title + '티저 트레일러'
+							q: res.data.title + ' 티저 트레일러'
 						}
 					})
+						.then(response => {
+							commit('SET_VIDEO', response.data.items[0].id.videoId)
+						})
 				})
 		},
 		setReviews({commit}, moviePk) {
