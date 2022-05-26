@@ -139,7 +139,7 @@ export default {
 					dispatch('removeToken')
 					commit('REMOVE_CURRENT_USER')
 					swal('로그아웃 되었습니다.')
-					router.push({ name: 'home' })
+					router.push({ name: 'bef' })
 				})
 				.catch(err => {
 					console.error(err.response)

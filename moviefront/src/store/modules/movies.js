@@ -6,6 +6,7 @@ import swal from 'sweetalert'
 const URL = 'https://www.googleapis.com/youtube/v3/search'
 const API_KEY = process.env.VUE_APP_YOUTUBE_API_KEY
 
+
 export default {
   state: {
 		nowMovies : [],
@@ -123,7 +124,7 @@ export default {
 		},
 		SET_SHARED_TITLE (state, title) {
 			state.sharedTitle = title ? `[${title}] #월드컵우승 ` : ''
-		}
+		},
 
 	},
 	actions: {
@@ -185,9 +186,6 @@ export default {
 							part: 'snippet',
 							q: res.data.title + '티저 트레일러'
 						}
-					})
-					.then(response => {
-						commit('SET_VIDEO', response.data.items[0].id.videoId)
 					})
 				})
 		},
@@ -317,6 +315,6 @@ export default {
 		},
 		setSharedTitle({ commit }, title) {
 			commit('SET_SHARED_TITLE', title)
-		}
+		},
 	}
 }

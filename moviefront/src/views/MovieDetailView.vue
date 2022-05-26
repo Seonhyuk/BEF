@@ -92,6 +92,7 @@
         <div id="back-drop-wrap2">
           <img :src="`https://image.tmdb.org/t/p/original/${setBackImg}`" alt=""  id="detail-poster2">
             <div id="review-wrap1">
+              <p id="movie-overview">{{ movieDetail.overview }}</p>
               <a id="review-btn" data-bs-toggle="modal" href="#exampleModalToggle" role="button">리뷰남기기</a>
             </div>
             <div id="down-img3-wrap">
@@ -198,7 +199,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['setMovieDetail', 'setReviews', 'createReview', 'getMovieBackDropImage', 'deleteReview']),
+    ...mapActions(['setMovieDetail', 'setReviews', 'createReview', 'getMovieBackDropImage', 'deleteReview','getMovieCredit']),
     onSubmit() {
       const payload = {
         moviePk: this.$route.params.moviePk,
@@ -688,6 +689,7 @@ export default {
 }
 
 #review-btn{
+  margin-top: 5%;
   z-index: 1000;
   background-color: #F82F62;
   color: white;
@@ -721,5 +723,10 @@ export default {
   position: absolute;
   top: 104%;
   width: 100%;
+}
+#movie-overview {
+  width: 60%;
+  margin: auto;
+  color: #d3d3d3;
 }
 </style>
