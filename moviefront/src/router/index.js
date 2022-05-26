@@ -24,7 +24,6 @@ import ArticleListView from '@/views/community/ArticleListView.vue'
 import ArticleDetailView from '@/views/community/ArticleDetailView.vue'
 import ArticleNewView from '@/views/community/ArticleNewView'
 import ArticleEditView from '@/views/community/ArticleEditView'
-import CommunityShareView from '@/views/community/CommunityShareView'
 
 import PageNotFound from '@/views/PageNotFoundView.vue'
 
@@ -113,12 +112,6 @@ const routes = [
     path: '/nickname',
     name: 'changeNickname',
     component: changeNicknameView
-  },
-  {
-    path: '/share',
-    name: 'share',
-    component: CommunityShareView,
-    props: true
   },
   {
     path: '/customcard',

@@ -8,7 +8,7 @@
     </div>
     <div class="mt-3">
       <button id="share-btn" class="mb-2" @click="shareCommunity">커뮤니티 공유하기</button> <br>
-      <button id="share-btn2" @click="sendkakao" class="kakao">카카오톡 공유하기</button>
+      <button id="share-btn2" @click="kakaoLink" class="kakao">카카오톡 공유하기</button>
     </div>
     <!-- 아래가 꽉차서 빈 디브태그 만들어놓은거에요 -->
     <div id="none-div">
@@ -22,11 +22,6 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'TheWinner',
-  head() {
-    return {
-      srcipt : [{ src: '//developers.kakao.com/sdk/js/kakao/min.js'},],
-    }
-  },
   computed: {
     ...mapGetters(['tournament'])
   },
@@ -48,16 +43,17 @@ export default {
 
       this.$router.push({ name: 'articleNew' })
     },
-    sendkakao() {
+    kakaoLink() {
       window.Kakao.Link.sendDefault({
         objectType: 'text',
-        content: {
-          text: 'BEF 인생영화 월드컵',
-          link: {
-            mobileWebUrl: 'https://developers.kakao.com',
-            webUrl: 'https://developers.kakao.com',
-          },
+        text: 'BEF월드컵 우승작 공유하기',
+        link: {
+          mobileWebUrl: 'https://developers.kakao.com',
+          webUrl: 'https://developers.kakao.com'
         },
+        serverCallbackArgs: {
+          key: 'value'
+        }
       })
     }
   },

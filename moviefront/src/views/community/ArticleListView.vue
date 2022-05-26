@@ -1,5 +1,8 @@
 <template>
   <div class="container mt-5">
+    <div id="community-carousel">
+
+    </div>
     <div class="row">
       <!-- 랭킹-->
       <div id="ranking-wrap" class="col-12 col-lg-3">
@@ -31,6 +34,12 @@
           <p v-else id="most-article-text">4등 아직 없어요😅</p>
           <p v-if="mostArticle[4]"><router-link :to="{ name: 'profile', params: {username: mostArticle[4]} }" id="most-article-text"><p>5등 {{ mostArticle[4]}} 님</p></router-link></p>
           <p v-else id="most-article-text">5등 아직 없어요😅</p>
+        </div>
+        <div class="col-12 col-lg-12" id="community-movie-art">
+          <h5 id="hot-topic-h6">Movie Insight</h5>
+          <div id="insight-article-wrap">
+            {{ dayMovies.rank }}
+          </div>
         </div>
       </div>
 
@@ -80,7 +89,7 @@
   export default {
     name: 'ArticleList',
     computed: {
-      ...mapGetters(['articles', 'isLoggedIn', 'mostLikedUsers']),
+      ...mapGetters(['articles', 'isLoggedIn', 'mostLikedUsers', 'dayMovies']),
       articleCnt () {
         return this.articles.length
       },
@@ -109,7 +118,6 @@
         mostResult.push(rank4)
         let rank5 = Object.keys(result)[4]
         mostResult.push(rank5)
-        console.log(mostResult)
         return mostResult
       },
     },
@@ -122,13 +130,12 @@
     },
     created() {
       if (!this.isLoggedIn) {
-        console.log(this.isLoggedIn)
         this.$router.push({ name: 'login'})
       } else {
         this.fetchArticles()
       }
       this.setMostLikedUsers()
-      console.log(this.mostLikedUsers)
+      console.log(this.dayMovies)
     },
   }
 </script>
@@ -178,5 +185,27 @@
 }
 #table {
   color: rgb(214, 214, 214);
+}
+.table-dark {
+  --bs-table-bg:  #111111;
+  --bs-table-striped-bg:  #111111;
+  --bs-table-striped-color: #fff;
+  --bs-table-active-bg: #373b3e;
+  --bs-table-active-color: #fff;
+  --bs-table-hover-bg: #323539;
+  --bs-table-hover-color: #fff;
+  color: rgb(214, 214, 214);
+  border-color: #373b3e;
+}
+
+#community-movie-art {
+  margin-top: 10px;
+  height: 80%;
+}
+#insight-article-wrap {
+  height: 90%;
+  background-color: #111111;
+  border-radius: 2px;
+  border: 1px solid rgb(43, 43, 43);
 }
 </style>

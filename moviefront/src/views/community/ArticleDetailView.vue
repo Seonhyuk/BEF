@@ -3,7 +3,7 @@
     <div class="mt-5" id="article-wrap">
       <div id="article-author">
         <div>
-          <h1 class="mb-5">{{ article.title }}</h1>
+          <h1 class="mb-5 pt-3">{{ article.title }}</h1>
         </div>
         <div>
           <div class="mx-3">

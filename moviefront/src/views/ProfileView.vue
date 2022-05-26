@@ -81,8 +81,15 @@
         <h2 class="empty-text">{{ profile.name }}님의 무비카드가 없습니다!</h2>
       </div>
     </div>
-    <div id="movie-card-btn">
-      <router-link :to="{ name: 'customCard' }" id="movie-card-text">My카드 만들기</router-link>
+    <div>
+      <div class="pb-2" id="make-card-btn-wrap">
+        <router-link :to="{ name: 'customCard' }">
+          <button id="make-card-btn">My카드 만들기</button>
+        </router-link>
+      </div>
+      <div id="make-card-btn-wrap">
+        <button id="share-card-btn" @click="kakaoLink" class="kakao">카카오톡 공유하기</button>
+      </div>
     </div>
     <hr>
 
@@ -123,7 +130,7 @@
     <hr>
 
     <h1 class="playing-title ms-4">{{ profile.name }}님이 작성한 게시글</h1>
-    <div v-if="articlesLength" >
+    <div v-if="articlesLength" id="profile-table">
       <table class="table table-dark table-striped table-hover">
         <thead id="table-head">
           <tr>
@@ -261,6 +268,19 @@ export default {
               })
           }
         })
+    },
+    kakaoLink() {
+      window.Kakao.Link.sendDefault({
+        objectType: 'text',
+        text: 'BEF 나만의 무비카드 공유하기',
+        link: {
+          mobileWebUrl: 'https://developers.kakao.com',
+          webUrl: 'https://developers.kakao.com'
+        },
+        serverCallbackArgs: {
+          key: 'value'
+        }
+      })
     }
   },
   created () {
@@ -576,5 +596,82 @@ hr {
   text-decoration: none;
   color: white;
 }
+.table-dark {
+  --bs-table-bg:  #111111;
+  --bs-table-striped-bg:  #111111;
+  --bs-table-striped-color: #fff;
+  --bs-table-active-bg: #373b3e;
+  --bs-table-active-color: #fff;
+  --bs-table-hover-bg: #323539;
+  --bs-table-hover-color: #fff;
+  color: rgb(214, 214, 214);
+  border-color: #373b3e;
+}
+#profile-table {
+  width: 90%;
+  margin: auto;
+}
+#share-card-btn{
+  z-index: 1000;
+  background-color: #ffa600;
+  color: white;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  font-size: 15px;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
 
+@media (prefers-reduced-motion: reduce) {
+  .share-card-btn {
+    transition: none;
+  }
+}
+#share-card-btn:hover {
+  border: 1px solid white;
+}
+#make-card-btn{
+  z-index: 1000;
+  background-color: #F82F62;
+  color: white;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  font-size: 15px;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1.6rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .make-card-btn {
+    transition: none;
+  }
+}
+#make-card-btn:hover {
+  border: 1px solid white;
+}
+#make-card-btn-wrap {
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+}
 </style>
