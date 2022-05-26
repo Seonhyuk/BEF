@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="edit-wrap">
     <h1 id="edit-article-title" class="mt-5">EDIT</h1>
     <article-form v-if="isArticle" :article="article" action="update">
 
@@ -27,9 +27,12 @@ import { mapGetters, mapActions } from 'vuex'
   }
 </script>
 
-<style>
+<style scoped>
 #edit-article-title {
   color: #F82F62;
 }
-
+#edit-wrap {
+  width: 80%;
+  margin: auto;
+}
 </style>

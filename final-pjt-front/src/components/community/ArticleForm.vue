@@ -9,7 +9,8 @@
       <textarea v-model="newArticle.content" type="text" id="article-content" class="form-control" placeholder="내용"></textarea>
     </div>
     <div class="mt-3 d-flex justify-content-end">
-      <button id="create-article-btn">{{ action }}</button>
+      <router-link :to="{ name:'articles'}"><button id="create-article-btn">목록으로</button></router-link>
+      <button id="create-article-btn" class="mx-3">{{ action }}</button>
     </div>
   </form>
 </template>

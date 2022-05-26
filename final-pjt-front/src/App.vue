@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="d-flex justify-content-between py-3 sticky-top" style="height: 80px; background-color: rgba(20, 20, 20);">
+    <nav class="d-flex justify-content-between py-3 sticky-top" style="height: 80px; background-color: rgba(20, 20, 20); border-bottom: 2px solid #fb4357;">
       <!-- 로고 부분 -->
       <router-link to="/home">
         <a class="navbar-brand mx-3">

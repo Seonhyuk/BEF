@@ -84,11 +84,11 @@
     <div>
       <div class="pb-2" id="make-card-btn-wrap">
         <router-link :to="{ name: 'customCard' }">
-          <button id="make-card-btn">My카드 만들기</button>
+          <button id="make-card-btn" v-if="currentUser.username === profile.username">My카드 만들기</button>
         </router-link>
       </div>
       <div id="make-card-btn-wrap">
-        <button id="share-card-btn" @click="kakaoLink" class="kakao">카카오톡 공유하기</button>
+        <button id="share-card-btn" @click="kakaoLink" class="kakao" v-if="currentUser.username === profile.username">카카오톡 공유하기</button>
       </div>
     </div>
     <hr>
