@@ -5,11 +5,16 @@ import router from '@/router'
 import _ from 'lodash'
 
 
+
+const API_KEY =  process.env.VUE_APP_MOVIE_API_KEY
+
+
 export default {
   state: {
     articles: [],
     article: {},
     mostLikedUsers: [],
+    movies : {},
   },
 
   getters: {
@@ -19,14 +24,18 @@ export default {
       return state.article.user?.username === getters.currentUser.username
     },
     isArticle: state => !_.isEmpty(state.article),
-    mostLikedUsers: state => state.mostLikedUsers
+    mostLikedUsers: state => state.mostLikedUsers,
+    dayMovies : state => state.movies
   },
 
   mutations: {
     SET_ARTICLES: (state, articles) => state.articles = articles,
     SET_ARTICLE: (state, article) => state.article = article,
     SET_ARTICLE_COMMENTS: (state, comments) => (state.article.comments = comments),
-    SET_MOST_LIKED_USERS: (state, users) => state.mostLikedUsers = users
+    SET_MOST_LIKED_USERS: (state, users) => state.mostLikedUsers = users,
+    GET_MOVIE_DATA(state, res) {
+      state.movies = res
+    }
   },
 
   actions: {
@@ -166,6 +175,18 @@ export default {
       })
         .then(res => {
           commit('SET_MOST_LIKED_USERS', res.data.result)
+        })
+    },
+    getMoviedata({commit}) {
+      axios({
+        url: 'http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?',
+        key: API_KEY,
+        targetDt : '20220525',
+        itemPerPage : '5',
+      })
+        .then(res => {
+          commit('GET_MOVIE_DATA', res.data.result)
+          console.log(res.boxOfficeResult.dailyBoxOfficeList)
         })
     }
   },

@@ -39,7 +39,7 @@ export default {
 }
 #comment-btn{
   z-index: 1000;
-  background-color: #0368ff;
+  background-color: #F82F62;
   color: white;
   display: inline-block;
   font-weight: 400;
