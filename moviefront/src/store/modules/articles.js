@@ -180,13 +180,14 @@ export default {
     getMoviedata({commit}) {
       axios({
         url: 'http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?',
-        key: API_KEY,
-        targetDt : '20220525',
-        itemPerPage : '5',
+        params: {
+          key: API_KEY,
+          targetDt : '20220525',
+          itemPerPage : '5',
+        }
       })
         .then(res => {
           commit('GET_MOVIE_DATA', res.data.result)
-          console.log(res.boxOfficeResult.dailyBoxOfficeList)
         })
     }
   },

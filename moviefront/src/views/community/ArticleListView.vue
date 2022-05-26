@@ -106,7 +106,6 @@
         users.forEach((x) => {
           result[x] = (result[x] || 0)+1 
         })
-        console.log(result)
         let mostResult = []
         let rank1 = Object.keys(result)[0]
         mostResult.push(rank1)
@@ -122,7 +121,7 @@
       },
     },
     methods: {
-      ...mapActions(['fetchArticles', 'setSharedPoster', 'setSharedTitle', 'setMostLikedUsers']),
+      ...mapActions(['getMoviedata', 'fetchArticles', 'setSharedPoster', 'setSharedTitle', 'setMostLikedUsers']),
       onClick () {
         this.setSharedPoster('')
         this.setSharedTitle('')
@@ -134,8 +133,8 @@
       } else {
         this.fetchArticles()
       }
+      this.getMoviedata()
       this.setMostLikedUsers()
-      console.log(this.dayMovies)
     },
   }
 </script>
