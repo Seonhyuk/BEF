@@ -145,16 +145,18 @@ def most_liked_users(request):
         for article in list(user.articles.all()):
             num = len(list(article.like_users.all()))
             a += num
-            
+           
         result.append([a, user.username])
     
-    result.sort()
+    result.sort(reverse=True)
+    print(result)
 
     results = []
     for r in result:
         if r[0]:
             results.append(r[1])
     
+    print(results)
     data = {
         'result': results
     }

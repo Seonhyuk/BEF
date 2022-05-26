@@ -100,19 +100,26 @@ export default {
         })
     },
 
-    deleteArticle({ commit, getters }, articlePk) {     
-      if (confirm('정말 삭제하시겠습니까?')) {
-        axios({
-          url: drf.articles.article(articlePk),
-          method: 'delete',
-          headers: getters.authHeader,
+    deleteArticle({ commit, getters }, articlePk) {  
+      swal({
+        text: '정말 삭제하시겠습니까?',
+        icon: 'warning',
+        buttons: ['아니오', '예']
+      })
+        .then(result => {
+          if (result) {
+            axios({
+              url: drf.articles.article(articlePk),
+              method: 'delete',
+              headers: getters.authHeader,
+            })
+              .then(() => {
+                commit('SET_ARTICLE', {})
+                router.push({ name: 'articles' })
+              })
+              .catch(err => console.error(err.response))
+          }
         })
-          .then(() => {
-            commit('SET_ARTICLE', {})
-            router.push({ name: 'articles' })
-          })
-          .catch(err => console.error(err.response))
-      }
     },
 
     likeArticle({ commit, getters }, articlePk) {
@@ -196,7 +203,6 @@ export default {
       })
         .then(res => {
           commit('GET_MOVIE_DATA', res.data.boxOfficeResult.dailyBoxOfficeList)
-          console.log(res.data.boxOfficeResult.dailyBoxOfficeList)
         })
     }
   },

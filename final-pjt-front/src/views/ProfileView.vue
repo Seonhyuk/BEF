@@ -78,7 +78,7 @@
     </div>
     <div v-else>
       <div class="empty-box">
-        <h2 class="empty-text">{{ profile.name }}님의 무비카드가 없습니다!</h2>
+        <h2 class="empty-text">{{ profile.name }}님의 포토카드가 없습니다!</h2>
       </div>
     </div>
     <div>

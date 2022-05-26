@@ -8,15 +8,15 @@
         <div id="most-like" class="col-12 col-lg-6">
           <p id="most-article-text" class="pt-3">좋아요 TOP5🏆</p>
           <hr id="most-article-text">
-          <p v-if="mostLikedUsers[0]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[0]} }" id="most-article-text"><p>1등 {{ mostArticle[0]}} 님</p></router-link></p>
+          <p v-if="mostLikedUsers[0]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[0]} }" id="most-article-text"><p>1등 {{ mostLikedUsers[0]}} 님</p></router-link></p>
           <p v-else id="most-article-text">1등 아직 없어요😅</p>
-          <p v-if="mostLikedUsers[1]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[1]} }" id="most-article-text"><p>2등 {{ mostArticle[1]}} 님</p></router-link></p>
+          <p v-if="mostLikedUsers[1]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[1]} }" id="most-article-text"><p>2등 {{ mostLikedUsers[1]}} 님</p></router-link></p>
           <p v-else id="most-article-text">2등 아직 없어요😅</p>
-          <p v-if="mostLikedUsers[2]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[2]} }" id="most-article-text"><p>3등 {{ mostArticle[2]}} 님</p></router-link></p>
+          <p v-if="mostLikedUsers[2]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[2]} }" id="most-article-text"><p>3등 {{ mostLikedUsers[2]}} 님</p></router-link></p>
           <p v-else id="most-article-text">3등 아직 없어요😅</p>
-          <p v-if="mostLikedUsers[3]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[3]} }" id="most-article-text"><p>4등 {{ mostArticle[3]}} 님</p></router-link></p>
+          <p v-if="mostLikedUsers[3]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[3]} }" id="most-article-text"><p>4등 {{ mostLikedUsers[3]}} 님</p></router-link></p>
           <p v-else id="most-article-text">4등 아직 없어요😅</p>
-          <p v-if="mostLikedUsers[4]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[4]} }" id="most-article-text"><p>5등 {{ mostArticle[4]}} 님</p></router-link></p>
+          <p v-if="mostLikedUsers[4]"><router-link :to="{ name: 'profile', params: {username: mostLikedUsers[4]} }" id="most-article-text"><p>5등 {{ mostLikedUsers[4]}} 님</p></router-link></p>
           <p v-else id="most-article-text">5등 아직 없어요😅</p>
         </div>
         <div id="most-article" class="col-12 col-lg-6">
@@ -130,19 +130,24 @@ export default {
       }
       let result = {}
       users.forEach((x) => {
-        result[x] = (result[x] || 0)+1 
+        result[x] = (result[x] || 0) + 1 
       })
+
+      const sub = []
+
+      for (let name of Object.keys(result)) {
+        sub.push([name, result[name]])
+      }
+      
+      sub.sort(function(a, b) {
+        return b[1] - a[1]
+      })
+
       let mostResult = []
-      let rank1 = Object.keys(result)[0]
-      mostResult.push(rank1)
-      let rank2 = Object.keys(result)[1]
-      mostResult.push(rank2)
-      let rank3 = Object.keys(result)[2]
-      mostResult.push(rank3)
-      let rank4 = Object.keys(result)[3]
-      mostResult.push(rank4)
-      let rank5 = Object.keys(result)[4]
-      mostResult.push(rank5)
+      for (let n of sub) {
+        mostResult.push(n[0])
+      }
+
       return mostResult
     },
   },
