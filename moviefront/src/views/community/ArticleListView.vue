@@ -6,7 +6,7 @@
     <div class="row">
       <!-- 랭킹-->
       <div id="ranking-wrap" class="col-12 col-lg-3">
-        <h5 id="hot-topic-h6">BEST BEF</h5>
+        <h5 id="hot-topic-h6">BEST BEF &#128129;</h5>
         <div id="most-like" class="col-12 col-lg-6">
           <p id="most-article-text" class="pt-3">좋아요 TOP5🏆</p>
           <hr id="most-article-text">
@@ -36,9 +36,37 @@
           <p v-else id="most-article-text">5등 아직 없어요😅</p>
         </div>
         <div class="col-12 col-lg-12" id="community-movie-art">
-          <h5 id="hot-topic-h6">Movie Insight</h5>
+          <h5 id="hot-topic-h6" class="mt-4">DAILY BOX OFFICE &#127916;</h5>
           <div id="insight-article-wrap">
-            {{ dayMovies.rank }}
+            <h6 class="mt-2">1위 {{ dayMovies[0].movieNm }}</h6>
+            <span>개봉일 {{ dayMovies[0].openDt}}</span><br>
+            <span>누적관객</span>
+            <span class="count">{{ dayMovies[0].audiAcc}}</span>
+            <span>명</span>
+            <hr>
+            <h6 class="mt-2">2위 {{ dayMovies[1].movieNm }}</h6>
+            <span>개봉일 {{ dayMovies[1].openDt}}</span><br>
+            <span>누적관객</span>
+            <span class="count">{{ dayMovies[1].audiAcc}}</span>
+            <span>명</span>
+            <hr>
+            <h6 class="mt-2">3위 {{ dayMovies[2].movieNm }}</h6>
+            <span>개봉일 {{ dayMovies[2].openDt}}</span><br>
+            <span>누적관객</span>
+            <span class="count">{{ dayMovies[2].audiAcc}}</span>
+            <span>명</span>
+            <hr>
+            <h6 class="mt-2">4위 {{ dayMovies[3].movieNm }}</h6>
+            <span>개봉일 {{ dayMovies[3].openDt}}</span><br>
+            <span>누적관객</span>
+            <span class="count">{{ dayMovies[3].audiAcc}}</span>
+            <span>명</span>
+            <hr>
+            <h6 class="mt-2">5위 {{ dayMovies[4].movieNm }}</h6>
+            <span>개봉일 {{ dayMovies[4].openDt}}</span><br>
+            <span>누적관객</span>
+            <span class="count">{{ dayMovies[4].audiAcc}}</span>
+            <span>명</span>
           </div>
         </div>
       </div>
@@ -83,59 +111,77 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
- 
+import { mapActions, mapGetters } from 'vuex'
+ import $ from 'jquery'
 
-  export default {
-    name: 'ArticleList',
-    computed: {
-      ...mapGetters(['articles', 'isLoggedIn', 'mostLikedUsers', 'dayMovies']),
-      articleCnt () {
-        return this.articles.length
-      },
-      mostArticle() {
-        let getArticles = []
-        for(let article of this.articles) {
-          getArticles.push(article.user)
-        }
-        let users = []
-        for(let user of getArticles) {
-          users.push(user.username)
-        }
-        let result = {}
-        users.forEach((x) => {
-          result[x] = (result[x] || 0)+1 
-        })
-        let mostResult = []
-        let rank1 = Object.keys(result)[0]
-        mostResult.push(rank1)
-        let rank2 = Object.keys(result)[1]
-        mostResult.push(rank2)
-        let rank3 = Object.keys(result)[2]
-        mostResult.push(rank3)
-        let rank4 = Object.keys(result)[3]
-        mostResult.push(rank4)
-        let rank5 = Object.keys(result)[4]
-        mostResult.push(rank5)
-        return mostResult
-      },
+export default {
+  name: 'ArticleList',
+  computed: {
+    ...mapGetters(['articles', 'isLoggedIn', 'mostLikedUsers', 'dayMovies']),
+    articleCnt () {
+      return this.articles.length
     },
-    methods: {
-      ...mapActions(['getMoviedata', 'fetchArticles', 'setSharedPoster', 'setSharedTitle', 'setMostLikedUsers']),
-      onClick () {
-        this.setSharedPoster('')
-        this.setSharedTitle('')
+    mostArticle() {
+      let getArticles = []
+      for(let article of this.articles) {
+        getArticles.push(article.user)
       }
-    },
-    created() {
-      if (!this.isLoggedIn) {
-        this.$router.push({ name: 'login'})
-      } else {
-        this.fetchArticles()
+      let users = []
+      for(let user of getArticles) {
+        users.push(user.username)
       }
-      this.getMoviedata()
-      this.setMostLikedUsers()
+      let result = {}
+      users.forEach((x) => {
+        result[x] = (result[x] || 0)+1 
+      })
+      let mostResult = []
+      let rank1 = Object.keys(result)[0]
+      mostResult.push(rank1)
+      let rank2 = Object.keys(result)[1]
+      mostResult.push(rank2)
+      let rank3 = Object.keys(result)[2]
+      mostResult.push(rank3)
+      let rank4 = Object.keys(result)[3]
+      mostResult.push(rank4)
+      let rank5 = Object.keys(result)[4]
+      mostResult.push(rank5)
+      return mostResult
     },
+  },
+  methods: {
+    ...mapActions(['getMoviedata', 'fetchArticles', 'setSharedPoster', 'setSharedTitle', 'setMostLikedUsers']),
+    onClick () {
+      this.setSharedPoster('')
+      this.setSharedTitle('')
+    }
+  },
+  created() {
+    if (!this.isLoggedIn) {
+      this.$router.push({ name: 'login'})
+    } else {
+      this.fetchArticles()
+    }
+    this.getMoviedata()
+    this.setMostLikedUsers()
+  },
+  mounted() {
+    $(".count").each(function () {
+      $(this)
+        .prop("Counter", 0)
+        .animate(
+          {
+            Counter: $(this).text()
+          },
+        {
+          duration: 4000,
+          easing: "swing",
+          step: function (now) {
+            $(this).text(Math.ceil(now));
+          }
+        }
+      );
+    });
+    }
   }
 </script>
 
@@ -202,9 +248,53 @@
   height: 80%;
 }
 #insight-article-wrap {
-  height: 90%;
+  height: 80%;
   background-color: #111111;
   border-radius: 2px;
   border: 1px solid rgb(43, 43, 43);
 }
+h6 ~ span {
+  font-size: 12px;
+  color: rgb(214, 214, 214);
+}
+#shiva
+{
+  width: 100px;
+	height: 100px;
+	background: red;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+  float:left;
+  margin:5px;
+}
+.count
+{
+  color:white;
+  font-size:25px;
+}
+#talkbubble {
+   width: 120px;
+   height: 80px;
+   background: red;
+   position: relative;
+   -moz-border-radius:    10px;
+   -webkit-border-radius: 10px;
+   border-radius:         10px;
+  float:left;
+  margin:20px;
+}
+#talkbubble:before {
+   content:"";
+   position: absolute;
+   right: 100%;
+   top: 26px;
+   width: 0;
+   height: 0;
+   border-top: 13px solid transparent;
+   border-right: 26px solid red;
+   border-bottom: 13px solid transparent;
+}
+
+
 </style>

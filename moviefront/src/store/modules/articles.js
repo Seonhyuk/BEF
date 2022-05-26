@@ -187,7 +187,8 @@ export default {
         }
       })
         .then(res => {
-          commit('GET_MOVIE_DATA', res.data.result)
+          commit('GET_MOVIE_DATA', res.data.boxOfficeResult.dailyBoxOfficeList)
+          console.log(res.data.boxOfficeResult.dailyBoxOfficeList)
         })
     }
   },
