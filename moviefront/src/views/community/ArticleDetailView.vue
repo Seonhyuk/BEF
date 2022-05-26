@@ -40,7 +40,7 @@
       <!-- Comment UI -->
 
 
-    <div v-if="!isAuthor" class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end">
       <button id="like" class="tweet-heart" @click="likeArticle(articlePk)">{{ likeCount }}</button>
     </div>
 
