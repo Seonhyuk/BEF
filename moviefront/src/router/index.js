@@ -9,6 +9,7 @@ import SignupView from '@/views/SignupView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import changeNicknameView from '@/views/changeNicknameView.vue'
 import PasswordChangeView from '@/views/PasswordChangeView.vue'
+import ExampleView from '@/views/ExampleView.vue'
 
 
 import SearchView from '@/views/SearchView.vue'
@@ -132,6 +133,10 @@ const routes = [
   {
     path: '/404',
     component: PageNotFound
+  },
+  {
+    path: '/example',
+    component: ExampleView
   }
 ]
 
