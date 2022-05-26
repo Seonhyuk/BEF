@@ -53,7 +53,9 @@ export default {
     },
 
     createArticle({ commit, getters }, article) {
-
+      if(article.shared_poster === '') {
+        article.shared_poster = 'Nodata'
+      }
       axios({
         url: drf.articles.articles(),
         method: 'post',
@@ -141,9 +143,10 @@ export default {
     },
 
     deleteComment({ commit, getters }, { articlePk, commentPk }) {
+      console.log(articlePk)
         if (confirm('정말 삭제하시겠습니까?')) {
           axios({
-            url: drf.articles.comment(articlePk, commentPk),
+            url: drf.articles.comment(articlePk.id, commentPk),
             method: 'delete',
             data: {},
             headers: getters.authHeader,

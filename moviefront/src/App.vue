@@ -34,7 +34,7 @@
 
     </nav>
     
-    <router-view/>
+    <router-view class="slide-in"/>
   </div>
 </template>
 

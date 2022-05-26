@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="home container">
-      <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="home">
+      <div id="carouselExampleIndicators" class="carousel slide carousel-fade container" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -37,7 +37,7 @@
         </button>
       </div>
       
-      <h1 class="playing-title ms-4">상영중 영화 🎥</h1>
+      <h1 class="playing-title ms-4 mt-5 px-4 mb-4">상영중인 영화 🎥</h1>
       <div class="movies">
         <ul>
           <SmallMovieVue
@@ -70,7 +70,7 @@
 
       <hr>
 
-      <h1 class="playing-title ms-4">{{ theMonth + 1 }}월엔 이 영화 🎬</h1>
+      <h1 class="playing-title ms-4 px-4 mb-4">{{ theMonth + 1 }}월엔 이 영화 🎬</h1>
       <div class="movies">
         <ul>
           <SmallMovieVue
@@ -83,7 +83,7 @@
       </div>
       <hr>
 
-      <h1 class="playing-title ms-4">B.E.F들의 PICK!</h1>
+      <h1 class="playing-title ms-4 px-4 mb-4">B.E.F들의 PICK!</h1>
       <div class="movies">
         <ul>
           <SmallMovieVue
@@ -97,10 +97,10 @@
 
       <div v-if="isLoggedIn">
         <hr>
-        <h1 class="playing-title ms-4">{{ currentUser.name }}님을 위한 추천 영화 🌹</h1>
+        <h1 class="playing-title ms-4 px-4 mb-4">{{ currentUser.name }}님을 위한 추천작 🌹</h1>
         <div class="row movie-boxes">
           <SmallMovieVue 
-            class="col-6 col-lg-3 py-2" 
+            class="col-6 col-lg-2 py-2" 
             v-for="movie in recommendMovies"
             :key="movie.id"
             :movie="movie"
@@ -171,13 +171,12 @@ export default {
 <style scoped>
 
 .movie-boxes {
-  width: 97%;
+  width: 100%;
   margin: auto;
 }
 
 .home {
-  max-width: 1000px;
-  width: 80%;
+  width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 0;
 }
@@ -214,7 +213,8 @@ hr {
 
 .playing-title {
   text-align: start;
-  padding: 18px;
+  padding-bottom: 0;
+  margin-bottom: 0;
   color: white;
   font-size: 30px;
 }

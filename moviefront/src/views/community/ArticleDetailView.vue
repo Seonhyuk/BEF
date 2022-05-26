@@ -1,48 +1,56 @@
 <template>
   <div>
     <div class="mt-5" id="article-wrap">
-      <div>
-        <h1 class="mb-5">{{ article.title }}</h1>
-      </div>
-      <div>
+      <div id="article-author">
         <div>
-          <img v-if="article.user.profile_image" :src="article.user.profile_image" alt="" class="profile-image" id="profile-image-true">
-          <img v-else src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="profile-image">
+          <h1 class="mb-5">{{ article.title }}</h1>
         </div>
-        <router-link :to="{ name: 'profile', params: {username: article.user.username} }" id="article-user-name"><p class="d-flex justify-content-start mx-1">{{ article.user.name }} ({{ article.user.username }})</p></router-link>
-        <p id="article-created-text">{{  articleDate }}</p>
+        <div>
+          <div class="mx-3">
+            <img v-if="article.user.profile_image" :src="article.user.profile_image" alt="" class="profile-image" id="profile-image-true">
+            <img v-else src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="profile-image">
+          </div>
+          <router-link :to="{ name: 'profile', params: {username: article.user.username} }" id="article-user-name"><p class="d-flex justify-content-start mx-1">{{ article.user.name }} ({{ article.user.username }})</p></router-link>
+          <p id="article-created-text" class="mx-3">{{  articleDate }}</p>
+        
         <hr>
-      </div>
-      <div class="article-content-wrap">
-        <h5 v-if="article.shared_poster" class="mt-4 mb-4">🏆{{ article.user.name }} 님이 뽑은 인생영화🏆</h5>
-        <div id="poster-wrap" v-if="article.shared_poster">
-          <img :src="`https://image.tmdb.org/t/p/original/${article.shared_poster}`" alt="" id="poster">
         </div>
-        <p class="box mt-5" id="article-content">
-          {{ article.content }}
-        </p>
-      </div>
-      <!-- Article Edit/Delete UI -->
+        <div class="article-content-wrap">
+          <h5 v-if="article.shared_poster.length > 10" class="mt-4 mb-4">🏆{{ article.user.name }} 님이 뽑은 인생영화🏆</h5>
+          <div id="poster-wrap" v-if="article.shared_poster">
+            <img :src="`https://image.tmdb.org/t/p/original/${article.shared_poster}`" alt="" id="poster">
+          </div>
+          <div id="article-content">
+            <p class="mx-3 mt-2">{{ article.content }}</p>
+          </div>
+
+        </div>
+        <!-- Article Edit/Delete UI -->
 
 
-      <div v-if="isAuthor" class="d-flex justify-content-end">
-        <router-link :to="{ name: 'articleEdit', params: { articlePk } }">
-          <button id="create-article-btn" class="mx-2">Edit</button>
-        </router-link>
-        <button id="create-article-btn" @click="deleteArticle(articlePk)">Delete</button>
       </div>
+        <div v-if="isAuthor" class="d-flex justify-content-end" id="author-control">
+          <router-link :to="{ name: 'articleEdit', params: { articlePk } }">
+            <button id="create-article-btn" class="mx-2">Edit</button>
+          </router-link>
+          <button id="create-article-btn" @click="deleteArticle(articlePk)">Delete</button>
+        </div>
       <!-- Article Like UI -->
       <!-- 자기글에는 좋아요를 누를 수 없음 -->
-      <div v-if="!isAuthor" class="d-flex justify-content-end">
-        <button id="like" class="tweet-heart"
-          @click="likeArticle(articlePk)"
-        >{{ likeCount }}</button>
-      </div>
       <!-- Comment UI -->
+
+
+    <div v-if="!isAuthor" class="d-flex justify-content-end">
+      <button id="like" class="tweet-heart" @click="likeArticle(articlePk)">{{ likeCount }}</button>
+    </div>
+
       <div class="mt-5">
         <comment-list :comments="article.comments"></comment-list>
       </div>
     </div>
+
+ 
+ 
   </div>
 </template>
 
@@ -50,12 +58,14 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import CommentList from '@/components/community/CommentList.vue'
+  
+
 
 
 
   export default {
     name: 'ArticleDetail',
-    components: { CommentList },
+    components: { CommentList, },
     data() {
       return {
         articlePk: this.$route.params.articlePk,
@@ -103,8 +113,13 @@
   text-align: end;
   color: rgb(201, 198, 198);
 }
-#article-content-wrap {
-  height: 500px;
+
+#article-content {
+
+  height: 150px;
+  text-align: start;
+  border-radius: 10px;
+
 }
 #create-article-btn{
   z-index: 1000;
@@ -156,7 +171,7 @@
 }
 .tweet-heart.is-liked {
   animation-name: like;
-  animation-duration: 800ms;
+  animation-duration: 1200ms;
   animation-timing-function: steps(28);
   animation-fill-mode: forwards;
 }
@@ -171,16 +186,19 @@
 }
 #article-wrap {
   width: 70%;
-  height: 100vh;
+  height: 50vh;
   margin: auto;
+  margin-bottom: 50px;
 }
+
 #poster-wrap {
   width: 50%;
   height: 70%;
   margin: auto;
+  margin-bottom: 50px;
 }
 #poster {
-  width: 80%;
+  width: 50%;
 }
 #article-content {
   font-size: 20px;
@@ -194,5 +212,13 @@
   overflow: hidden;
   object-fit: cover;
   float: left;
+}
+#author-control {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+#article-author {
+  background-color: rgb(24, 24, 24);
+  border-radius: 10px;
 }
 </style>

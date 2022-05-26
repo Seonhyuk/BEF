@@ -57,8 +57,7 @@
       <div class="detail-wrap">
         <div id="back-drop-wrap">
           <div>
-            <img :src="`https://image.tmdb.org/t/p/original/${ movieDetail.backdrop_path }`" alt=""  id="detail-poster">
-            <div id="div-outer">
+            <img :src="`https://image.tmdb.org/t/p/original/${ movieDetail.backdrop_path }`" alt=""  id="detail-poster1">
               <div id="div-inner">
                 <h1>{{ movieDetail.title }}</h1> <br>
                 <h4 id="avg-text" v-if="avg5">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</h4>
@@ -72,7 +71,6 @@
                   <img id="down-img1" src="@/assets/down.png" alt="" @click="move1">
                 </div>
               </div>
-            </div>
           </div>
 
         </div>
@@ -93,7 +91,9 @@
 
         <div id="back-drop-wrap2">
           <img :src="`https://image.tmdb.org/t/p/original/${setBackImg}`" alt=""  id="detail-poster2">
-            <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button" id="review-modal-btn">리뷰남기기</a>
+            <div id="review-wrap1">
+              <a id="review-btn" data-bs-toggle="modal" href="#exampleModalToggle" role="button">리뷰남기기</a>
+            </div>
             <div id="down-img3-wrap">
             <img id="down-img3" src="@/assets/down.png" alt="" @click="move3">
           </div>
@@ -105,14 +105,14 @@
             <h2 class="mt-5 text-start mx-5 mb-5" id="review-h2">BEF들의 후기	&#128172; <br><p><span id="review-text-cnt"> 총 {{ reviews.length }}개의 리뷰가 있어요!</span></p></h2>
             <div id="review-overview">
               <div id="emo-wrap">
-                <h3 v-if="percentLike > 90 && percentLike <= 100">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</h3>
-                <h3 v-if="percentLike > 70 && percentLike <= 90">&#x2B50;&#x2B50;&#x2B50;&#x2B50;</h3>
-                <h3 v-if="percentLike > 60 && percentLike <= 70">&#x2B50;&#x2B50;&#x2B50;</h3>
-                <h3 v-if="percentLike > 50 && percentLike <= 60">&#x2B50;&#x2B50;</h3>
-                <h3 v-if="percentLike <= 50 && percentLike > 0">&#x2B50;</h3>
+                <h3 class="pt-3" v-if="percentLike > 90 && percentLike <= 100">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</h3>
+                <h3 class="pt-3" v-if="percentLike > 70 && percentLike <= 90">&#x2B50;&#x2B50;&#x2B50;&#x2B50;</h3>
+                <h3 class="pt-3" v-if="percentLike > 60 && percentLike <= 70">&#x2B50;&#x2B50;&#x2B50;</h3>
+                <h3 class="pt-3" v-if="percentLike > 50 && percentLike <= 60">&#x2B50;&#x2B50;</h3>
+                <h3 class="pt-3" v-if="percentLike <= 50 && percentLike > 0">&#x2B50;</h3>
                 <h2 v-if="percentLike">{{ percentLike }}%</h2>
                 
-                <h3 v-if="!percentLike">&#x2B50;</h3>
+                <h3 class="pt-3" v-if="!percentLike">&#x2B50;</h3>
                 <h2 v-if="!percentLike">0%</h2>
               </div>
             </div>
@@ -250,6 +250,12 @@ export default {
 </script>
 
 <style scoped>
+#main {
+  width: 100%;
+  height: 100vh;
+}
+
+
 .video-box {
   max-width: 800px;
 }
@@ -347,19 +353,13 @@ export default {
   margin: 0px;
   padding: 0px;
   width: 100%;
-  height: 70%;
-  max-width: 2000px;
   position: relative;
 }
-#detail-poster {
-  width: 100%;
-  height: 92vh;
-  filter: brightness(25%);
-}
+
 #detail-poster2 {
   width: 100%;
-  filter: brightness(50%);
-  display: inline-block;
+  height: 100vh;
+  filter: brightness(55%);
 }
 
 #movie-title-img {
@@ -510,21 +510,17 @@ export default {
   top: 500px;
 }
 #div-outer {
-  text-align: center;
-  display: flex;
-  justify-content: center;
+
 }
 #div-inner {
-  display: inline-block;
-  margin: 0 auto;
   position: absolute;
   top: 10%;
-  width: 50%;
-  height: 200px;
+  left: 50%;
+  margin:0 auto;
+  transform: translate(-50%, -50%);
+
 }
-#review-list-wrap {
-  height: 880px;
-}
+
 #review-wrap {
   width: 80%;
   height: 830px;
@@ -607,8 +603,10 @@ export default {
   z-index: 1000;
 }
 #down-img1-wrap {
-  height: 50px;
-  margin-top: 25%;
+  z-index: 1px;
+  position: absolute;
+  top: 280%;
+  width: 100%;
 }
 #down-img1 {
   z-index: 1000;
@@ -624,7 +622,7 @@ export default {
 #down-img2 {
   width: 40px;
   height: 40px;
-  top: 990px;
+  top: 980px;
   left: 920px;
   z-index: 2000;
 }
@@ -644,10 +642,7 @@ export default {
   left: 920px;
   bottom: 10px;
 }
-#back-drop-wrap2 {
-  display: inline-block;
-  height: 800px;
-}
+
 #like-status {
   color: rgb(179, 180, 180);
 }
@@ -677,5 +672,54 @@ export default {
 
 .delete-button:hover {
   box-shadow: -1px 0 #FFF, 0 1px #FFF, 1px 0 #FFF, 0 -1px #FFF
+}
+
+#detail-poster1 {
+  width: 100%;
+  height: 100vh;
+  filter: brightness(55%);
+}
+
+#review-wrap1 {
+  z-index: 1px;
+  position: absolute;
+  top: 63%;
+  width: 100%;
+}
+
+#review-btn{
+  z-index: 1000;
+  background-color: #F82F62;
+  color: white;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.3rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #review-btn {
+    transition: none;
+  }
+}
+#review-btn:hover {
+  border: 1px solid white;
+}
+#down-img3-wrap {
+  z-index: 1px;
+  position: absolute;
+  top: 104%;
+  width: 100%;
 }
 </style>

@@ -1,34 +1,38 @@
 <template>
   <div id="comment-wrap">
     <hr>
-    <ul class="comment-list-item">
-      <div class="d-flex justify-content-start">
-        <img v-if="comment.user.profile_image" :src="comment.user.profile_image" alt="" class="profile-image" id="profile-image-true">
-        <img v-else src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="profile-image">
-        <router-link id="comment-user" :to="{ name: 'profile', params: { username: comment.user.username } }" class="mx-2 mt-1">
-          {{ comment.user.name }} ({{ comment.user.username }})
-        </router-link> 
-      </div>
-        <p id="comment-created-time" class="my-1">{{ commentDate }}</p>
-        <p id="comment-content" v-if="!isEditing" class="mt-3"><br>{{ payload.content }}</p>
-
-
-        <div id="editing">
-          <span v-if="isEditing">
-            <input type="text" v-model="payload.content" class="form-control" id="edit-comment-form">
-            <button id="comment-btn" @click="onUpdate" class="mx-2">완료</button>
-            <button id="comment-btn" @click="switchIsEditing" >취소</button>
-          </span>
+    <div>
+      <ul class="comment-list-item">
+        <div class="d-flex justify-content-start mt-3">
+          <img v-if="comment.user.profile_image" :src="comment.user.profile_image" alt="" class="profile-image" id="profile-image-true">
+          <img v-else src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="" class="profile-image">
+          <router-link id="comment-user" :to="{ name: 'profile', params: { username: comment.user.username } }" class="mx-2 mt-1">
+            {{ comment.user.name }} ({{ comment.user.username }})
+          </router-link> 
         </div>
+        <div class="mb-2">
+          <p id="comment-created-time" class="my-1">{{ commentDate }}</p>
+          <p id="comment-content" v-if="!isEditing" class="mt-3 mb-5"><br>{{ payload.content }}</p>
 
-        <div id="un-editing">
-          <span v-if="currentUser.username === comment.user.username && !isEditing">
-            <button id="comment-btn" @click="switchIsEditing" class="mx-2">수정</button>
-            <button id="comment-btn" @click="deleteComment(payload)">삭제</button>
-          </span>
+
+          <div id="editing">
+            <span v-if="isEditing">
+              <input type="text" v-model="payload.content" class="form-control" id="edit-comment-form">
+              <button id="comment-btn" @click="onUpdate" class="mx-2">완료</button>
+              <button id="comment-btn" @click="switchIsEditing" >취소</button>
+            </span>
+          </div>
+
+          <div id="un-editing">
+            <span v-if="currentUser.username === comment.user.username && !isEditing">
+              <button id="comment-btn" @click="switchIsEditing" class="mx-2">수정</button>
+              <button id="comment-btn" @click="deleteComment(payload)">삭제</button>
+            </span>
+          </div>
         </div>
+      </ul>
 
-    </ul>
+    </div>
   </div>
 </template>
 
@@ -70,6 +74,10 @@ export default {
 </script>
 
 <style scoped>
+.comment-list-item{
+  margin: 0;
+}
+
 #comment-user {
   text-decoration: none;
   text-align: left;
@@ -79,9 +87,7 @@ export default {
 
 .form-control {
   display: inline-block;
-  width: 90%;
-  right: 23%;
-
+  width: 80%;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -116,7 +122,6 @@ export default {
   width: 30%;
   justify-content: start;
   align-content: flex-start;
-  margin-left: 460px;
 }
 #comment-created-time {
   text-align: start;
@@ -128,7 +133,7 @@ export default {
   line-height: 1px;
 }
 #un-editing {
-  margin-left: 80%;
+  margin-left: 78%;
 }
 #editing {
   justify-content: end;
@@ -137,7 +142,7 @@ export default {
 }
 #comment-btn{
   z-index: 1000;
-  background-color: #F82F62;
+  background-color: #444444;
   color: white;
   display: inline-block;
   font-weight: 400;
@@ -163,4 +168,5 @@ export default {
 #comment-btn:hover {
   border: 1px solid white;
 }
+
 </style>
