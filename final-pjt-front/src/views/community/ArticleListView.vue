@@ -4,11 +4,11 @@
       <div id="wrap2">
         <div id="wrap3">
           <video autoplay muted>
-            <source src="https://adimg.cgv.co.kr/images/202205/TheRedHerring/0526_TheRedHerring_1080x608.mp4" type="video/mp4">
+            <source :src="videoList[num]" type="video/mp4">
           </video>
-          <strong class="movieSelection_title" id="ctl00_PlaceHolderContent_AD_MOVIE_NM">그대가 조국</strong>
+          <strong class="movieSelection_title" id="ctl00_PlaceHolderContent_AD_MOVIE_NM">{{ videoTitle[num] }}</strong>
           <span id="ctl00_PlaceHolderContent_AD_DESCRIPTION_NM">
-            지금 여기 이곳에 살고 있는 <br> 이제, 그대가 조국 5.25 대개봉 
+            {{ videoText[num*2]}} <br> {{ videoText[num*2+1]}}
           </span>
           <div class="movieSelection_video_controller_wrap">
             <a id="ctl00_PlaceHolderContent_AD_CLIP_DETAIL_URL" href="http://www.cgv.co.kr/ticket/?MOVIE_CD=20029650&MOVIE_CD_GROUP=20029650">CGV</a>
@@ -135,7 +135,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
- import $ from 'jquery'
+import $ from 'jquery'
+import _ from 'lodash'
 
 export default {
   name: 'ArticleList',
@@ -191,6 +192,7 @@ export default {
     }
     this.getMoviedata()
     this.setMostLikedUsers()
+    this.num = _.random(this.videoList.length-1)
   },
   mounted() {
     $(".count").each(function () {
@@ -209,7 +211,15 @@ export default {
         }
       );
     });
+  },
+  data() {
+    return {
+      num : 0,
+      videoList: ['https://adimg.cgv.co.kr/images/202205/TheRedHerring/0526_TheRedHerring_1080x608.mp4', 'http://caching.lottecinema.co.kr//Media/MovieFile/MovieMedia/202205/18632_301_1.mp4', 'http://caching.lottecinema.co.kr//Media/MovieFile/MovieMedia/202205/18538_301_1.mp4'],
+      videoText: ['지금 여기 이곳에 살고 있는', '이제, 그대가 조국 5.25 대개봉', '"느낌 오지? 이 놈 잡아야 하는 거"', '범죄도시2 5월.18일 대개봉', '지금껏 본 적 없는 마블의 극한 상상력!', '5월, 광기의 멀티버스가 깨어난다!'],
+      videoTitle: ['그대가 조국', '범죄도시2', '닥터 스트레인지: 대혼돈의 멀티버스']
     }
+  }
   }
 </script>
 
