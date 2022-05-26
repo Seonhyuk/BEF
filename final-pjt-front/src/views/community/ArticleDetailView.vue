@@ -170,7 +170,7 @@
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   border-radius: 0.2rem;
-  margin-top: 42px;
+  margin-top: 20px;
 }
 
 @media (prefers-reduced-motion: reduce) {
