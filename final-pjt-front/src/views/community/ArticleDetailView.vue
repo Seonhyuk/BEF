@@ -40,7 +40,8 @@
       <!-- Comment UI -->
 
 
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-between">
+      <router-link :to="{ name:'articles'}"><button id="create-article-btn44" >목록으로</button></router-link>
       <button id="like" class="tweet-heart" @click="likeArticle(articlePk)">{{ likeCount }}</button>
     </div>
 
@@ -148,6 +149,36 @@
   }
 }
 #create-article-btn:hover {
+  border: 1px solid white;
+}
+#create-article-btn44{
+  z-index: 1000;
+  background-color: #F82F62;
+  color: white;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.2rem;
+  margin-top: 42px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .create-article-btn44 {
+    transition: none;
+  }
+}
+#create-article-btn44:hover {
   border: 1px solid white;
 }
 #app1 {
