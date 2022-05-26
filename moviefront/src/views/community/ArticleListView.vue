@@ -1,8 +1,6 @@
 <template>
   <div class="container mt-5">
-    <div id="community-carousel">
 
-    </div>
     <div class="row">
       <!-- 랭킹-->
       <div id="ranking-wrap" class="col-12 col-lg-3">
