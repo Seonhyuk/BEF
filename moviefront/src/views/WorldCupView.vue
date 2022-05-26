@@ -1,6 +1,7 @@
 <template>
   <div class="container home">
-    <p v-if="idx > 127" class="title py-5">128강</p>
+    <p v-if="idx > 255" class="title py-5">256강</p>
+    <p v-else-if="idx > 127" class="title py-5">128강</p>
     <p v-else-if="idx > 63" class="title py-5">64강</p>
     <p v-else-if="idx > 31" class="title py-5">32강</p>
     <p v-else-if="idx > 15" class="title py-5">16강</p>
