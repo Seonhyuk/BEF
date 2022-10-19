@@ -38,14 +38,6 @@
 
 ---
 
-![structure](README.assets/structure.png)
-
-- 전반적인 View 이동 구조와 View 내부 컴포넌트 사용 여부는 다음과 같이 될 예정이다.
-
-
-
-##### #0526.
-
 최종적으로 사용된 View 이동 구조와 컴포넌트 사용은 다음과 같다.
 
 ![structure2](README.assets/structure2.png)
@@ -56,16 +48,8 @@
 
 ---
 
-![modeling](README.assets/modeling.png)
-
 - 크게 세 부분으로 나눈다면 User, Movie, Community로 나눌 수 있다.
 - 그 외에는 모두 종속적으로 존재하는 부가적인 필드이다.
-
-
-
-##### #0526.
-
-- 추가적인 서비스를 제공하면서 필요로한 필드가 더 많아졌다. 기존의 필드에서 ManyToManyField로 변경된 부분, 추가적인 필드 등이 생겼다. 
 
 ![modeling2](README.assets/modeling2.png)
 
@@ -81,13 +65,6 @@
 
 ___
 
-![design_guide](README.assets/design_guide.png)
-
-- 최초에 디자인 가이드를 만들 때는 간단하게 페이지 구성요소들을 중심으로 어떻게 구성될지만 생각을 해봤다. 이후, 페이지 컨셉 컬러를 블랙핑크로 정했다.
-
-
-
-##### #0526.
 
 ![result](README.assets/result.png)
 
@@ -98,14 +75,6 @@ ___
 ### 🛣 URL
 
 ---
-
-![url](README.assets/url.png)
-
-- 초기 URL은 다음과 같이 설계했다.
-
-
-
-##### #0526. 최종 URL
 
 ![url2](README.assets/url2.png)
 
